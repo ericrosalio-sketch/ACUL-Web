@@ -1,0 +1,24 @@
+{
+  "screens": [
+    {
+      "store-demo": {
+        "store-demo": {
+          "path": "/screens/store-demo/store-demo",
+          "variants": ["default", "with-errors","store-demo"]
+        }
+      },
+      "login": {
+        "login": {
+          "path": "/screens/login/login",
+          "variants": ["default", "with-errors","login"]
+        }
+      },
+      "login-id": {
+        "login-id": {
+          "path": "/screens/login-id/login-id",
+          "variants": ["default", "with-errors","login-id"]
+        }
+      }
+    }
+  ]
+}
