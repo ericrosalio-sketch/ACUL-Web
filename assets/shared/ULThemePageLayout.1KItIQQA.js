@@ -1,0 +1,2 @@
+import{j as a}from"./react-vendor.BsFgUXvp.js";import{B as m}from"../consent/index.BIJHRq0S.js";const c=({children:e,className:t,...o})=>a.jsx("div",{className:m("flex items-center min-h-screen px-10 py-20 justify-page-layout bg-(color:--ul-theme-page-bg-background-color) bg-(image:--ul-theme-page-bg-background-image-url)",t),...o,children:e});export{c as U};
+//# sourceMappingURL=ULThemePageLayout.1KItIQQA.js.map

@@ -1,0 +1,2 @@
+import{j as o}from"./react-vendor.BsFgUXvp.js";import{B as a,D as d}from"../consent/index.BIJHRq0S.js";const n=({children:e,className:r,...s})=>{const t=a("px-10","py-10","theme-universal:bg-widget-bg","theme-universal:border-(--color-widget-border)","theme-universal:rounded-widget","theme-universal:shadow-widget","theme-universal:border-(length:--border-widget)",r);return o.jsx(d,{className:t,...s,children:e})};export{n as U};
+//# sourceMappingURL=ULThemeCard.BZuVQghB.js.map
