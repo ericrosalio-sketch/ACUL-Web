@@ -1,0 +1,2 @@
+import{Screen as e}from"../../models/screen.js";import{getSignupLink as s,getResetPasswordLink as i,getEditIdentifierLink as t}from"../../shared/screen.js";class r extends e{signupLink;resetPasswordLink;editIdentifierLink;data;constructor(r){super(r),this.signupLink=s(r),this.resetPasswordLink=i(r),this.editIdentifierLink=t(r),this.data=e.getScreenData(r)}}export{r as ScreenOverride};
+//# sourceMappingURL=screen-override.js.map

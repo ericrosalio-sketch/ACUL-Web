@@ -1,0 +1,33 @@
+{
+    "page": {
+        "title": "Iniciar sesión",
+        "orText": "O"
+    },
+    "heading": {
+        "title": "Bienvenido",
+        "description": "Inicia sesión para continuar",
+        "logoAltText": "Logo de la aplicación"
+    },
+    "footer": {
+        "signupActionText": "¿No tienes una cuenta?",
+        "signupActionLinkText": "Registrarse"
+    },
+    "alternativeLogins": {
+        "passkeyButtonText": "Continuar con una passkey",
+        "continueWithText": "Continuar con",
+        "passkeyLabel": "Passkey"
+    },
+    "loginIdForm": {
+        "selectCountryPlaceholder": "Seleccionar país",
+        "captchaLabel": "Ingrese el código mostrado arriba*",
+        "passwordLabel": "Contraseña*",
+        "forgotPasswordLinkText": "¿Olvidaste tu contraseña?",
+        "continueButtonText": "Continuar"
+    },
+    "errors": {
+        "errorOccurred": "Ha ocurrido un error",
+        "identifierRequired": "Un identificador es requerido",
+        "passwordRequired": "La contraseña es requerida",
+        "captchaCompletionRequired": "Por favor, complete el CAPTCHA"
+    }
+}

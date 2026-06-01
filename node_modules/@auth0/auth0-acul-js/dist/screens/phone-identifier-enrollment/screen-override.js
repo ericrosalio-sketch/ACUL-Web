@@ -1,0 +1,2 @@
+import{getEditIdentifierLink as e}from"../../shared/screen.js";import{Screen as t}from"../../models/screen.js";class s extends t{editIdentifierLink;data;constructor(t){super(t),this.editIdentifierLink=e(t),this.data=s.getScreenData(t)}static getScreenData(e){const t=e.data;return t?{...t,phone:t?.phone_number,messageType:t?.message_type}:null}}export{s as ScreenOverride};
+//# sourceMappingURL=screen-override.js.map

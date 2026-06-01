@@ -1,0 +1,2 @@
+import{ScreenIds as t}from"../../constants/enums.js";import{BaseContext as s}from"../../models/base-context.js";import{FormHandler as e}from"../../utils/form-handler.js";class a extends s{static screenIdentifier=t.INTERSTITIAL_CAPTCHA;constructor(){super()}async submitCaptcha(t){const s={state:this.transaction.state,telemetry:[a.screenIdentifier,"submitCaptcha"]};await new e(s).submitData(t)}}export{a as default};
+//# sourceMappingURL=index.js.map

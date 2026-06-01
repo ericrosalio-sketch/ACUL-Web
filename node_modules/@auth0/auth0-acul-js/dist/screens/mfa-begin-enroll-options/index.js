@@ -1,0 +1,2 @@
+import{ScreenIds as t}from"../../constants/enums.js";import{BaseContext as e}from"../../models/base-context.js";import{FormHandler as s}from"../../utils/form-handler.js";class r extends e{static screenIdentifier=t.MFA_BEGIN_ENROLL_OPTIONS;constructor(){super()}async enroll(t){const e={state:this.transaction.state,telemetry:[r.screenIdentifier,"enroll"]};await new s(e).submitData(t)}}export{r as default};
+//# sourceMappingURL=index.js.map

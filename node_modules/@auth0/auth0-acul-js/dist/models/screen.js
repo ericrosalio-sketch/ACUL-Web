@@ -1,0 +1,2 @@
+class a{name;captchaImage;captchaSiteKey;captchaProvider;isCaptchaAvailable;data;links;texts;captcha;constructor(t){this.name=t.name,this.captchaImage=t.captcha?.image??null,this.captchaSiteKey=t.captcha?.siteKey??null,this.captchaProvider=t.captcha?.provider??null,this.isCaptchaAvailable=!!t.captcha,this.texts=t.texts??null,this.captcha=t.captcha??null,this.data=a.getScreenData(t),this.links=a.getScreenLinks(t)}static getScreenData(a){return a.data??null}static getScreenLinks(a){return a.links??null}}export{a as Screen};
+//# sourceMappingURL=screen.js.map

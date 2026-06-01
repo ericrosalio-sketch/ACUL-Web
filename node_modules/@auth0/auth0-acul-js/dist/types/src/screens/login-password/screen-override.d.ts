@@ -1,0 +1,11 @@
+import { Screen } from '../../models/screen';
+import type { ScreenContext } from '../../../interfaces/models/screen';
+import type { ScreenMembersOnLoginPassword as OverrideOptions } from '../../../interfaces/screens/login-password';
+export declare class ScreenOverride extends Screen implements OverrideOptions {
+    signupLink: OverrideOptions['signupLink'];
+    resetPasswordLink: OverrideOptions['resetPasswordLink'];
+    editIdentifierLink: OverrideOptions['editIdentifierLink'];
+    data: OverrideOptions['data'];
+    constructor(screenContext: ScreenContext);
+}
+//# sourceMappingURL=screen-override.d.ts.map

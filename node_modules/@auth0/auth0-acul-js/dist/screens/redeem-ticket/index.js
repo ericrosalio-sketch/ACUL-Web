@@ -1,0 +1,2 @@
+import{FormActions as t}from"../../constants/form-actions.js";import{ScreenIds as s}from"../../constants/enums.js";import{BaseContext as e}from"../../models/base-context.js";import{FormHandler as n}from"../../utils/form-handler.js";class o extends e{static screenIdentifier=s.REDEEM_TICKET;constructor(){super()}async continue(s){const e={state:this.transaction.state,telemetry:[o.screenIdentifier,"continue"]};await new n(e).submitData({...s,action:t.DEFAULT})}}export{o as default};
+//# sourceMappingURL=index.js.map

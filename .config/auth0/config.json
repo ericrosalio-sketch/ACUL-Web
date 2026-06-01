@@ -1,0 +1,12 @@
+{
+    "install_id": "2ed5476d-d15e-4ee6-b22a-36a7ffbf3522",
+    "default_tenant": "dev.coppel-dev.auth0app.com",
+    "tenants": {
+        "dev.coppel-dev.auth0app.com": {
+            "name": "dev",
+            "domain": "dev.coppel-dev.auth0app.com",
+            "expires_at": "2026-06-28T15:26:13.3516388-07:00",
+            "client_id": "DzZxh4VGPpMsqxdgNWBa2WARs6u6TRdd"
+        }
+    }
+}
