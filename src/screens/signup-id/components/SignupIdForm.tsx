@@ -74,13 +74,7 @@ function SignupIdForm() {
     [enabledIdentifiers]
   );
 
-  const optionalIdentifiers = useMemo(
-    () =>
-      (enabledIdentifiers || [])
-        .filter((identifier) => !identifier.required)
-        .map((identifier) => identifier.type),
-    [enabledIdentifiers]
-  );
+
 
   // Use locale strings with fallback to SDK texts
   const buttonText = texts?.buttonText || locales.form.button;
@@ -200,8 +194,6 @@ function SignupIdForm() {
         {/* Required identifier fields first */}
         {renderFields(requiredIdentifiers, true)}
 
-        {/* Optional identifier fields */}
-        {renderFields(optionalIdentifiers, false)}
 
         {/* CAPTCHA Box */}
         {isCaptchaAvailable && captchaConfig && (
