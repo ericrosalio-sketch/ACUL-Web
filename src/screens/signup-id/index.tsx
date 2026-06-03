@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import SignupIdForm from "./components/SignupIdForm";
 import { useSignupIdManager } from "./hooks/useSignupIdManager";
+import { applyScreenThemeOverrides } from "@/utils/theme/themeOverrides";
 
 function SignupIdScreen() {
   // Extracting attributes from hook made out of SignupIdInstance class of Auth0 React ACUL SDK
@@ -21,6 +22,21 @@ function SignupIdScreen() {
   document.title = texts?.pageTitle || locales.page.title;
 
   applyAuth0Theme(signupId);
+
+  // Variables CSS que esta pantalla protege del Dashboard branding.
+  // Edita estos valores para personalizar el aspecto de la pantalla de login-id
+  // sin afectar las demás pantallas.
+  const LOGIN_ID_THEME_OVERRIDES = [
+    {
+      // Fuerza el layout a "bottom" para que los botones sociales
+      variable: "--ul-theme-widget-social-buttons-layout",
+      value: "bottom",
+    },
+  ];
+
+  // Luego aplica los overrides específicos de esta pantalla (tienen mayor prioridad)
+  applyScreenThemeOverrides(LOGIN_ID_THEME_OVERRIDES);
+
 
   const socialLoginAlignment = extractTokenValue(
     "--ul-theme-widget-social-buttons-layout"

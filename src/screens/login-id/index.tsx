@@ -28,9 +28,7 @@ function LoginIdScreen() {
   // sin afectar las demás pantallas.
   const LOGIN_ID_THEME_OVERRIDES = [
     {
-      // 🔑 CLAVE: Fuerza el layout a "bottom" para que los botones sociales
-      // siempre aparezcan ABAJO del formulario, ignorando la config del Dashboard.
-      // Solo funciona si está el layout vertical (horizontal coloca los botones en la derecha)
+      // Fuerza el layout a "bottom" para que los botones sociales
       variable: "--ul-theme-widget-social-buttons-layout",
       value: "bottom",
     },
