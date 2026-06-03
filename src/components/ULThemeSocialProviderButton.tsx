@@ -43,7 +43,7 @@ const ULThemeSocialProviderButton = ({
 
   // Base Styles getting applied for look and feel
   const baseStyles =
-    "flex items-center justify-start w-full max-w-[320px] h-[52px] py-3.5 px-4 gap-x-4";
+    "flex items-center justify-center w-full max-w-[320px] h-[52px] py-3.5 px-4 gap-x-4";
 
   // Keeping the button enable and disable styles as is. Will need to revisit this in future if needed
   const enabledStyles =
@@ -100,7 +100,7 @@ const ULThemeSocialProviderButton = ({
           {iconComponent}
         </span>
       )}
-      <span className="wrap-break-word text-base whitespace-normal text-left">
+      <span className="wrap-break-word text-base whitespace-normal text-center">
         {buttonText}
       </span>
       {iconEnd && <span className="shrink-0 ml-auto">{iconEnd}</span>}

@@ -14,7 +14,7 @@ function Footer() {
   const footerLinkText = texts?.footerLinkText || locales.footer.linkText;
 
   return (
-    <div className="mt-4 text-left">
+    <div className="mt-4 text-center">
       <span className="pr-1 text-body-text text-(length:--ul-theme-font-body-text-size) font-body">
         {footerText}
       </span>

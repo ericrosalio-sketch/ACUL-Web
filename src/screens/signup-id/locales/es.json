@@ -20,6 +20,10 @@
             },
             "countryCode": {
                 "placeholder": "Seleccionar el código de país"
+            },
+            "email": {
+                "label": "Correo electrónico",
+                "placeholder": "Correo electrónico"
             }
         },
         "button": "Crear cuenta"

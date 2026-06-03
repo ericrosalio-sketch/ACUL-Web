@@ -58,7 +58,7 @@ export const COPPEL_URLS = {
 
 /** Textos estáticos del footer (del template branding) */
 export const COPPEL_TEXTS = {
-  copyright: "2025 © Coppel todos los derechos reservados",
+  copyright: `${new Date().getFullYear()} © Coppel todos los derechos reservados`,
   privacidadLabel: "Aviso de privacidad",
   tycLabel: "Términos y condiciones",
   volverInicio: "Volver a inicio",
