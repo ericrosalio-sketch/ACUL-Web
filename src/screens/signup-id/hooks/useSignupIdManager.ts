@@ -9,7 +9,7 @@ import type {
 
 import { executeSafely } from "@/utils/helpers/executeSafely";
 
-import locales from "../locales/en.json";
+import locales from "../locales/es.json";
 
 export const useSignupIdManager = () => {
   const signupId = useSignupId();

@@ -1,0 +1,87 @@
+{
+    "page": {
+        "title": "Registrarse",
+        "separator": "O ingresa con"
+    },
+    "header": {
+        "logoAlt": "Logo de la aplicación",
+        "title": "Crea tu cuenta",
+        "description": "Ingresa tu correo electrónico o teléfono celular"
+    },
+    "form": {
+        "fields": {
+            "captcha": {
+                "label": "Introduzca el código mostrado más arriba",
+                "imageAlt": "SIN TEXTO",
+                "required": "SIN TEXTO"
+            },
+            "common": {
+                "required": "SIN TEXTO"
+            },
+            "countryCode": {
+                "placeholder": "Seleccionar el código de país"
+            }
+        },
+        "button": "Crear cuenta"
+    },
+    "footer": {
+        "text": "¿Ya tienes una cuenta?",
+        "linkText": "Iniciar sesión"
+    },
+    "social": {
+        "continueWith": "Ingresa con"
+    },
+    "_extra": {
+        "emailPlaceholder": "Correo electrónico",
+        "phonePlaceholder": "Número de teléfono",
+        "passwordLabel": "Contraseña",
+        "usernamePlaceholder": "Nombre de usuario",
+        "passwordSecurityText": "Tu contraseña debe tener:",
+        "emailOptionalPlaceholder": "Dirección de correo electrónico (opcional)",
+        "usernameOptionalPlaceholder": "Nombre de usuario (opcional)",
+        "phoneOptionalPlaceholder": "Celular",
+        "invitationTitle": "Acepte su invitación para iniciar sesión",
+        "invitationDescription": "Iniciar sesión para aceptar la invitación del inviterName para unirse a companyName en clientName.",
+        "errors": {
+            "emailInUse": "El usuario ya existe.",
+            "invalidEmailFormat": "Introduzca un correo electrónico válido (por ejemplo: user@domain.com).",
+            "passwordTooWeak": "La contraseña es demasiado fácil",
+            "passwordPolicyNotConformant": "La contraseña es demasiado fácil",
+            "passwordTooCommon": "La contraseña es demasiado común",
+            "passwordPreviouslyUsed": "La contraseña ha sido utilizada anteriormente",
+            "passwordMismatch": "Las contraseñas no coinciden",
+            "invalidUsername": "El nombre de usuario solo puede contener caracteres alfanuméricos o: '${characters}'. El nombre de usuario debe tener entre ${min} y ${max} caracteres.",
+            "invalidUsernameMaxLength": "El nombre de usuario no debe tener más de ${max} caracteres.",
+            "invalidUsernameMinLength": "El nombre de usuario debe tener al menos ${min} caracteres.",
+            "invalidUsernameInvalidLength": "El nombre de usuario debe tener entre ${min} y ${max}.",
+            "invalidUsernameInvalidCharacters": "El nombre de usuario contiene caracteres inválidos. Usa solo letras, números y _ + - ! # $ ^ . ` ~ @ '.",
+            "invalidUsernameEmailNotAllowed": "Por favor ingrese un nombre de usuario válido. Las direcciones de correo electrónico no se pueden utilizar como nombres de usuario.",
+            "invalidUsernamePhoneNotAllowed": "Por favor ingrese un nombre de usuario válido. Los números de teléfono no se pueden utilizar como nombres de usuario.",
+            "usernameTaken": "El nombre de usuario proporcionado ya está siendo usado.",
+            "customScriptErrorCode": "Algo salió mal, por favor, inténtalo de nuevo más tarde.",
+            "auth0UsersValidation": "Algo salió mal, por favor, inténtalo de nuevo más tarde",
+            "invalidConnection": "Conexión inválida",
+            "ipBlocked": "Hemos detectado intentos de inicio de sesión sospechosos, por lo que se bloqueará cualquier otro intento. Por favor, contacta al administrador.",
+            "ipSignupBlocked": "Demasiados registros desde la misma dirección IP",
+            "noDbConnection": "Conexión inválida",
+            "noHrdConnection": "El correo electrónico no coincide con ningún directorio empresarial",
+            "noEmail": "Por favor, ingresa una dirección de correo electrónico",
+            "noPassword": "La contraseña es obligatoria",
+            "noPasswordReset": "Introduzca una nueva contraseña.",
+            "noReEnterPassword": "Falta la confirmación de la nueva contraseña",
+            "noUsername": "El nombre de usuario es obligatorio",
+            "captchaValidationFailure": "Lo sentimos, algo salió mal al validar la respuesta del captcha. Por favor, inténtelo de nuevo.",
+            "invalidRecaptcha": "Seleccione la casilla de verificación para confirmar que no es un robot.",
+            "invalidCaptcha": "Resuelva la pregunta desafío para verificar que no es un robot.",
+            "captchaClientFailure": "No pudimos cargar el desafío de seguridad. Inténtalo de nuevo. (Código de error: #{errorCode})",
+            "noIdentifier": "Al menos se requiere un identificador",
+            "invalidPhoneNumber": "Ingresa un número de teléfono válido",
+            "invalidEmailPhone": "Ingrese una dirección de correo electrónico o un número de teléfono válido. Los números de teléfono deben incluir el código del país.",
+            "invalidEmailUsername": "Ingrese una dirección de correo electrónico o nombre de usuario válido",
+            "invalidPhoneUsername": "Ingrese un número de teléfono o nombre de usuario válido. Los números de teléfono deben incluir el código del país.",
+            "invalidEmailPhoneUsername": "Ingrese una dirección de correo electrónico, un número de teléfono o un nombre de usuario válidos. Los números de teléfono deben incluir el código del país.",
+            "userAccountExists": "La cuenta ya existe. Regrese y seleccione iniciar sesión.",
+            "captchaExpired": "La verificación caducó. Inténtelo de nuevo."
+        }
+    }
+}

@@ -199,11 +199,11 @@ Created to support alignment related utlities like justify, text-align etc with 
 
   /* Page Background */
   --ul-theme-page-bg-page-layout: center;
-  --ul-theme-page-bg-background-color: #000000;
+  --ul-theme-page-bg-background-color: #ffffff;
   --ul-theme-page-bg-background-image-url: none;
 
   /* Widget */
-  --ul-theme-widget-logo-position: center;
+  --ul-theme-widget-logo-position: none;
   --ul-theme-widget-logo-url: "https://cdn.auth0.com/blog/auth0_by_okta_logo_black.png";
   --ul-theme-widget-logo-height: 52px;
   --ul-theme-widget-header-text-alignment: center;

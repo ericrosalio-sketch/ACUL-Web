@@ -47,10 +47,6 @@ function LoginIdScreen() {
     // (extraídos del branding_templates/universal_login.html de auth0-repo)
     // y envuelve el contenido con el layout de página completa.
     <CoppelPageLayout className="theme-universal">
-      {/*
-        Layout de la card ampliado a max-w-[640px] para acomodar el diseño horizontal.
-        En pantallas pequeñas (< md) el layout regresa a columna vertical.
-      */}
       <ULThemeCard className="w-full max-w-sm gap-0">
         {/* Header (logo + título) — ancho completo */}
         <Header />
