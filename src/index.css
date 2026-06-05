@@ -1,6 +1,21 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* -------------------------------------------------------
+   Coppel Brand Fonts  (matches branding_templates)
+   Primary  : Poppins
+   Secondary: Helvetica Neue  (system / CDN)
+   Fallback : Roboto (original)
+------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('https://fonts.cdnfonts.com/s/12165/Ro/boto-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
 /** UDS Custom Variant for Dark theme **/
 @custom-variant dark (&:is(.dark *));
 
@@ -144,66 +159,97 @@ Created to support alignment related utlities like justify, text-align etc with 
 }
 
 :root {
+  /* -------------------------------------------------------
+     Coppel Brand Colors  (matches branding_templates)
+  ------------------------------------------------------- */
+
   /* Colors */
-  --ul-theme-color-primary-button: #635dff;
-  --ul-theme-color-primary-button-label: #ffffff;
-  --ul-theme-color-secondary-button-border: #c9cace;
-  --ul-theme-color-secondary-button-label: #1e212a;
-  --ul-theme-color-base-focus-color: #635dff;
-  --ul-theme-color-base-hover-color: #000000;
-  --ul-theme-color-links-focused-components: #635dff;
-  --ul-theme-color-header: #1e212a;
-  --ul-theme-color-body-text: #1e212a;
-  --ul-theme-color-widget-background: #ffffff;
-  --ul-theme-color-widget-border: #c9cace;
-  --ul-theme-color-input-labels-placeholders: #65676e;
-  --ul-theme-color-input-filled-text: #000000;
-  --ul-theme-color-input-border: #c9cace;
-  --ul-theme-color-input-background: #ffffff;
-  --ul-theme-color-icons: #65676e;
-  --ul-theme-color-error: #d03c38;
+  --ul-theme-color-primary-button: #1C42E8;
+  --ul-theme-color-primary-button-label: #FFFFFF;
+  --ul-theme-color-secondary-button-border: #BDBDBD;
+  --ul-theme-color-secondary-button-label: #081754;
+  --ul-theme-color-base-focus-color: #194B7B;
+  --ul-theme-color-base-hover-color: #081754;
+  --ul-theme-color-links-focused-components: #1C42E8;
+  --ul-theme-color-header: #081754;
+  /* Body text: #1B1A16 used in templates for paragraph/support text */
+  --ul-theme-color-body-text: #1B1A16;
+  --ul-theme-color-widget-background: #FFFFFF;
+  --ul-theme-color-widget-border: #BDBDBD;
+  --ul-theme-color-input-labels-placeholders: #BDBDBD;
+  --ul-theme-color-input-filled-text: #081754;
+  --ul-theme-color-input-border: #BDBDBD;
+  --ul-theme-color-input-background: #FFFFFF;
+  --ul-theme-color-icons: #081754;
+  --ul-theme-color-error: #FF594D;
   --ul-theme-color-success: #13a688;
   --ul-theme-color-warning: #ffdb5f;
-  --ul-theme-color-captcha-widget-theme: dark;
-  --ul-theme-color-spinner: #6f7780;
-  --ul-theme-color-qrcode-border: #dee2e6;
+  --ul-theme-color-captcha-widget-theme: light;
+  --ul-theme-color-spinner: #1C42E8;
+  --ul-theme-color-qrcode-border: #D9E3F2;
 
-  /* Borders */
+  /* Coppel extra brand palette */
+  --coppel-color-blue-primary: #1C42E8;
+  --coppel-color-blue-dark: #081754;
+  --coppel-color-blue-medium: #05297A;
+  --coppel-color-blue-link: #006FB9;
+  --coppel-color-bg-light: #F1F4FA;
+  --coppel-color-bg-info: #F3F3F3;
+  --coppel-color-border-light: #D9E3F2;
+  --coppel-color-border-input: #C9C9C9;
+  --coppel-color-border-neutral: #BDBDBD;
+  --coppel-color-text-dark: #081754;
+  --coppel-color-text-body: #1B1A16;
+  --coppel-color-text-disabled: #717171;
+  --coppel-color-button-disabled-bg: #BDBDBD;
+  --coppel-color-header-bg: #1C42E8;
+  --coppel-color-footer-bg: #F1F4FA;
+  --coppel-color-white: #FFFFFF;
+
+  /* Borders — pill-shape buttons and rounded inputs (matches branding_templates) */
   --ul-theme-border-buttons-style: rounded;
   --ul-theme-border-inputs-style: rounded;
-  --ul-theme-border-button-border-weight: 1px;
-  --ul-theme-border-button-border-radius: 3px;
+  --ul-theme-border-button-border-weight: 2px;
+  --ul-theme-border-button-border-radius: 999px;
   --ul-theme-border-input-border-weight: 1px;
-  --ul-theme-border-input-border-radius: 3px;
-  --ul-theme-border-widget-corner-radius: 5px;
+  --ul-theme-border-input-border-radius: 8px;
+  --ul-theme-border-widget-corner-radius: 8px;
   --ul-theme-border-widget-border-weight: 0px;
   --ul-theme-border-show-widget-shadow: 1;
-  --ul-theme-border-links-border-radius: 3px;
+  --ul-theme-border-links-border-radius: 0px;
 
-  /* Fonts */
+  /* Fonts — Poppins primary, Helvetica Neue secondary (matches branding_templates) */
   --ul-theme-font-reference-text-size: 16px;
   --ul-theme-font-links-style: normal;
-  --ul-theme-font-title-size: 1.5rem;
-  --ul-theme-font-title-weight: 400;
-  --ul-theme-font-subtitle-size: 0.875rem;
+  /* Title: 28px / 600-700 weight — matches .title-text in branding_templates */
+  --ul-theme-font-title-size: 1.75rem;
+  --ul-theme-font-title-weight: 700;
+  /* Subtitle: 16px / 400 */
+  --ul-theme-font-subtitle-size: 1rem;
   --ul-theme-font-subtitle-weight: 400;
-  --ul-theme-font-body-text-size: 0.875rem;
+  /* Body: 16px / 400 */
+  --ul-theme-font-body-text-size: 1rem;
   --ul-theme-font-body-text-weight: 400;
+  /* Buttons: 16px / 700 — matches .button-normal in branding_templates */
   --ul-theme-font-buttons-text-size: 1rem;
-  --ul-theme-font-buttons-text-weight: 400;
+  --ul-theme-font-buttons-text-weight: 700;
+  /* Input labels: 16px / 400 */
   --ul-theme-font-input-labels-size: 1rem;
   --ul-theme-font-input-labels-weight: 400;
-  --ul-theme-font-links-size: 0.875rem;
+  /* Links: 16px / 700 */
+  --ul-theme-font-links-size: 1rem;
   --ul-theme-font-links-weight: 700;
-  --ul-theme-font-list-size: 1.025rem;
+  /* Password criteria / small text: 14px */
+  --ul-theme-font-list-size: 0.875rem;
+  --ul-theme-font-list-text-size: 0.875rem;
 
   /* Page Background */
   --ul-theme-page-bg-page-layout: center;
-  --ul-theme-page-bg-background-color: #ffffff;
+  --ul-theme-page-bg-background-color: #FFFFFF;
   --ul-theme-page-bg-background-image-url: none;
 
   /* Widget */
-  --ul-theme-widget-logo-position: none;
+  --ul-theme-widget-logo-position: center;
   --ul-theme-widget-logo-url: "https://cdn.auth0.com/blog/auth0_by_okta_logo_black.png";
   --ul-theme-widget-logo-height: 52px;
   --ul-theme-widget-header-text-alignment: center;
@@ -211,20 +257,12 @@ Created to support alignment related utlities like justify, text-align etc with 
 
   /* Global base styles not directly tied to Tailwind utility names */
   font-family:
+    'Poppins',
+    'Helvetica Neue',
+    'Roboto',
     ui-sans-serif,
     system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    "Helvetica Neue",
-    Arial,
-    "Noto Sans",
-    sans-serif,
-    "Apple Color Emoji",
-    "Segoe UI Emoji",
-    "Segoe UI Symbol",
-    "Noto Color Emoji";
+    sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

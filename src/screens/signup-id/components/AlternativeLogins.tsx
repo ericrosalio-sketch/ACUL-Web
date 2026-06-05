@@ -41,7 +41,7 @@ const AlternativeLogins = () => {
             variant="outline"
             onClick={() => handleConnectionSignup(connection)}
             aria-label={displayName}
-            className="rounded-full w-12 h-12 p-0 flex items-center justify-center border-gray-mid"
+            className="rounded-full w-16 h-16 p-0 flex items-center justify-center border-gray-300"
           >
             <span className="w-5 h-5 flex items-center justify-center">
               {iconComponent}

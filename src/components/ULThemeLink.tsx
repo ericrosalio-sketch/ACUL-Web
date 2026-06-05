@@ -32,7 +32,7 @@ const ULThemeLink = ({
 }: ULThemeLinkProps) => {
   // Base component styles
   const baseStyles =
-    "text-[#1C42E8] text-(length:--ul-theme-font-links-size) font-(weight:--ul-theme-font-links-weight) focus:rounded-(--ul-theme-border-links-border-radius) hover:[#1C42E8]/80";
+    "text-link-focus text-(length:--ul-theme-font-links-size) font-(weight:--ul-theme-font-links-weight) focus:rounded-(--ul-theme-border-links-border-radius) hover:text-link-focus/80";
 
   // Disabled state styles
   const disabledStyles = disabled
