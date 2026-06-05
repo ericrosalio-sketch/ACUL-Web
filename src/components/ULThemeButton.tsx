@@ -20,8 +20,12 @@ export function ULThemeButton({
   const variantThemeOverrides = {
     primary: cn(
       "p-6 border-0",
+      "rounded-full",
+      "bg-[#1C42E8]",
+      "focus:bg-[#006FB9]",
+      "hover:bg-[#000000]",
       "cursor-pointer",
-      "theme-universal:bg-primary-button",
+      "theme-universal:bg-[#1C42E8]",
       "theme-universal:text-(--ul-theme-color-primary-button-label)", //text-color
       "theme-universal:hover:shadow-[var(--button-hover-shadow)]",
       "theme-universal:focus:outline-none theme-universal:focus:ring-4 theme-universal:focus:ring-base-focus/15",
@@ -47,7 +51,7 @@ export function ULThemeButton({
   // Size-specific theme overrides for border radius and typography
   const sizeThemeOverrides = {
     default: cn(
-      "theme-universal:rounded-button",
+      "theme-universal:rounded-full",
       "theme-universal:font-button", //font-weight
       "theme-universal:text-(length:--ul-theme-font-buttons-text-size)" //font-size
     ),
