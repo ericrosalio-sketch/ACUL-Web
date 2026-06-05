@@ -13,11 +13,24 @@ interface SocialProviderDetails {
 }
 
 /**
+ * Map of known Auth0 strategies to preferred display names.
+ * These take priority over connection.options.displayName.
+ */
+const STRATEGY_DISPLAY_NAMES: Record<string, string> = {
+  windowslive: "Microsoft",
+};
+
+/**
  * Generates a display name for a social connection.
  * Prefers a direct map from connection.name, then falls back to capitalizing it.
  * If name is unavailable, it attempts to use the strategy.
  */
 const generateDisplayName = (connection: SocialConnection): string => {
+  // First, check if the strategy has a preferred display name in our map
+  if (connection.strategy && STRATEGY_DISPLAY_NAMES[connection.strategy]) {
+    return STRATEGY_DISPLAY_NAMES[connection.strategy];
+  }
+
   // Check if it's an EnterpriseConnection with options.displayName
   if ("options" in connection && connection.options?.displayName) {
     return connection.options.displayName;
