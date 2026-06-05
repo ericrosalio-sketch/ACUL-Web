@@ -1,4 +1,4 @@
-import ULThemeSocialProviderButton from "@/components/ULThemeSocialProviderButton";
+import { Button } from "@/components/ui/button";
 import type { SocialConnection } from "@/utils/helpers/socialUtils";
 import { getSocialProviderDetails } from "@/utils/helpers/socialUtils";
 
@@ -8,7 +8,6 @@ const AlternativeLogins = () => {
   const {
     alternateConnections,
     handleFederatedSignup,
-    locales
   } = useSignupIdManager();
 
   const handleConnectionSignup = (connection: SocialConnection) => {
@@ -27,7 +26,7 @@ const AlternativeLogins = () => {
   }
 
   return (
-    <div className="space-y-3 mt-2">
+    <div className="flex flex-row justify-center gap-3 mt-2">
       {alternateConnections.map((connection: SocialConnection) => {
         if (!connection?.name) {
           return null;
@@ -35,16 +34,19 @@ const AlternativeLogins = () => {
 
         const { displayName, iconComponent } =
           getSocialProviderDetails(connection);
-        const socialButtonText = `${locales.social.continueWith} ${displayName}`;
 
         return (
-          <ULThemeSocialProviderButton
+          <Button
             key={connection.name}
-            displayName={displayName}
-            buttonText={socialButtonText}
-            iconComponent={iconComponent}
+            variant="outline"
             onClick={() => handleConnectionSignup(connection)}
-          />
+            aria-label={displayName}
+            className="rounded-full w-12 h-12 p-0 flex items-center justify-center border-gray-mid"
+          >
+            <span className="w-5 h-5 flex items-center justify-center">
+              {iconComponent}
+            </span>
+          </Button>
         );
       })}
     </div>
