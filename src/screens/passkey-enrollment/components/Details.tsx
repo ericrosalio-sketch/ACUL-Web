@@ -32,22 +32,22 @@ function Details() {
 
   // Use Locales as fallback to SDK texts
   const buttonText =
-    texts?.createButtonText || locales.details.createPasskeyText;
+    locales.details.createPasskeyText || texts?.createButtonText;
   const passkeyBenefit1Title =
-    texts?.passkeyBenefit1Title || locales.details.passkeyBenefit1Title;
+    locales.details.passkeyBenefit1Title || texts?.passkeyBenefit1Title;
   const passkeyBenefit1Description =
-    texts?.passkeyBenefit1Description ||
-    locales.details.passkeyBenefit1Description;
+    locales.details.passkeyBenefit1Description ||
+    texts?.passkeyBenefit1Description;
   const passkeyBenefit2Title =
-    texts?.passkeyBenefit2Title || locales.details.passkeyBenefit2Title;
+    locales.details.passkeyBenefit2Title || texts?.passkeyBenefit2Title;
   const passkeyBenefit2Description =
-    texts?.passkeyBenefit2Description ||
-    locales.details.passkeyBenefit2Description;
+    locales.details.passkeyBenefit2Description ||
+    texts?.passkeyBenefit2Description;
   const passkeyBenefit3Title =
-    texts?.passkeyBenefit3Title || locales.details.passkeyBenefit3Title;
+    locales.details.passkeyBenefit3Title || texts?.passkeyBenefit3Title;
   const passkeyBenefit3Description =
-    texts?.passkeyBenefit3Description ||
-    locales.details.passkeyBenefit3Description;
+    locales.details.passkeyBenefit3Description ||
+    texts?.passkeyBenefit3Description;
 
   // Using extractTokenValue utility to extract the Icons Color Value from CSS variable
   const iconColor = extractTokenValue("--ul-theme-color-icons");

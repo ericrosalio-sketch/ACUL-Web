@@ -18,7 +18,7 @@ const AlternativeLogins = () => {
 
   // Handle text fallbacks in component
   const passkeyButtonText =
-    texts?.passkeyButtonText || locales?.alternativeLogins?.passkeyButtonText;
+    locales?.alternativeLogins?.passkeyButtonText || texts?.passkeyButtonText;
 
   const handleConnectionLogin = (connection: SocialConnection) => {
     const federatedLoginOptions = {

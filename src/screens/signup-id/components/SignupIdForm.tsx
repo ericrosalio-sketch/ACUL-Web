@@ -57,7 +57,7 @@ function SignupIdForm() {
   }: UsernameValidationResult = useUsernameValidation(userNameValue || "");
 
   // Use locale strings with fallback to SDK texts
-  const buttonText = texts?.buttonText || locales.form.button;
+  const buttonText = locales.form.button || texts?.buttonText;
   const captchaLabel = texts?.captchaCodePlaceholder
     ? `${texts.captchaCodePlaceholder}*`
     : `${locales.form.fields.captcha.label}*`;
@@ -92,6 +92,11 @@ function SignupIdForm() {
 
     const sdkError = errors.byField(identifierType)[0]?.message;
 
+    const fieldLabel =
+      identifierType === "email"
+        ? locales.form.fields.email.placeholder
+        : label;
+
     return (
       <FormField
         key={identifierType}
@@ -112,7 +117,8 @@ function SignupIdForm() {
           <FormItem>
             <ULThemeFloatingLabelField
               {...field}
-              label={label}
+              label={"" /* Label is handled by placeholder for floating effect */}
+              placeholder={fieldLabel}
               type={type}
               autoComplete={autoComplete}
               error={!!fieldState.error || !!sdkError}
@@ -145,9 +151,6 @@ function SignupIdForm() {
           </div>
         )}
         
-        <label className="input-label">
-          {texts?.emailPlaceholder || locales.form.fields.email.label}
-        </label>
         {/* Email field - REQUIRED */}
         {renderIdentifierField('email', true)}
 

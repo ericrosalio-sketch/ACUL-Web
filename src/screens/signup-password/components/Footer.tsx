@@ -10,7 +10,7 @@ function Footer() {
   }
 
   // Use locale strings with fallback to SDK texts
-  const backButtonText = texts?.backButtonText || locales.footer.backButton;
+  const backButtonText = locales.footer.backButton || texts?.backButtonText;
 
   return (
     <div className="mt-4 text-center">

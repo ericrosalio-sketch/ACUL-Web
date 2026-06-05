@@ -1,12 +1,12 @@
 {
     "page": {
         "title": "Registrarse",
-        "separator": "O ingresa con"
+        "separator": "O"
     },
     "header": {
         "logoAlt": "Logo de la aplicación",
         "title": "Crea tu cuenta",
-        "description": "Ingresa tu correo electrónico o teléfono celular"
+        "description": "Ingresa tu información para continuar"
     },
     "form": {
         "fields": {
@@ -23,17 +23,17 @@
             },
             "email": {
                 "label": "Correo electrónico",
-                "placeholder": "Correo electrónico"
+                "placeholder": "Escribe tu correo"
             }
         },
-        "button": "Crear cuenta"
+        "button": "Continuar"
     },
     "footer": {
         "text": "¿Ya tienes una cuenta?",
         "linkText": "Iniciar sesión"
     },
     "social": {
-        "continueWith": "Ingresa con"
+        "continueWith": "Continuar con"
     },
     "_extra": {
         "emailPlaceholder": "Correo electrónico",

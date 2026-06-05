@@ -8,9 +8,9 @@ function Header() {
   const { texts, locales } = useSignupIdManager();
 
   // Use locale strings with fallback to SDK texts
-  const logoAltText = texts?.logoAltText || locales.header.logoAlt;
-  const title = texts?.title || locales.header.title;
-  const description = texts?.description || locales.header.description;
+  const logoAltText = locales.header.logoAlt || texts?.logoAltText;
+  const title = locales.header.title || texts?.title;
+  const description = locales.header.description || texts?.description;
 
   return (
     <>

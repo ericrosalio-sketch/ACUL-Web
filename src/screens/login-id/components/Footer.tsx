@@ -14,10 +14,10 @@ function Footer() {
   return (
     <div className="mt-4 text-left">
       <span className="pr-1 text-body-text text-(length:--ul-theme-font-body-text-size) font-body">
-        {texts?.signupActionText || locales?.footer?.signupActionText}
+        {locales?.footer?.signupActionText || texts?.signupActionText}
       </span>
       <ULThemeLink href={signupLink}>
-        {texts?.signupActionLinkText || locales?.footer?.signupActionLinkText}
+        {locales?.footer?.signupActionLinkText || texts?.signupActionLinkText}
       </ULThemeLink>
     </div>
   );

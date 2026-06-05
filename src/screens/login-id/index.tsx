@@ -20,8 +20,8 @@ function LoginIdScreen() {
     (alternateConnections && alternateConnections.length > 0);
 
   // Other Texts
-  const separatorText = texts?.separatorText || locales?.page?.orText;
-  document.title = texts?.pageTitle || locales?.page?.title;
+  const separatorText = locales?.page?.orText || texts?.separatorText;
+  document.title = locales?.page?.title || texts?.pageTitle || "";
 
   // Variables CSS que esta pantalla protege del Dashboard branding.
   // Edita estos valores para personalizar el aspecto de la pantalla de login-id

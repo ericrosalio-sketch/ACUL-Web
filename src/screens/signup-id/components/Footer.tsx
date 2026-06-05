@@ -10,8 +10,8 @@ function Footer() {
   }
 
   // Use locale strings with fallback to SDK texts
-  const footerText = texts?.footerText || locales.footer.text;
-  const footerLinkText = texts?.footerLinkText || locales.footer.linkText;
+  const footerText = locales.footer.text || texts?.footerText;
+  const footerLinkText = locales.footer.linkText || texts?.footerLinkText;
 
   return (
     <div className="mt-4 text-center">

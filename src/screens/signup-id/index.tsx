@@ -18,8 +18,8 @@ function SignupIdScreen() {
 
   const showSeparator = alternateConnections && alternateConnections.length > 0;
 
-  const separatorText = texts?.separatorText || locales.page.separator;
-  document.title = texts?.pageTitle || locales.page.title;
+  const separatorText = locales.page.separator || texts?.separatorText;
+  document.title = locales.page.title || texts?.pageTitle || "";
 
   applyAuth0Theme(signupId);
 
@@ -30,7 +30,7 @@ function SignupIdScreen() {
     {
       // Fuerza el layout a "bottom" para que los botones sociales
       variable: "--ul-theme-widget-social-buttons-layout",
-      value: "bottom",
+      value: "top",
     },
   ];
 

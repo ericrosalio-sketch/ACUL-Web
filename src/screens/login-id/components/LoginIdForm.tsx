@@ -73,7 +73,7 @@ function LoginIdForm() {
     ? `${texts.captchaCodePlaceholder}*`
     : locales?.loginIdForm?.captchaLabel;
   const continueButtonText =
-    texts?.buttonText || locales?.loginIdForm?.continueButtonText;
+    locales?.loginIdForm?.continueButtonText || texts?.buttonText;
 
   const { captchaConfig, captchaProps, captchaValue } = useCaptcha(
     captcha || undefined,

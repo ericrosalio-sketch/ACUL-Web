@@ -64,7 +64,7 @@ function SignupPasswordForm() {
   const userUsername = screenData?.username;
 
   // Use locale strings with fallback to SDK texts
-  const buttonText = texts?.buttonText || locales.form.button;
+  const buttonText = locales.form.button || texts?.buttonText;
   const captchaLabel = texts?.captchaCodePlaceholder
     ? `${texts.captchaCodePlaceholder}*`
     : `${locales.form.fields.captcha.label}*`;
@@ -72,11 +72,11 @@ function SignupPasswordForm() {
     ? `${texts.passwordPlaceholder}*`
     : `${locales.form.fields.password.label}*`;
   const passwordSecurityText =
-    texts?.passwordSecurityText || locales.form.passwordSecurity;
-  const emailLabel = texts?.emailPlaceholder || locales.form.fields.email.label;
-  const phoneLabel = texts?.phonePlaceholder || locales.form.fields.phone.label;
+    locales.form.passwordSecurity || texts?.passwordSecurityText;
+  const emailLabel = locales.form.fields.email.label || texts?.emailPlaceholder;
+  const phoneLabel = locales.form.fields.phone.label || texts?.phonePlaceholder;
   const usernameLabel =
-    texts?.usernamePlaceholder || locales.form.fields.username.label;
+    locales.form.fields.username.label || texts?.usernamePlaceholder;
 
   // Setup captcha with useCaptcha hook
   const { captchaConfig, captchaProps } = useCaptcha(
