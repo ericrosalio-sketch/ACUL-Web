@@ -8,7 +8,7 @@ function Header() {
   const { texts, locales, appName } = useLoginIdManager();
 
   // Use locale strings as fallback to SDK texts
-  const logoAltText = locales?.heading?.logoAltText || texts?.logoAltText;
+  const logoAltText = locales?.heading?.logoAltText || texts?.logoAltText || "";
 
   return (
     <>

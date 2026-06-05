@@ -73,10 +73,10 @@ function SignupPasswordForm() {
     : `${locales.form.fields.password.label}*`;
   const passwordSecurityText =
     locales.form.passwordSecurity || texts?.passwordSecurityText;
-  const emailLabel = locales.form.fields.email.label || texts?.emailPlaceholder;
-  const phoneLabel = locales.form.fields.phone.label || texts?.phonePlaceholder;
+  const emailLabel = locales.form.fields.email.label || texts?.emailPlaceholder || "";
+  const phoneLabel = locales.form.fields.phone.label || texts?.phonePlaceholder || "";
   const usernameLabel =
-    locales.form.fields.username.label || texts?.usernamePlaceholder;
+    locales.form.fields.username.label || texts?.usernamePlaceholder || "";
 
   // Setup captcha with useCaptcha hook
   const { captchaConfig, captchaProps } = useCaptcha(

@@ -8,7 +8,7 @@ function Header() {
 
   // Use Locales as fallback to SDK texts
   const titleText = locales.heading.title || texts?.title;
-  const logoAltText = locales.heading.logoAltText || texts?.logoAltText;
+  const logoAltText = locales.heading.logoAltText || texts?.logoAltText || "";
 
   return (
     <>
