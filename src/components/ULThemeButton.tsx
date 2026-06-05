@@ -26,8 +26,9 @@ export function ULThemeButton({
       "theme-universal:text-(--ul-theme-color-primary-button-label)", //text-color
       "theme-universal:hover:shadow-[var(--button-hover-shadow)]",
       "theme-universal:focus:outline-none theme-universal:focus:ring-4 theme-universal:focus:ring-base-focus/15",
-      "theme-universal:disabled:bg-primary-button/70",
-      "theme-universal:disabled:border-primary-button/70",
+      "theme-universal:disabled:bg-[#bdbdbd]",
+      "theme-universal:disabled:text-[#717171]",
+      "theme-universal:disabled:opacity-100",
       "theme-universal:disabled:cursor-not-allowed"
     ),
     secondary: "", // Add secondary overrides if needed

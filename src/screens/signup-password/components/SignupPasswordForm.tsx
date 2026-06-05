@@ -72,7 +72,7 @@ function SignupPasswordForm() {
     ? `${texts.passwordPlaceholder}*`
     : `${locales.form.fields.password.label}*`;
   const passwordSecurityText =
-    locales.form.passwordSecurity || texts?.passwordSecurityText;
+    locales.form.passwordSecurity || texts?.passwordSecurityText || "Tu contraseña debe tener:";
   const emailLabel = locales.form.fields.email.label || texts?.emailPlaceholder || "";
   const phoneLabel = locales.form.fields.phone.label || texts?.phonePlaceholder || "";
   const usernameLabel =
@@ -210,11 +210,11 @@ function SignupPasswordForm() {
           />
         )}
 
-        {/* Password Validation Rules */}
+        {/* Password Validation Rules - siempre visible como en el template de Coppel */}
         <ULThemePasswordValidator
           validationRules={passwordResults}
           passwordSecurityText={passwordSecurityText}
-          show={!!passwordValue}
+          show={true}
           className="mb-4"
         />
 

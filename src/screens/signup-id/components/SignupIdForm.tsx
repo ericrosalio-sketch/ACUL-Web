@@ -133,6 +133,12 @@ function SignupIdForm() {
     );
   };
 
+  // Validation for enabling submit button (e.g., email must be valid)
+  const isValidEmail = (value: string) =>
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
+  const userEmail = watch("email") ?? "";
+  const isEmailValid = isValidEmail(userEmail);
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -170,7 +176,7 @@ function SignupIdForm() {
         )}
 
         {/* Submit button */}
-        <ULThemeButton type="submit" className="w-full" disabled={isSubmitting}>
+        <ULThemeButton type="submit" className="w-full" disabled={isSubmitting || !isEmailValid}>
           {buttonText}
         </ULThemeButton>
       </form>
