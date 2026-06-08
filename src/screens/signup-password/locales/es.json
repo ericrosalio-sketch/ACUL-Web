@@ -52,6 +52,7 @@
     }
   },
   "footer": {
-    "backButton": "Editar"
+    "text": "¿Ya tienes una cuenta?",
+    "linkText": "Iniciar sesión"
   }
 }
