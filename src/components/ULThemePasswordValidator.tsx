@@ -19,23 +19,13 @@ export interface ULThemePasswordValidatorProps {
 }
 
 const CheckIcon = () => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
+  <img
+    src="/iconos/CheckIcon.svg"
+    width="20"
+    height="20"
     className="inline-block mr-2 flex-shrink-0"
-    style={{ color: "#006FB9" }}
-  >
-    <path
-      d="M20 6L9 17L4 12"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
+    alt="check"
+  />
 );
 
 const BulletIcon = () => (
@@ -70,7 +60,7 @@ export const ULThemePasswordValidator = ({
         key={rule.code}
         className={cn(
           "text-(length:--ul-theme-font-body-text-size) flex items-start list-none",
-          rule.isValid ? "text-[#006FB9]" : "text-[#1B1A16]"
+          "text-(color:--ul-theme-color-secondary-button-label)"
         )}
       >
         <span className="flex items-center mt-0.5">
@@ -86,7 +76,7 @@ export const ULThemePasswordValidator = ({
                   key={item.code}
                   className={cn(
                     "text-(length:--ul-theme-font-body-text-size) flex items-start list-none",
-                    item.isValid ? "text-[#006FB9]" : "text-[#1B1A16]"
+                    "text-(color:--ul-theme-color-secondary-button-label)"
                   )}
                 >
                   <span className="flex items-center mt-0.5">
@@ -109,7 +99,7 @@ export const ULThemePasswordValidator = ({
         className
       )}
     >
-      <div className="text-(length:--ul-theme-font-body-text-size) text-body-text mb-3 font-medium">
+      <div className="text-(length:--ul-theme-font-body-text-size) text-(color:--ul-theme-color-secondary-button-label) text-body-text mb-3 font-medium">
         {passwordSecurityText}
       </div>
 
