@@ -14,7 +14,10 @@
     "name": "signup-password"
   },
   "screen": {
-    "name": "signup-password"
+    "name": "signup-password",
+    "data": {
+      "email": "Marianne35@gmail.com"
+    }
   },
   "tenant": {
     "enabled_factors": [
