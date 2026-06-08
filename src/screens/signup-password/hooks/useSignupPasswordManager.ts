@@ -16,7 +16,7 @@ export const useSignupPasswordManager = () => {
 
   const screen: ScreenMembersOnSignupPassword = useScreen();
 
-  const { isCaptchaAvailable, texts, editLink, captcha } = screen;
+  const { isCaptchaAvailable, texts, editLink, loginLink, captcha } = screen;
 
   const handleSignupPassword = async (
     payload: SignupPasswordOptions
@@ -55,6 +55,7 @@ export const useSignupPasswordManager = () => {
     texts,
     isCaptchaAvailable,
     editLink,
+    loginLink,
     captcha,
     locales,
   };
