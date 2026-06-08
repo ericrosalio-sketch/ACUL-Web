@@ -38,15 +38,15 @@ const CheckIcon = () => (
 
 const BulletIcon = () => (
   <svg
-    width="8"
-    height="8"
-    viewBox="0 0 8 8"
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className="inline-block mr-2 flex-shrink-0"
     style={{ color: "#717171" }}
   >
-    <circle cx="4" cy="4" r="3" fill="currentColor" />
+    <circle cx="10" cy="10" r="3" fill="currentColor" />
   </svg>
 );
 

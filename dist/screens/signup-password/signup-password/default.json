@@ -58,6 +58,7 @@
                 "code": "tendo-ter",
                 "label": "Somniculosus versus desparatus numquam valde tum debeo ara adipisci.",
                 "status": "unmet",
+                "isValid": false,
                 "args": {
                   "count": 4
                 }
@@ -66,6 +67,7 @@
                 "code": "conventus-colligo",
                 "label": "Torqueo autus cinis quaerat dolores angelus audax.",
                 "status": "unmet",
+                "isValid": false,
                 "args": {
                   "count": 4
                 }
@@ -74,6 +76,7 @@
                 "code": "amor-voluptates",
                 "label": "Bardus aliquid tremo aeternus voluptates acceptus attollo.",
                 "status": "met",
+                "isValid": true,
                 "args": {
                   "count": 1
                 }
