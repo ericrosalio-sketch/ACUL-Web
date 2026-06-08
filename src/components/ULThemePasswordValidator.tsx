@@ -19,13 +19,21 @@ export interface ULThemePasswordValidatorProps {
 }
 
 const CheckIcon = () => (
-  <img
-    src="/iconos/CheckIcon.svg"
+  <svg
     width="20"
     height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
     className="inline-block mr-2 flex-shrink-0"
-    alt="check"
-  />
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M10 20C15.5229 20 20 15.5229 20 10C20 4.47716 15.5229 0 10 0C4.47716 0 0 4.47716 0 10C0 15.5229 4.47716 20 10 20ZM15.004 7.45503C15.3736 6.99296 15.2987 6.31873 14.8366 5.94907C14.3746 5.57941 13.7003 5.65433 13.3307 6.1164L8.2651 12.4483L6.23873 10.9286C5.76534 10.5735 5.09377 10.6695 4.73873 11.1429C4.3837 11.6162 4.47963 12.2878 4.95301 12.6429L7.81016 14.7857C8.27313 15.133 8.92816 15.0497 9.28967 14.5979L15.004 7.45503Z"
+      fill="#0ABF4F"
+    />
+  </svg>
 );
 
 const BulletIcon = () => (
@@ -99,7 +107,7 @@ export const ULThemePasswordValidator = ({
         className
       )}
     >
-      <div className="text-(length:--ul-theme-font-body-text-size) text-(color:--ul-theme-color-secondary-button-label) text-body-text mb-3 font-medium">
+      <div className="text-(length:--ul-theme-font-body-text-size) text-(color:--ul-theme-color-secondary-button-label) text-body-text mb-3 font-medium  max-w-[310px] max-h-21 overflow-auto">
         {passwordSecurityText}
       </div>
 

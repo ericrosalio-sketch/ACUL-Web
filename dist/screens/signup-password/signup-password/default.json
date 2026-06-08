@@ -65,7 +65,7 @@
               {
                 "code": "conventus-colligo",
                 "label": "Torqueo autus cinis quaerat dolores angelus audax.",
-                "status": "met",
+                "status": "unmet",
                 "args": {
                   "count": 4
                 }
