@@ -1,2 +1,0 @@
-import{ScreenIds as t}from"../../constants/enums.js";import{BaseContext as s}from"../../models/base-context.js";import{FormHandler as e}from"../../utils/form-handler.js";class o extends s{static screenIdentifier=t.LOGOUT;constructor(){super()}async confirmLogout(t){const s={state:this.transaction.state,telemetry:[o.screenIdentifier,"confirmLogout"]};await new e(s).submitData({...t,action:t.action})}}export{o as default};
-//# sourceMappingURL=index.js.map

@@ -1,2 +1,0 @@
-import{UntrustedData as t}from"../../models/untrusted-data.js";class e extends t{submittedFormData;constructor(t){super(t),this.submittedFormData=e.getSubmittedFormData(t)}static getSubmittedFormData(e){const r=t.getSubmittedFormData(e);if(!r)return null;const{remember_device:m,...a}=r;return{...a,rememberDevice:m??!1}}}export{e as UntrustedDataOverride};
-//# sourceMappingURL=untrusted-data-overrider.js.map

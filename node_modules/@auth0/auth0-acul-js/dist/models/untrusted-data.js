@@ -1,2 +1,0 @@
-class t{submittedFormData;authorizationParams;constructor(a){this.submittedFormData=t.getSubmittedFormData(a),this.authorizationParams=t.getAuthorizationParams(a)}static getSubmittedFormData(t){return t?.submitted_form_data?t?.submitted_form_data??null:null}static getAuthorizationParams(t){return t?.authorization_params?{login_hint:t?.authorization_params?.login_hint,screen_hint:t?.authorization_params?.screen_hint,ui_locales:t?.authorization_params?.ui_locales,...t?.authorization_params}:null}}export{t as UntrustedData};
-//# sourceMappingURL=untrusted-data.js.map
