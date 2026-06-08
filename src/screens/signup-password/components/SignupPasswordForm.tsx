@@ -29,6 +29,7 @@ function SignupPasswordForm() {
     signupPassword,
     texts,
     captcha,
+    editLink,
     locales,
   } = useSignupPasswordManager();
 
@@ -63,14 +64,35 @@ function SignupPasswordForm() {
   const userPhone = screenData?.phoneNumber;
   const userUsername = screenData?.username;
 
+  // Edit button for readonly fields (same style as the password "Mostrar" button)
+  const editButton = (
+    <button
+      type="button"
+      onClick={() => { if (editLink) window.location.href = editLink; }}
+      className={[
+        "cursor-pointer h-full px-3 mr-[-5px]",
+        "theme-universal:rounded-r-input theme-universal:rounded-l-none",
+        "text-[#1C42E8] hover:text-[#1C42E8]/80",
+        "text-sm font-medium",
+        "transition-colors",
+        "theme-universal:focus:bg-base-focus/15 focus-visible:outline-none",
+        "flex items-center justify-center",
+        "bg-transparent border-none outline-none",
+      ].join(" ")}
+      aria-label="Editar"
+    >
+      {locales.form.fields.email.editButton}
+    </button>
+  );
+
   // Use locale strings with fallback to SDK texts
   const buttonText = locales.form.button || texts?.buttonText;
   const captchaLabel = texts?.captchaCodePlaceholder
     ? `${texts.captchaCodePlaceholder}*`
     : `${locales.form.fields.captcha.label}*`;
   const passwordLabel = texts?.passwordPlaceholder
-    ? `${texts.passwordPlaceholder}*`
-    : `${locales.form.fields.password.label}*`;
+    ? `${texts.passwordPlaceholder}`
+    : `${locales.form.fields.password.label}`;
   const passwordSecurityText =
     locales.form.passwordSecurity || texts?.passwordSecurityText || "Tu contraseña debe tener:";
   const emailLabel = locales.form.fields.email.label || texts?.emailPlaceholder || "";
@@ -139,7 +161,7 @@ function SignupPasswordForm() {
             type="email"
             value={userEmail}
             readOnly
-            disabled
+            endAdornment={editButton}
           />
         )}
 
@@ -152,6 +174,7 @@ function SignupPasswordForm() {
             value={userPhone}
             readOnly
             disabled
+            endAdornment={editButton}
           />
         )}
 
@@ -164,6 +187,7 @@ function SignupPasswordForm() {
             value={userUsername}
             readOnly
             disabled
+            endAdornment={editButton}
           />
         )}
 
