@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import ULThemeSocialProviderButton from "@/components/ULThemeSocialProviderButton";
 import useIsMobile from "@/hooks/useIsMobile";
+import { getCanalByClientId } from "@/utils/helpers/canalUtils";
+import { pushCrearCuentaSocial } from "@/utils/helpers/dataLayerUtils";
 import type { SocialConnection } from "@/utils/helpers/socialUtils";
 import { getSocialProviderDetails } from "@/utils/helpers/socialUtils";
 
@@ -16,6 +18,17 @@ const AlternativeLogins = () => {
   const isMobile = useIsMobile();
 
   const handleConnectionSignup = (connection: SocialConnection) => {
+    const { displayName } = getSocialProviderDetails(connection);
+
+    // dataLayer: evento crearCuenta al seleccionar login social
+    // Normalizamos el displayName al tipo esperado por el modelo de medición
+    const socialTypes = ["Passkey", "Google", "Apple", "Microsoft"] as const;
+    type SocialType = (typeof socialTypes)[number];
+    const cuentaTipo: SocialType = socialTypes.find(
+      (t) => t.toLowerCase() === displayName.toLowerCase()
+    ) ?? "Google";
+    pushCrearCuentaSocial(cuentaTipo, "/crear-cuenta", getCanalByClientId());
+
     const federatedSignupOptions = {
       connection: connection.name,
       // Include any additional metadata if available
@@ -43,7 +56,6 @@ const AlternativeLogins = () => {
             const { displayName, iconComponent } =
               getSocialProviderDetails(connection);
 
-<<<<<<< HEAD
             return (
               <Button
                 key={connection.name}
@@ -84,23 +96,6 @@ const AlternativeLogins = () => {
         </div>
       )}
     </>
-=======
-        return (
-          <Button
-            key={connection.name}
-            variant="outline"
-            onClick={() => handleConnectionSignup(connection)}
-            aria-label={displayName}
-            className="rounded-full w-20 h-20 p-0 flex items-center justify-center border:color:--ul-theme-color-secondary-button-border text-(color:--ul-theme-color-secondary-button-label)"
-          >
-            <span className="w-8 h-8 flex items-center justify-center">
-              {iconComponent}
-            </span>
-          </Button>
-        );
-      })}
-    </div>
->>>>>>> 79c02249 (	modified:   dist/assets/login-id/index.js)
   );
 };
 
