@@ -75,6 +75,7 @@ export const createMockSignupPasswordInstance =
       connectionStrategy: "database",
       currentConnection: null,
       alternateConnections: [],
+      passwordComplexityPolicy: null
     },
   });
 

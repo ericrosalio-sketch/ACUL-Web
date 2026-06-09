@@ -30,7 +30,7 @@ function SignupIdScreen() {
     {
       // Fuerza el layout a "bottom" para que los botones sociales
       variable: "--ul-theme-widget-social-buttons-layout",
-      value: "top",
+      value: "bottom",
     },
   ];
 
