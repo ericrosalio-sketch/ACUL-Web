@@ -24,7 +24,7 @@ export const getIcon = (strategy?: string): ReactNode => {
       <img
         src={COPPEL_CDN_SOCIAL_ICONS[strategy]}
         alt={strategy}
-        className="w-5 h-5"
+        className="w-full h-full"
       />
     );
   }

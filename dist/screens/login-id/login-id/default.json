@@ -88,6 +88,36 @@
       },
       "strategy": "auth0"
     },
+    "alternate_connections": [
+      {
+        "name": "passkey",
+        "strategy": "passkey",
+        "options": {
+          "display_name": "Passkey"
+        }
+      },
+      {
+        "name": "google-oauth2",
+        "strategy": "google-oauth2",
+        "options": {
+          "display_name": "Google"
+        }
+      },
+      {
+        "name": "apple",
+        "strategy": "apple",
+        "options": {
+          "display_name": "Apple"
+        }
+      },
+      {
+        "name": "windowslive",
+        "strategy": "windowslive",
+        "options":{
+          "display_name": "Microsoft Account"
+        }
+      }
+    ],
     "locale": "es",
     "state": "hLJ47LrwjYHjCx9tBWqOCdkweUFzYmFQ"
   },
