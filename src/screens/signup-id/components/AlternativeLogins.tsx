@@ -41,9 +41,9 @@ const AlternativeLogins = () => {
             variant="outline"
             onClick={() => handleConnectionSignup(connection)}
             aria-label={displayName}
-            className="rounded-full w-20 h-20 p-0 flex items-center justify-center border-gray-300"
+            className="rounded-full w-20 h-20 p-0 flex items-center justify-center border:color:--ul-theme-color-secondary-button-border text-(color:--ul-theme-color-secondary-button-label)"
           >
-            <span className="w-5 h-5 flex items-center justify-center">
+            <span className="w-8 h-8 flex items-center justify-center">
               {iconComponent}
             </span>
           </Button>

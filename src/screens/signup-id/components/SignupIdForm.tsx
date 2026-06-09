@@ -12,7 +12,7 @@ import type {
 } from "@auth0/auth0-acul-react/types";
 
 import Captcha from "@/components/Captcha/index";
-import { ULThemeFloatingLabelField } from "@/components/form/ULThemeFloatingLabelField";
+import { ULThemeStaticLabelField } from "@/components/form/ULThemeStaticLabelField";
 import { ULThemeFormMessage } from "@/components/form/ULThemeFormMessage";
 import { Form, FormField, FormItem } from "@/components/ui/form";
 import { ULThemeButton } from "@/components/ULThemeButton";
@@ -94,6 +94,11 @@ function SignupIdForm() {
 
     const fieldLabel =
       identifierType === "email"
+        ? locales.form.fields.email.label
+        : label;
+
+    const fieldPlaceholder =
+      identifierType === "email"
         ? locales.form.fields.email.placeholder
         : label;
 
@@ -115,13 +120,14 @@ function SignupIdForm() {
         }}
         render={({ field, fieldState }) => (
           <FormItem>
-            <ULThemeFloatingLabelField
+            <ULThemeStaticLabelField
               {...field}
-              label={"" /* Label is handled by placeholder for floating effect */}
-              placeholder={fieldLabel}
+              label={fieldLabel}
+              placeholder={fieldPlaceholder}
               type={type}
               autoComplete={autoComplete}
               error={!!fieldState.error || !!sdkError}
+              isRequired={isRequired}
             />
             <ULThemeFormMessage
               sdkError={sdkError}
@@ -157,7 +163,7 @@ function SignupIdForm() {
           </div>
         )}
         
-        {/* Email field - REQUIRED */}
+        {/* Email field - REQUIRED (label is rendered inside ULThemeStaticLabelField) */}
         {renderIdentifierField('email', true)}
 
 
