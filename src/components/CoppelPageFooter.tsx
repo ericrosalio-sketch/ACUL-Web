@@ -66,8 +66,8 @@ const CoppelPageFooter = ({
     <footer
       className="w-full sticky bottom-0 left-0 right-0 z-10"
       style={{
-        backgroundColor: "#F1F4FA",
-        borderTop: "1px solid #D9E3F2",
+        backgroundColor: "var(--coppel-color-footer-bg)", // #F1F4FA
+        borderTop: "1px solid var(--coppel-color-border-light)", // #D9E3F2
         padding: "7px",
         boxSizing: "border-box",
       }}
@@ -94,7 +94,7 @@ const CoppelPageFooter = ({
             fontWeight: 400,
             fontSize: "12px",
             lineHeight: "16px",
-            color: "#081754",
+            color: "var(--coppel-color-text-dark)", // #081754
           }}
         >
           {copyright}
@@ -127,7 +127,7 @@ const CoppelPageFooter = ({
               fontWeight: 700,
               fontSize: "14px",
               lineHeight: "22px",
-              color: "#1C42E8",
+              color: "var(--coppel-color-blue-primary)", // #1C42E8
               textDecoration: "none",
               whiteSpace: "nowrap",
             }}
@@ -153,7 +153,7 @@ const CoppelPageFooter = ({
               fontWeight: 700,
               fontSize: "14px",
               lineHeight: "22px",
-              color: "#1C42E8",
+              color: "var(--coppel-color-blue-primary)", // #1C42E8
               textDecoration: "none",
               whiteSpace: "nowrap",
             }}

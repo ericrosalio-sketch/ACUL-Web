@@ -74,14 +74,14 @@ function SignupPasswordForm() {
       className={[
         "cursor-pointer h-full px-3 mr-[-5px]",
         "theme-universal:rounded-r-input theme-universal:rounded-l-none",
-        "text-[#1C42E8] hover:text-[#1C42E8]/80",
-        "text-sm font-medium",
+        "text-primary-button hover:text-base-hover-color",
+        "text-sm font-bold",
         "transition-colors",
         "theme-universal:focus:bg-base-focus/15 focus-visible:outline-none",
         "flex items-center justify-center",
         "bg-transparent border-none outline-none",
       ].join(" ")}
-      aria-label="Editar"
+      aria-label={locales.form.fields.email.editButton}
     >
       {locales.form.fields.email.editButton}
     </button>
@@ -217,6 +217,8 @@ function SignupPasswordForm() {
                 label={passwordLabel}
                 error={!!fieldState.error || !!passwordError}
                 autoFocus={true}
+                showLabel={locales.form.fields.password.showLabel}
+                hideLabel={locales.form.fields.password.hideLabel}
               />
               <ULThemeFormMessage
                 sdkError={passwordError}

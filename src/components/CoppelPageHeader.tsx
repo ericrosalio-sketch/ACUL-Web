@@ -88,8 +88,8 @@ const CoppelPageHeader = ({
     <header
       className="w-full flex flex-row justify-between items-center px-4 py-2 gap-4 z-10"
       style={{
-        backgroundColor: "#1C42E8",
-        borderBottom: "1px solid #D9E3F2",
+        backgroundColor: "var(--coppel-color-header-bg)", // #1C42E8
+        borderBottom: "1px solid var(--coppel-color-border-light)", // #D9E3F2
         boxSizing: "border-box",
       }}
     >
@@ -121,15 +121,15 @@ const CoppelPageHeader = ({
         onClick={handleHomeButtonClick}
         className="max-[500px]:hidden flex flex-row justify-center items-center gap-2 px-3 py-2 rounded-full border-none cursor-pointer font-semibold text-base transition-colors duration-300"
         style={{
-          backgroundColor: "#1C42E8",
-          color: "#FFFFFF",
+          backgroundColor: "var(--ul-theme-color-primary-button)", // #1C42E8
+          color: "var(--ul-theme-color-primary-button-label)", // #FFFFFF
           fontFamily: "'Poppins', sans-serif",
         }}
         onMouseEnter={(e) =>
-          ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "#081754")
+          ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--ul-theme-color-base-hover-color)") // #081754
         }
         onMouseLeave={(e) =>
-          ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "#1C42E8")
+          ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--ul-theme-color-primary-button)") // #1C42E8
         }
         aria-label={COPPEL_TEXTS.volverInicio}
       >

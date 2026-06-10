@@ -10,11 +10,15 @@ export interface ULThemePasswordFieldProps
   extends Omit<ULThemeFloatingLabelFieldProps, "type" | "endAdornment"> {
   onVisibilityToggle?: (isVisible: boolean) => void;
   buttonClassName?: string;
+  showLabel?: string;
+  hideLabel?: string;
 }
 
 export const ULThemePasswordField = ({
   onVisibilityToggle,
   buttonClassName,
+  showLabel = "Mostrar",
+  hideLabel = "Ocultar",
   ...props
 }: ULThemePasswordFieldProps) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -37,8 +41,8 @@ export const ULThemePasswordField = ({
         "theme-universal:rounded-r-input theme-universal:rounded-l-none",
 
         // Colors - texto azul Coppel como en el template
-        "text-[#1C42E8] hover:text-[#1C42E8]/80",
-        "text-sm font-medium",
+        "text-primary-button hover:text-base-hover-color",
+        "text-sm font-bold",
 
         // Transitions
         "transition-colors",
@@ -54,9 +58,9 @@ export const ULThemePasswordField = ({
 
         buttonClassName
       )}
-      aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+      aria-label={showPassword ? hideLabel : showLabel}
     >
-      {showPassword ? "Ocultar" : "Mostrar"}
+      {showPassword ? hideLabel : showLabel}
     </button>
   );
 
