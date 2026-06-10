@@ -18,6 +18,8 @@
  */
 
 import { COPPEL_CDN, COPPEL_TEXTS, COPPEL_URLS } from "@/constants/coppelConfig";
+import { getCanalByClientId } from "@/utils/helpers/canalUtils";
+import { pushMenuSuperior } from "@/utils/helpers/dataLayerUtils";
 
 export interface CoppelPageHeaderProps {
   /**
@@ -54,6 +56,8 @@ const CoppelPageHeader = ({
    */
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    // dataLayer: evento clicMenuSuperiorGeneral al click en logo
+    pushMenuSuperior("Logo Coppel", getCanalByClientId());
     const isMobile = window.innerWidth <= 500;
     const target = isMobile ? logoutUrl : homeUrl;
     setTimeout(() => {
@@ -67,6 +71,8 @@ const CoppelPageHeader = ({
    * Replica el comportamiento del JS inline del template.
    */
   const handleHomeButtonClick = () => {
+    // dataLayer: evento clicMenuSuperiorGeneral al click en "Volver a inicio"
+    pushMenuSuperior("Volver a inicio", getCanalByClientId());
     setTimeout(() => {
       window.location.href = logoutUrl;
     }, 200);

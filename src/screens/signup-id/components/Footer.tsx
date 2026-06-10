@@ -1,4 +1,6 @@
 import ULThemeLink from "@/components/ULThemeLink";
+import { getCanalByClientId } from "@/utils/helpers/canalUtils";
+import { pushIniciarSesion } from "@/utils/helpers/dataLayerUtils";
 
 import { useSignupIdManager } from "../hooks/useSignupIdManager";
 
@@ -13,13 +15,20 @@ function Footer() {
   const footerText = locales.footer.text || texts?.footerText;
   const footerLinkText = locales.footer.linkText || texts?.footerLinkText;
 
+  const handleLoginClick = () => {
+    // dataLayer: evento clicClienteDigital al seleccionar "Inicia sesión"
+    pushIniciarSesion("/crear-cuenta", getCanalByClientId());
+  };
+
   return (
     <div className="mt-4 text-center">
       <span className="pr-1 text-body-text text-(length:--ul-theme-font-body-text-size) font-body">
         {footerText}
       </span>
       {loginLink && (
-        <ULThemeLink href={loginLink}>{footerLinkText}</ULThemeLink>
+        <ULThemeLink href={loginLink} onClick={handleLoginClick}>
+          {footerLinkText}
+        </ULThemeLink>
       )}
     </div>
   );

@@ -19,6 +19,8 @@ import { ULThemeAlert, ULThemeAlertTitle } from "@/components/ULThemeError";
 import { ULThemePasswordField } from "@/components/ULThemePasswordField";
 import { ULThemePasswordValidator } from "@/components/ULThemePasswordValidator";
 import { useCaptcha } from "@/hooks/useCaptcha";
+import { getCanalByClientId } from "@/utils/helpers/canalUtils";
+import { pushCrearCuentaForm } from "@/utils/helpers/dataLayerUtils";
 
 import { useSignupPasswordManager } from "../hooks/useSignupPasswordManager";
 
@@ -126,6 +128,10 @@ function SignupPasswordForm() {
 
   // Simplified submit handler
   const onSubmit = async (data: SignupPasswordOptions) => {
+    // dataLayer: evento crearCuenta al dar click en Continuar en pantalla de contraseña
+    const cuentaTipo = userPhone ? "Celular" : "Correo";
+    pushCrearCuentaForm("Continuar", "/crear-cuenta", cuentaTipo, getCanalByClientId());
+
     const submitData: SignupPasswordOptions = {
       ...data,
       email: userEmail,

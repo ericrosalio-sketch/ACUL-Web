@@ -19,6 +19,8 @@
  */
 
 import { COPPEL_TEXTS, COPPEL_URLS } from "@/constants/coppelConfig";
+import { getCanalByClientId } from "@/utils/helpers/canalUtils";
+import { pushMenuInferior } from "@/utils/helpers/dataLayerUtils";
 
 export interface CoppelPageFooterProps {
   /**
@@ -117,6 +119,9 @@ const CoppelPageFooter = ({
             href={privacidadUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              pushMenuInferior(COPPEL_TEXTS.privacidadLabel, getCanalByClientId())
+            }
             style={{
               fontFamily: "'Poppins', sans-serif",
               fontWeight: 700,
@@ -140,6 +145,9 @@ const CoppelPageFooter = ({
             href={tycUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              pushMenuInferior(COPPEL_TEXTS.tycLabel, getCanalByClientId())
+            }
             style={{
               fontFamily: "'Poppins', sans-serif",
               fontWeight: 700,
