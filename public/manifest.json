@@ -24,6 +24,12 @@
           "path": "/screens/passkey-enrollment/passkey-enrollment",
           "variants": ["default", "with-errors"]
         }
+      },
+      "login-password": {
+        "login-password": {
+          "path": "/screens/login-password/login-password",
+          "variants": ["default", "with-errors"]
+        }
       }
     }
   ]
