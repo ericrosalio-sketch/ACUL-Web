@@ -18,6 +18,8 @@ import { Form, FormField, FormItem } from "@/components/ui/form";
 import { ULThemeButton } from "@/components/ULThemeButton";
 import { ULThemeAlert, ULThemeAlertTitle } from "@/components/ULThemeError";
 import { useCaptcha } from "@/hooks/useCaptcha";
+import { getCanalByClientId } from "@/utils/helpers/canalUtils";
+import { pushCrearCuentaForm } from "@/utils/helpers/dataLayerUtils";
 import { getIndividualIdentifierDetails } from "@/utils/helpers/identifierUtils";
 import { createUsernameValidator } from "@/utils/validations";
 
@@ -77,6 +79,10 @@ function SignupIdForm() {
 
   // Simplified submit handler matching login-id pattern
   const onSubmit = async (data: SignupOptions) => {
+    // dataLayer: evento crearCuenta al dar click en Continuar
+    const cuentaTipo = data.phone ? "Celular" : "Correo";
+    pushCrearCuentaForm("Continuar", "/crear-cuenta", cuentaTipo, getCanalByClientId());
+
     await handleSignup(data);
   };
 
