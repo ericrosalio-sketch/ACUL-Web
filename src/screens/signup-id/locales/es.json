@@ -33,7 +33,8 @@
         "linkText": "Iniciar sesión"
     },
     "social": {
-        "continueWith": "Continuar con"
+        "continueWith": "Continuar con",
+        "mobileLabel": "Inicia sesión más rápido y seguro con tu cuenta de alguna de estas opciones"
     },
     "_extra": {
         "emailPlaceholder": "Correo electrónico",

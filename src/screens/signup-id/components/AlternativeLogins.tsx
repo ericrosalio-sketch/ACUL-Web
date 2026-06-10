@@ -46,30 +46,35 @@ const AlternativeLogins = () => {
   return (
     <>
       {isMobile ? (
-        // Mobile: botones circulares
-        <div className="flex flex-row justify-center gap-6 mt-2">
-          {alternateConnections.map((connection: SocialConnection) => {
-            if (!connection?.name) {
-              return null;
-            }
+        // Mobile: label + botones circulares
+        <div className="flex flex-col items-center gap-4 mt-2">
+          <p className="text-center theme-universal:text-(length:--ul-theme-font-input-labels-size) theme-universal:font-input-label text-[--coppel-color-text-dark]">
+            {locales?.social?.mobileLabel}
+          </p>
+          <div className="flex flex-row justify-center gap-6">
+            {alternateConnections.map((connection: SocialConnection) => {
+              if (!connection?.name) {
+                return null;
+              }
 
-            const { displayName, iconComponent } =
-              getSocialProviderDetails(connection);
+              const { displayName, iconComponent } =
+                getSocialProviderDetails(connection);
 
-            return (
-              <Button
-                key={connection.name}
-                variant="outline"
-                onClick={() => handleConnectionSignup(connection)}
-                aria-label={displayName}
-                className="rounded-full w-20 h-20 p-0 flex items-center justify-center border:color:--ul-theme-color-secondary-button-border text-(color:--ul-theme-color-secondary-button-label)"
-              >
-                <span className="w-8 h-8 flex items-center justify-center">
-                  {iconComponent}
-                </span>
-              </Button>
-            );
-          })}
+              return (
+                <Button
+                  key={connection.name}
+                  variant="outline"
+                  onClick={() => handleConnectionSignup(connection)}
+                  aria-label={displayName}
+                  className="rounded-full w-20 h-20 p-0 flex items-center justify-center border:color:--ul-theme-color-secondary-button-border text-(color:--ul-theme-color-secondary-button-label)"
+                >
+                  <span className="w-8 h-8 flex items-center justify-center">
+                    {iconComponent}
+                  </span>
+                </Button>
+              );
+            })}
+          </div>
         </div>
       ) : (
         // Desktop: botones alargados
