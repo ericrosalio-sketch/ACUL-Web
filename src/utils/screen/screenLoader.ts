@@ -7,7 +7,8 @@ const SCREEN_COMPONENTS: Record<string, React.ComponentType> = {
   "login-id": lazy(() => import("@/screens/login-id")),
   "signup-id": lazy(() => import("@/screens/signup-id")),
   "signup-password": lazy(() => import("@/screens/signup-password")),
-  "passkey-enrollment": lazy(() => import("@/screens/passkey-enrollment"))
+  "passkey-enrollment": lazy(() => import("@/screens/passkey-enrollment")),
+  "login-password": lazy(() => import("@/screens/login-password"))
 
 };
 
