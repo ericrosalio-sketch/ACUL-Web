@@ -1,7 +1,6 @@
 import ULThemeLink from "@/components/ULThemeLink";
 
 import { useLoginPasswordManager } from "../hooks/useLoginPasswordManager";
-import { AlignCenter } from "lucide-react";
 
 function Footer() {
   const { signupLink, texts, locales } = useLoginPasswordManager();
