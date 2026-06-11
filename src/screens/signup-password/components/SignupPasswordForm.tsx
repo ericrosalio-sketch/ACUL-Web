@@ -16,6 +16,7 @@ import { ULThemeFormMessage } from "@/components/form/ULThemeFormMessage";
 import { Form, FormField, FormItem } from "@/components/ui/form";
 import { ULThemeButton } from "@/components/ULThemeButton";
 import { ULThemeAlert, ULThemeAlertTitle } from "@/components/ULThemeError";
+import ULThemeLink from "@/components/ULThemeLink";
 import { ULThemePasswordField } from "@/components/ULThemePasswordField";
 import { ULThemePasswordValidator } from "@/components/ULThemePasswordValidator";
 import { useCaptcha } from "@/hooks/useCaptcha";
@@ -66,25 +67,11 @@ function SignupPasswordForm() {
   const userPhone = screenData?.phoneNumber;
   const userUsername = screenData?.username;
 
-  // Edit button for readonly fields (same style as the password "Mostrar" button)
+  // Edit link for readonly fields — uses ULThemeLink like Login-password
   const editButton = (
-    <button
-      type="button"
-      onClick={() => { if (editLink) window.location.href = editLink; }}
-      className={[
-        "cursor-pointer h-full px-3 mr-[-5px]",
-        "theme-universal:rounded-r-input theme-universal:rounded-l-none",
-        "text-primary-button hover:text-base-hover-color",
-        "text-sm font-bold",
-        "transition-colors",
-        "theme-universal:focus:bg-base-focus/15 focus-visible:outline-none",
-        "flex items-center justify-center",
-        "bg-transparent border-none outline-none",
-      ].join(" ")}
-      aria-label={locales.form.fields.email.editButton}
-    >
+    <ULThemeLink href={editLink || ""}>
       {locales.form.fields.email.editButton}
-    </button>
+    </ULThemeLink>
   );
 
   // Use locale strings with fallback to SDK texts

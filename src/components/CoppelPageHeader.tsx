@@ -94,11 +94,11 @@ const CoppelPageHeader = ({
       }}
     >
       {/* Logo Coppel — .header-logo del template */}
+      {/* aria-label removed: the <img> alt below already names this link */}
       <a
         href={homeUrl}
         onClick={handleLogoClick}
         className="flex flex-row items-center gap-2"
-        aria-label={COPPEL_TEXTS.logoAlt}
         style={{ textDecoration: "none" }}
       >
         <img
@@ -131,12 +131,13 @@ const CoppelPageHeader = ({
         onMouseLeave={(e) =>
           ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--ul-theme-color-primary-button)") // #1C42E8
         }
-        aria-label={COPPEL_TEXTS.volverInicio}
+        // aria-label removed: the visible <span> text below already names this button.
       >
-        {/* Icono casita SVG del CDN */}
+        {/* Icono casita SVG del CDN — decorativo, oculto para lectores de pantalla */}
         <img
           src={COPPEL_CDN.casitaIconUrl}
-          alt={COPPEL_TEXTS.casitaAlt}
+          alt=""
+          aria-hidden="true"
           style={{ width: "20px", height: "20px" }}
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).style.display = "none";

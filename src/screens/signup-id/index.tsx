@@ -6,6 +6,8 @@ import { getCanalByClientId } from "@/utils/helpers/canalUtils";
 import { pushPageView } from "@/utils/helpers/dataLayerUtils";
 import { applyAuth0Theme } from "@/utils/theme/themeEngine";
 
+import ULThemeSeparator from "@/components/ULThemeSeparator";
+
 import AlternativeLogins from "./components/AlternativeLogins";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -44,13 +46,10 @@ function SignupIdScreen() {
             <Footer />
           </div>
 
-          {/* ── Separador horizontal ── */}
+          {/* ── Separador horizontal — usa ULThemeSeparator para consistencia y
+              accesibilidad (aria-hidden ya aplicado en el componente) ── */}
           {showSeparator && (
-            <div className="flex items-center gap-3 my-1">
-              <div className="flex-1 h-px bg-gray-200" />
-              <span className="text-xs text-gray-400 shrink-0">{separatorText}</span>
-              <div className="flex-1 h-px bg-gray-200" />
-            </div>
+            <ULThemeSeparator text={separatorText} />
           )}
 
           {/* ── Sección inferior: botones sociales ── */}

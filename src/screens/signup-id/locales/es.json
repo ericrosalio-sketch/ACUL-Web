@@ -12,49 +12,34 @@
         "fields": {
             "captcha": {
                 "label": "Introduzca el código mostrado más arriba",
-                "imageAlt": "SIN TEXTO",
-                "required": "SIN TEXTO"
+                "imageAlt": "Imagen de verificación captcha",
+                "required": "Por favor completa el captcha"
             },
             "common": {
-                "required": "SIN TEXTO"
+                "required": "Este campo es obligatorio"
             },
             "countryCode": {
                 "placeholder": "Seleccionar el código de país"
             },
             "email": {
                 "label": "Correo electrónico",
-                "placeholder": "Escribe tu correo"
+                "placeholder": "Escribe tu correo",
+                "placeholderOptional": "Dirección de correo electrónico (opcional)"
+            },
+            "phone": {
+                "label": "Número de teléfono",
+                "placeholder": "Número de teléfono",
+                "placeholderOptional": "Celular"
+            },
+            "username": {
+                "label": "Nombre de usuario",
+                "placeholder": "Nombre de usuario",
+                "placeholderOptional": "Nombre de usuario (opcional)"
             }
         },
-        "button": "Continuar"
-    },
-    "footer": {
-        "text": "¿Ya tienes una cuenta?",
-        "linkText": "Iniciar sesión"
-    },
-    "social": {
-        "continueWith": "Continuar con",
-        "mobileLabel": "Inicia sesión más rápido y seguro con tu cuenta de alguna de estas opciones"
-    },
-    "_extra": {
-        "emailPlaceholder": "Correo electrónico",
-        "phonePlaceholder": "Número de teléfono",
-        "passwordLabel": "Contraseña",
-        "usernamePlaceholder": "Nombre de usuario",
-        "passwordSecurityText": "Tu contraseña debe tener:",
-        "emailOptionalPlaceholder": "Dirección de correo electrónico (opcional)",
-        "usernameOptionalPlaceholder": "Nombre de usuario (opcional)",
-        "phoneOptionalPlaceholder": "Celular",
-        "invitationTitle": "Acepte su invitación para iniciar sesión",
-        "invitationDescription": "Iniciar sesión para aceptar la invitación del inviterName para unirse a companyName en clientName.",
         "errors": {
             "emailInUse": "El usuario ya existe.",
             "invalidEmailFormat": "Introduzca un correo electrónico válido (por ejemplo: user@domain.com).",
-            "passwordTooWeak": "La contraseña es demasiado fácil",
-            "passwordPolicyNotConformant": "La contraseña es demasiado fácil",
-            "passwordTooCommon": "La contraseña es demasiado común",
-            "passwordPreviouslyUsed": "La contraseña ha sido utilizada anteriormente",
-            "passwordMismatch": "Las contraseñas no coinciden",
             "invalidUsername": "El nombre de usuario solo puede contener caracteres alfanuméricos o: '${characters}'. El nombre de usuario debe tener entre ${min} y ${max} caracteres.",
             "invalidUsernameMaxLength": "El nombre de usuario no debe tener más de ${max} caracteres.",
             "invalidUsernameMinLength": "El nombre de usuario debe tener al menos ${min} caracteres.",
@@ -64,16 +49,13 @@
             "invalidUsernamePhoneNotAllowed": "Por favor ingrese un nombre de usuario válido. Los números de teléfono no se pueden utilizar como nombres de usuario.",
             "usernameTaken": "El nombre de usuario proporcionado ya está siendo usado.",
             "customScriptErrorCode": "Algo salió mal, por favor, inténtalo de nuevo más tarde.",
-            "auth0UsersValidation": "Algo salió mal, por favor, inténtalo de nuevo más tarde",
+            "auth0UsersValidation": "Algo salió mal, por favor, inténtalo de nuevo más tarde.",
             "invalidConnection": "Conexión inválida",
             "ipBlocked": "Hemos detectado intentos de inicio de sesión sospechosos, por lo que se bloqueará cualquier otro intento. Por favor, contacta al administrador.",
             "ipSignupBlocked": "Demasiados registros desde la misma dirección IP",
             "noDbConnection": "Conexión inválida",
             "noHrdConnection": "El correo electrónico no coincide con ningún directorio empresarial",
             "noEmail": "Por favor, ingresa una dirección de correo electrónico",
-            "noPassword": "La contraseña es obligatoria",
-            "noPasswordReset": "Introduzca una nueva contraseña.",
-            "noReEnterPassword": "Falta la confirmación de la nueva contraseña",
             "noUsername": "El nombre de usuario es obligatorio",
             "captchaValidationFailure": "Lo sentimos, algo salió mal al validar la respuesta del captcha. Por favor, inténtelo de nuevo.",
             "invalidRecaptcha": "Seleccione la casilla de verificación para confirmar que no es un robot.",
@@ -87,6 +69,15 @@
             "invalidEmailPhoneUsername": "Ingrese una dirección de correo electrónico, un número de teléfono o un nombre de usuario válidos. Los números de teléfono deben incluir el código del país.",
             "userAccountExists": "La cuenta ya existe. Regrese y seleccione iniciar sesión.",
             "captchaExpired": "La verificación caducó. Inténtelo de nuevo."
-        }
+        },
+        "button": "Continuar"
+    },
+    "footer": {
+        "text": "¿Ya tienes una cuenta?",
+        "linkText": "Iniciar sesión"
+    },
+    "social": {
+        "continueWith": "Continuar con",
+        "mobileLabel": "Inicia sesión más rápido y seguro con tu cuenta de alguna de estas opciones"
     }
 }

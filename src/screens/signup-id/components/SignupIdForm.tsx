@@ -153,11 +153,14 @@ function SignupIdForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        {/* General alerts at the top */}
-        {hasError && generalErrors.length > 0 && (
-          <div className="space-y-3 mb-4">
-            {generalErrors.map((error) => (
+      <form onSubmit={form.handleSubmit(onSubmit)} aria-label="Crear cuenta">
+        {/* Contenedor aria-live siempre presente en el DOM.
+            - Cuando se añade un error: role="alert" dentro de ULThemeAlert lo anuncia de inmediato.
+            - Cuando se hace dismiss: el contenido desaparece de este contenedor y
+              aria-live="polite" anuncia el cambio (el área quedó vacía) al narrador. */}
+        <div aria-live="polite" aria-atomic="false" className="space-y-3 mb-4">
+          {hasError && generalErrors.length > 0 &&
+            generalErrors.map((error) => (
               <ULThemeAlert
                 key={error.id}
                 variant="destructive"
@@ -165,9 +168,9 @@ function SignupIdForm() {
               >
                 <ULThemeAlertTitle>{error.message}</ULThemeAlertTitle>
               </ULThemeAlert>
-            ))}
-          </div>
-        )}
+            ))
+          }
+        </div>
         
         {/* Email field - REQUIRED (label is rendered inside ULThemeStaticLabelField) */}
         {renderIdentifierField('email', true)}
@@ -187,8 +190,22 @@ function SignupIdForm() {
           />
         )}
 
+        {/* Hidden description for screen readers when the submit button is disabled.
+            aria-describedby on the button points here so the narrator announces
+            the reason instead of just "botón deshabilitado". */}
+        {!isEmailValid && (
+          <span id="submit-btn-hint" className="sr-only">
+            Ingresa un correo electrónico válido para continuar
+          </span>
+        )}
+
         {/* Submit button */}
-        <ULThemeButton type="submit" className="w-full" disabled={isSubmitting || !isEmailValid}>
+        <ULThemeButton
+          type="submit"
+          className="w-full"
+          disabled={isSubmitting || !isEmailValid}
+          aria-describedby={!isEmailValid ? "submit-btn-hint" : undefined}
+        >
           {buttonText}
         </ULThemeButton>
       </form>
