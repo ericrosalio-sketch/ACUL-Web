@@ -65,7 +65,7 @@ const AlternativeLogins = () => {
                   key={connection.name}
                   variant="outline"
                   onClick={() => handleConnectionSignup(connection)}
-                  aria-label={displayName}
+                  aria-label={`${locales?.social?.continueWith} ${displayName}`}
                   className="rounded-full w-20 h-20 p-0 flex items-center justify-center border:color:--ul-theme-color-secondary-button-border text-(color:--ul-theme-color-secondary-button-label)"
                 >
                   <span className="w-8 h-8 flex items-center justify-center">

@@ -42,7 +42,7 @@ export const ULThemePasswordField = ({
 
         // Colors - texto azul Coppel como en el template
         "text-primary-button hover:text-base-hover-color",
-        "text-sm font-bold",
+        "text-link-focus text-(length:--ul-theme-font-links-size) font-(weight:--ul-theme-font-links-weight) focus:rounded-(--ul-theme-border-links-border-radius) hover:text-link-focus/80",
 
         // Transitions
         "transition-colors",

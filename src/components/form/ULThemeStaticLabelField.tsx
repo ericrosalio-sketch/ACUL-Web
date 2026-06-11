@@ -107,10 +107,12 @@ function ULThemeStaticLabelField({
   className,
   ...props
 }: ULThemeStaticLabelFieldProps) {
-  // Pull the generated formItemId from the surrounding FormItem context so that
-  // the label's htmlFor matches the input's id automatically, exactly as
-  // ULThemeFloatingLabelField does.
-  const { formItemId } = useFormField();
+  // Pull the generated formItemId and formMessageId from the surrounding FormItem
+  // context so that:
+  //  - the label's htmlFor matches the input's id (label association)
+  //  - aria-describedby points to the error message element when there is an error
+  //    (allows screen readers to announce the error when the user focuses the field)
+  const { formItemId, formMessageId } = useFormField();
 
   const themeState = error ? "error" : "default";
 
@@ -129,6 +131,7 @@ function ULThemeStaticLabelField({
         id={formItemId}
         aria-required={isRequired}
         aria-invalid={error || undefined}
+        aria-describedby={error ? formMessageId : undefined}
         className={cn(
           // Structural base styles matching FloatingLabelField input
           "w-full h-14 rounded-2xl px-3 py-4 outline-none",

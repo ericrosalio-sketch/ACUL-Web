@@ -31,7 +31,10 @@ const ULThemeSeparator = ({ text, className }: ULThemeSeparatorProps) => {
 
   if (text) {
     return (
-      <div className={cn(containerStyles, className)}>
+      // aria-hidden: the "O" separator is purely decorative for sighted users.
+      // Screen readers skip it entirely — the surrounding context (form fields
+      // above and social buttons below) already provides enough information.
+      <div className={cn(containerStyles, className)} aria-hidden="true">
         <div className={themedLineStyles} />
         <span className={themedTextStyles}>{text}</span>
         <div className={themedLineStyles} />
@@ -39,7 +42,8 @@ const ULThemeSeparator = ({ text, className }: ULThemeSeparatorProps) => {
     );
   }
 
-  return <hr className={cn("my-4", themedLineStyles, className)} />;
+  // Plain <hr> separators are also decorative; hide from assistive technology.
+  return <hr className={cn("my-4", themedLineStyles, className)} aria-hidden="true" />;
 };
 
 export default ULThemeSeparator;

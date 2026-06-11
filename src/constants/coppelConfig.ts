@@ -20,16 +20,16 @@
 
 /** URLs de recursos estáticos del CDN de Coppel (mismo que branding_templates) */
 export const COPPEL_CDN = {
-  logoUrl: "https://cdn5.coppel.com/Auth0/SVG/logo.svg",
-  casitaIconUrl: "https://cdn5.coppel.com/Auth0/SVG/casita.svg",
+  logoUrl:        "https://cdn5.coppel.com/Auth0/SVG/logo.svg",
+  casitaIconUrl:  "https://cdn5.coppel.com/Auth0/SVG/casita.svg",
 } as const;
 
 /** URLs de iconos de providers sociales */
 export const COPPEL_CDN_SOCIAL_ICONS: Record<string, string> = {
-  apple: "https://cdn5.coppel.com/Auth0/SVG/apple-icon.svg",
-  google: "https://cdn5.coppel.com/Auth0/SVG/google-icon.svg",
-  windowslive: "https://cdn5.coppel.com/Auth0/SVG/microsoft-icon.svg",
-  fingerprint: "https://cdn5.coppel.com/Auth0/SVG/fingerprint.svg",
+  apple:          "https://cdn5.coppel.com/Auth0/SVG/apple-icon.svg",
+  google:         "https://cdn5.coppel.com/Auth0/SVG/google-icon.svg",
+  windowslive:    "https://cdn5.coppel.com/Auth0/SVG/microsoft-icon.svg",
+  fingerprint:    "https://cdn5.coppel.com/Auth0/SVG/fingerprint.svg",
 } as const;
 
 /**
@@ -46,14 +46,12 @@ export const COPPEL_CDN_SOCIAL_ICONS: Record<string, string> = {
  * La ambientación por entorno se gestiona directamente desde el tenant de Auth0,
  * configurando los client.metadata correspondientes en cada ambiente.
  */
-const loginContext = window.universal_login_context ?? {};
-const metadata = loginContext.client?.metadata ?? {};
 
 export const COPPEL_URLS = {
-  homeUrl:       metadata["home_url"]       ?? "https://www.coppel.com",
-  logoutUrl:     metadata["logout_url"]     ?? "https://www.coppel.com",
-  privacidadUrl: metadata["privacidad-url"] ?? "https://www.coppel.com/aviso-de-privacidad",
-  tycUrl:        metadata["TyC-url"]        ?? "https://www.coppel.com/terminos-y-condiciones",
+  homeUrl:         "https://www.coppel.com",
+  logoutUrl:       "https://www.coppel.com",
+  privacidadUrl:   "https://www.coppel.com/aviso-de-privacidad",
+  tycUrl:          "https://www.coppel.com/terminos-y-condiciones",
 } as const;
 
 /** Textos estáticos del footer (del template branding) */

@@ -21,9 +21,12 @@ export const getIcon = (strategy?: string): ReactNode => {
   // Primero intentamos obtener la URL del ícono desde el CDN de Coppel, si existe para esta estrategia.
   if (strategy && COPPEL_CDN_SOCIAL_ICONS[strategy]) {
     return (
+      // alt="" + aria-hidden: el ícono es decorativo; el botón padre ya tiene
+      // nombre accesible completo (aria-label con proveedor + acción).
       <img
         src={COPPEL_CDN_SOCIAL_ICONS[strategy]}
-        alt={strategy}
+        alt=""
+        aria-hidden="true"
         className="w-full h-full"
       />
     );
@@ -33,5 +36,6 @@ export const getIcon = (strategy?: string): ReactNode => {
   const IconComponent =
     (strategy && STRATEGY_ICON_MAP[strategy]) ||
       DefaultConnectionIcon;
-  return <IconComponent />;
+  // aria-hidden: el SVG es decorativo; el botón padre ya tiene nombre accesible.
+  return <IconComponent aria-hidden="true" />;
 };

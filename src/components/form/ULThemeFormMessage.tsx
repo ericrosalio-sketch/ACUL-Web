@@ -1,6 +1,6 @@
 import { AlertCircle } from "lucide-react";
 
-import { FormMessage } from "@/components/ui/form";
+import { FormMessage, useFormField } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 
 export interface ULThemeFormMessageProps {
@@ -28,6 +28,11 @@ const ULThemeFormMessage = ({
   showIcon = true,
   className,
 }: ULThemeFormMessageProps) => {
+  // Pull the formMessageId so the SDK-error <p> gets the same id that the
+  // input's aria-describedby points to, keeping the association intact
+  // regardless of whether the error comes from react-hook-form or the SDK.
+  const { formMessageId } = useFormField();
+
   // Don't render if no errors at all
   if (!sdkError && !hasFormError) {
     return null;
@@ -45,10 +50,12 @@ const ULThemeFormMessage = ({
     >
       {showIcon && <AlertCircle className="h-4 w-4 mr-1 flex-shrink-0" />}
       {sdkError ? (
-        <p className="text-destructive text-sm theme-universal:text-error">
+        // Use formMessageId so aria-describedby on the input can find this element
+        <p id={formMessageId} className="text-destructive text-sm theme-universal:text-error">
           {sdkError}
         </p>
       ) : (
+        // FormMessage already renders with id={formMessageId} internally
         <FormMessage className="theme-universal:text-error" />
       )}
     </div>
