@@ -45,10 +45,6 @@
       "numbers": "Números (0-9)",
       "specialChars": "Caracteres especiales (!;?.#)",
       "noRepeating": "No más de 2 caracteres idénticos seguidos"
-    },
-    "loginPrompt": {
-      "text": "¿Ya tienes una cuenta?",
-      "linkText": "Inicia sesión"
     }
   },
   "footer": {

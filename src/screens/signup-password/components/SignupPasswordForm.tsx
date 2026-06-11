@@ -130,11 +130,13 @@ function SignupPasswordForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        {/* General alerts at the top */}
-        {hasError && generalErrors.length > 0 && (
-          <div className="space-y-3 mb-4">
-            {generalErrors.map((error) => (
+      <form onSubmit={form.handleSubmit(onSubmit)} aria-label="Crear cuenta">
+        {/* Contenedor aria-live siempre presente en el DOM.
+            - Errores nuevos: role="alert" de ULThemeAlert los anuncia de inmediato.
+            - Dismiss: el contenido desaparece y aria-live="polite" confirma el cambio. */}
+        <div aria-live="polite" aria-atomic="false" className="space-y-3 mb-4">
+          {hasError && generalErrors.length > 0 &&
+            generalErrors.map((error) => (
               <ULThemeAlert
                 key={error.id}
                 variant="destructive"
@@ -142,46 +144,69 @@ function SignupPasswordForm() {
               >
                 <ULThemeAlertTitle>{error.message}</ULThemeAlertTitle>
               </ULThemeAlert>
-            ))}
-          </div>
-        )}
+            ))
+          }
+        </div>
 
-        {/* Readonly email field */}
+        {/* Readonly email field.
+            aria-readonly + aria-describedby informan al narrador que el campo
+            no es editable aquí y que puede usar el enlace "Editar" para cambiarlo. */}
         {userEmail && (
-          <ULThemeFloatingLabelField
-            id="signup-email-field"
-            label={emailLabel}
-            type="email"
-            value={userEmail}
-            readOnly
-            endAdornment={editButton}
-          />
+          <>
+            <span id="readonly-email-hint" className="sr-only">
+              Campo de solo lectura. Usa el enlace Editar para modificarlo.
+            </span>
+            <ULThemeFloatingLabelField
+              id="signup-email-field"
+              label={emailLabel}
+              type="email"
+              value={userEmail}
+              readOnly
+              aria-readonly="true"
+              aria-describedby="readonly-email-hint"
+              endAdornment={editButton}
+            />
+          </>
         )}
 
         {/* Readonly phone field */}
         {userPhone && (
-          <ULThemeFloatingLabelField
-            id="signup-phone-field"
-            label={phoneLabel}
-            type="tel"
-            value={userPhone}
-            readOnly
-            disabled
-            endAdornment={editButton}
-          />
+          <>
+            <span id="readonly-phone-hint" className="sr-only">
+              Campo de solo lectura. Usa el enlace Editar para modificarlo.
+            </span>
+            <ULThemeFloatingLabelField
+              id="signup-phone-field"
+              label={phoneLabel}
+              type="tel"
+              value={userPhone}
+              readOnly
+              disabled
+              aria-readonly="true"
+              aria-describedby="readonly-phone-hint"
+              endAdornment={editButton}
+            />
+          </>
         )}
 
         {/* Readonly username field */}
         {userUsername && (
-          <ULThemeFloatingLabelField
-            id="signup-username-field"
-            label={usernameLabel}
-            type="text"
-            value={userUsername}
-            readOnly
-            disabled
-            endAdornment={editButton}
-          />
+          <>
+            <span id="readonly-username-hint" className="sr-only">
+              Campo de solo lectura. Usa el enlace Editar para modificarlo.
+            </span>
+            <ULThemeFloatingLabelField
+              id="signup-username-field"
+              label={usernameLabel}
+              type="text"
+              value={userUsername}
+              readOnly
+              disabled
+              aria-readonly="true"
+              aria-describedby="readonly-username-hint"
+              endAdornment={editButton}
+            />
+          </>
         )}
 
         {/* Password field */}
@@ -237,8 +262,24 @@ function SignupPasswordForm() {
           className="mb-4"
         />
 
-        {/* Submit button */}
-        <ULThemeButton type="submit" className="w-full" disabled={isSubmitting}>
+        {/* Descripción oculta para lectores de pantalla: explica por qué el botón está deshabilitado.
+            Solo se monta en el DOM cuando la contraseña no es válida o está vacía,
+            siguiendo el mismo patrón que SignupIdForm. */}
+        {(!isPasswordValid || !passwordValue) && (
+          <span id="password-requirements-hint" className="sr-only">
+            El botón estará habilitado cuando la contraseña cumpla con todos los requisitos de seguridad.
+          </span>
+        )}
+
+        {/* Submit button — deshabilitado si la contraseña está vacía o no cumple los requisitos.
+            Mismo patrón que SignupIdForm: solo atributo disabled nativo + aria-describedby
+            que apunta a la pista accesible cuando el botón no está disponible. */}
+        <ULThemeButton
+          type="submit"
+          className="w-full"
+          disabled={isSubmitting || !passwordValue || !isPasswordValid}
+          aria-describedby={(!passwordValue || !isPasswordValid) ? "password-requirements-hint" : undefined}
+        >
           {buttonText}
         </ULThemeButton>
       </form>

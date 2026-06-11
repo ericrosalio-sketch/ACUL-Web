@@ -100,7 +100,7 @@ const ULThemeSocialProviderButton = ({
           {iconComponent}
         </span>
       )}
-      <span className="wrap-break-word text-base whitespace-normal text-center">
+      <span className="wrap-break-word text-base whitespace-normal text-center text-(--coppel-color-text-dark)">
         {buttonText}
       </span>
       {iconEnd && <span className="shrink-0 ml-auto">{iconEnd}</span>}

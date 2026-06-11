@@ -14,12 +14,20 @@ jest.mock("@/utils/helpers/tokenUtils", () => ({
   extractTokenValue: jest.fn(() => "bottom"),
 }));
 
+/** Texto del botón de submit definido en locales/es.json → form.button */
+const SUBMIT_BUTTON_TEXT = "Crear cuenta";
+
 describe("SignupPasswordScreen", () => {
+  /**
+   * Renderiza la pantalla y espera a que el botón de submit esté en el DOM.
+   * El botón puede estar deshabilitado (contraseña vacía al inicio), por eso
+   * usamos { hidden: true } para encontrarlo aunque no sea interactivo todavía.
+   */
   const renderScreen = async () => {
     await act(async () => {
       render(<SignupPasswordScreen />);
     });
-    await screen.findByRole("button", { name: /continue/i });
+    await screen.findByRole("button", { name: SUBMIT_BUTTON_TEXT, hidden: true });
   };
 
   beforeEach(() => {
@@ -29,31 +37,29 @@ describe("SignupPasswordScreen", () => {
   it("should render screen with basic structure and texts from CommonTestData", async () => {
     await renderScreen();
 
-    expect(screen.getByText("Create Your Account")).toBeInTheDocument();
-    expect(screen.getByText(/Set your password/)).toBeInTheDocument();
+    expect(screen.getByText("Crea tu cuenta")).toBeInTheDocument();
+    expect(screen.getByText(/Crea una contraseña/)).toBeInTheDocument();
+    // El botón existe en el DOM (puede estar deshabilitado hasta que la contraseña sea válida)
     expect(
-      screen.getByRole("button", { name: CommonTestData.commonTexts.continue })
+      screen.getByRole("button", { name: SUBMIT_BUTTON_TEXT, hidden: true })
     ).toBeInTheDocument();
   });
 
   it("should render password field", async () => {
     await renderScreen();
 
-    expect(screen.getByText("Password*")).toBeInTheDocument();
-    expect(screen.getByLabelText("Password*")).toBeInTheDocument();
+    expect(screen.getByText("Password")).toBeInTheDocument();
+    expect(screen.getByLabelText("Password")).toBeInTheDocument();
   });
 
   it("should show password validation rules with proper validation states", async () => {
     await renderScreen();
 
-    // First type something to trigger validation display
-    await ScreenTestUtils.fillInput(/Password\*/i, "a");
+    // Verify password validation box is always visible
+    expect(screen.getByText(/Tu contraseña debe tener/)).toBeInTheDocument();
 
-    // Verify password validation box appears
-    expect(screen.getByText(/Your password must contain/)).toBeInTheDocument();
-
-    // Test with a weak password
-    await ScreenTestUtils.fillInput(/Password\*/i, "weak");
+    // Test with a weak password — no rules fulfilled
+    await ScreenTestUtils.fillInput(/Password/i, "weak");
 
     // Verify validation rules are displayed
     expect(screen.getByText(/At least 8 characters/)).toBeInTheDocument();
@@ -61,21 +67,46 @@ describe("SignupPasswordScreen", () => {
     expect(screen.getByText(/Upper case letters/)).toBeInTheDocument();
     expect(screen.getByText(/Numbers/)).toBeInTheDocument();
 
-    // Count current validation success indicators
-    const weakPasswordCheckmarks = screen.queryAllByTestId(/^check-icon-/);
-    const initialCheckmarkCount = weakPasswordCheckmarks.length;
-
-    // Test with a strong password
-    await ScreenTestUtils.fillInput(/Password\*/i, "StrongPass123!");
-
-    // Now more validation rules should pass - there should be more checkmarks
-    const strongPasswordCheckmarks = screen.queryAllByTestId(/^check-icon-/);
-    expect(strongPasswordCheckmarks.length).toBeGreaterThan(
-      initialCheckmarkCount
+    // Con contraseña débil, ninguna regla debe estar cumplida
+    const weakCumplido = screen.queryAllByRole("listitem").filter((li) =>
+      li.getAttribute("aria-label")?.includes("cumplido")
     );
 
-    // Should have at least some validation success indicators for the strong password
-    expect(strongPasswordCheckmarks.length).toBeGreaterThan(0);
+    // Test with a strong password
+    await ScreenTestUtils.fillInput(/Password/i, "StrongPass123!");
+
+    // Con contraseña fuerte, más reglas deben estar cumplidas que con la débil
+    const strongCumplido = screen.queryAllByRole("listitem").filter((li) =>
+      li.getAttribute("aria-label")?.includes("cumplido")
+    );
+    expect(strongCumplido.length).toBeGreaterThan(weakCumplido.length);
+    expect(strongCumplido.length).toBeGreaterThan(0);
+  });
+
+  it("button should be disabled when password field is empty", async () => {
+    await renderScreen();
+
+    const submitButton = screen.getByRole("button", {
+      name: SUBMIT_BUTTON_TEXT,
+      hidden: true,
+    });
+
+    // Sin contraseña, el botón debe estar deshabilitado (mismo patrón que SignupIdForm)
+    expect(submitButton).toBeDisabled();
+    // aria-describedby debe apuntar a la pista accesible cuando el botón está deshabilitado
+    expect(submitButton).toHaveAttribute("aria-describedby", "password-requirements-hint");
+  });
+
+  it("button should be enabled when password passes validation", async () => {
+    await renderScreen();
+
+    // Ingresar una contraseña que cumple todos los requisitos
+    await ScreenTestUtils.fillInput(/Password/i, "ValidPass123!");
+
+    // Ahora el botón debe estar habilitado y sin aria-describedby
+    const submitButton = screen.getByRole("button", { name: SUBMIT_BUTTON_TEXT });
+    expect(submitButton).not.toBeDisabled();
+    expect(submitButton).not.toHaveAttribute("aria-describedby");
   });
 
   it("should successfully submit with valid password", async () => {
@@ -85,16 +116,17 @@ describe("SignupPasswordScreen", () => {
     // Use a password that will pass all validation rules
     const validPassword = "ValidPass123!";
 
-    await ScreenTestUtils.fillInput(/Password\*/i, validPassword);
+    // Ingresar la contraseña válida primero para habilitar el botón
+    await ScreenTestUtils.fillInput(/Password/i, validPassword);
 
     // Verify the component shows some validation success indicators
-    // This tests that the validation logic is working in the component
     const checkmarks = screen.queryAllByTestId(/^check-icon-/);
     if (checkmarks.length > 0) {
       expect(checkmarks.length).toBeGreaterThan(0);
     }
 
-    await ScreenTestUtils.clickButton(CommonTestData.commonTexts.continue);
+    // El botón debe estar habilitado antes de hacer click
+    await ScreenTestUtils.clickButton(SUBMIT_BUTTON_TEXT);
 
     // Verify that signup was called with the password
     expect(mockSignupPasswordInstance.signup).toHaveBeenCalledWith(
@@ -109,7 +141,7 @@ describe("SignupPasswordScreen", () => {
     expect(useErrors).toHaveBeenCalled();
 
     // Verify component renders correctly with error handling in place
-    expect(screen.getByText("Create Your Account")).toBeInTheDocument();
+    expect(screen.getByText("Crea tu cuenta")).toBeInTheDocument();
     expect(
       document.querySelector('input[name="password"]')
     ).toBeInTheDocument();
@@ -146,7 +178,8 @@ describe("SignupPasswordScreen", () => {
   });
 
   it("should render CAPTCHA when enabled", async () => {
-    // Configure mock screen to show CAPTCHA
+    // Obtener la instancia actual del mock de useScreen y configurarla
+    // con CAPTCHA habilitado ANTES de renderizar la pantalla.
     const mockScreen = (useScreen as jest.Mock)();
     mockScreen.isCaptchaAvailable = true;
     mockScreen.captcha = {
@@ -154,8 +187,12 @@ describe("SignupPasswordScreen", () => {
       image: "data:image/png;base64,test",
     };
 
+    // Asegurarse de que useScreen devuelva la instancia mutada
+    (useScreen as jest.Mock).mockReturnValue(mockScreen);
+
     await renderScreen();
 
-    expect(screen.getByText(/CAPTCHA/)).toBeInTheDocument();
+    // SimpleCaptchaWidget renderiza el CAPTCHA como una imagen con alt="CAPTCHA challenge"
+    expect(screen.getByAltText("CAPTCHA challenge")).toBeInTheDocument();
   });
 });

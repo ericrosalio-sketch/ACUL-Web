@@ -58,7 +58,7 @@ export const ULThemePasswordField = ({
 
         buttonClassName
       )}
-      aria-label={showPassword ? hideLabel : showLabel}
+      aria-pressed={showPassword}
     >
       {showPassword ? hideLabel : showLabel}
     </button>

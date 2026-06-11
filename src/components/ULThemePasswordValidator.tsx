@@ -18,6 +18,7 @@ export interface ULThemePasswordValidatorProps {
   passwordSecurityText?: string;
 }
 
+// aria-hidden: estos íconos son decorativos — el estado se comunica via aria-label del <li>
 const CheckIcon = () => (
   <svg
     width="20"
@@ -26,6 +27,7 @@ const CheckIcon = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className="inline-block mr-2 flex-shrink-0"
+    aria-hidden="true"
   >
     <path
       fillRule="evenodd"
@@ -45,6 +47,7 @@ const BulletIcon = () => (
     xmlns="http://www.w3.org/2000/svg"
     className="inline-block mr-2 flex-shrink-0"
     style={{ color: "#717171" }}
+    aria-hidden="true"
   >
     <circle cx="10" cy="10" r="3" fill="currentColor" />
   </svg>
@@ -62,35 +65,40 @@ export const ULThemePasswordValidator = ({
 
   const renderValidationItem = (rule: PasswordComplexityRule) => {
     const hasNestedItems = rule.items && rule.items.length > 0;
+    // aria-label comunica visualmente el texto + estado al narrador,
+    // ya que el ícono (CheckIcon/BulletIcon) está marcado como aria-hidden.
+    const ruleStatus = rule.isValid ? "cumplido" : "pendiente";
 
     return (
       <li
         key={rule.code}
+        aria-label={`${rule.label}: ${ruleStatus}`}
         className={cn(
           "text-(length:--ul-theme-font-body-text-size) flex items-start list-none",
-          "text-(color:--ul-theme-color-secondary-button-label)"
+          "text-(--coppel-color-text-dark)"
         )}
       >
-        <span className="flex items-center mt-0.5">
+        <span className="flex items-center mt-0.5" aria-hidden="true">
           {rule.isValid ? <CheckIcon /> : <BulletIcon />}
         </span>
         <div>
-          <span>{rule.label}</span>
+          <span aria-hidden="true">{rule.label}</span>
           {/* Render nested items if they exist */}
           {hasNestedItems && (
             <ul className="mt-1 space-y-1 pl-4">
               {rule.items!.map((item) => (
                 <li
                   key={item.code}
+                  aria-label={`${item.label}: ${item.isValid ? "cumplido" : "pendiente"}`}
                   className={cn(
                     "text-(length:--ul-theme-font-body-text-size) flex items-start list-none",
-                    "text-(color:--ul-theme-color-secondary-button-label)"
+                    "text-(--coppel-color-text-dark)"
                   )}
                 >
-                  <span className="flex items-center mt-0.5">
+                  <span className="flex items-center mt-0.5" aria-hidden="true">
                     {item.isValid ? <CheckIcon /> : <BulletIcon />}
                   </span>
-                  {item.label}
+                  <span aria-hidden="true">{item.label}</span>
                 </li>
               ))}
             </ul>
@@ -107,11 +115,14 @@ export const ULThemePasswordValidator = ({
         className
       )}
     >
-      <div className="text-(length:--ul-theme-font-body-text-size) text-(color:--ul-theme-color-secondary-button-label) text-body-text mb-3 font-medium  max-w-[310px] max-h-21 overflow-auto">
+      <div className="text-(length:--ul-theme-font-body-text-size) text-(--coppel-color-text-dark) mb-3 font-medium max-w-[310px] max-h-21 overflow-auto">
         {passwordSecurityText}
       </div>
 
-      <ul className="space-y-2">
+      {/* aria-live="polite": cuando el usuario escribe y cambia el estado de una regla,
+          el narrador anuncia el cambio sin interrumpir la escritura.
+          aria-atomic="false": anuncia solo el <li> que cambió, no toda la lista. */}
+      <ul className="space-y-2" aria-live="polite" aria-atomic="false" aria-label={passwordSecurityText}>
         {validationRules.map((rule) => renderValidationItem(rule))}
       </ul>
     </div>

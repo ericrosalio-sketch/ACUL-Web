@@ -46,9 +46,9 @@ const ULThemeFormMessage = ({
         className
       )}
       role="alert"
-      aria-live="polite"
     >
-      {showIcon && <AlertCircle className="h-4 w-4 mr-1 flex-shrink-0" />}
+      {/* aria-hidden: ícono decorativo, el mensaje de texto ya comunica el error */}
+      {showIcon && <AlertCircle className="h-4 w-4 mr-1 flex-shrink-0" aria-hidden="true" />}
       {sdkError ? (
         // Use formMessageId so aria-describedby on the input can find this element
         <p id={formMessageId} className="text-destructive text-sm theme-universal:text-error">

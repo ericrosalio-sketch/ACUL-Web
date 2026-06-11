@@ -22,7 +22,7 @@ function Footer() {
 
   return (
     <div className="mt-4 text-center">
-      <span className="pr-1 text-body-text text-(length:--ul-theme-font-body-text-size) font-body">
+      <span className="pr-1 text-(--coppel-color-text-dark) text-(length:--ul-theme-font-body-text-size) font-body">
         {footerText}
       </span>
       {loginLink && (
