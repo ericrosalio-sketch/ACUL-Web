@@ -345,10 +345,13 @@ function SignupPasswordForm() {
           />
         )}
 
-        {/* Password Validation Rules - siempre visible como en el template de Coppel */}
+        {/* Password Validation Rules - siempre visible como en el template de Coppel.
+            passwordValue permite al validador anunciar todos los requisitos cuando el
+            campo está vacío, y solo los pendientes cuando el usuario ya escribió algo. */}
         <ULThemePasswordValidator
           validationRules={passwordResults}
           passwordSecurityText={passwordSecurityText}
+          passwordValue={passwordValue}
           show={true}
           className="mb-4"
         />
