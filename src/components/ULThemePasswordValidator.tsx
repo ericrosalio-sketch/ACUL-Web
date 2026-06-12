@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 import type { PasswordComplexityRule } from "@auth0/auth0-acul-react/types";
 
 import { cn } from "@/lib/utils";
@@ -59,6 +61,35 @@ export const ULThemePasswordValidator = ({
   passwordSecurityText,
   show = true,
 }: ULThemePasswordValidatorProps) => {
+  // useMemo ANTES del early return para cumplir las reglas de hooks de React.
+  // Cuenta reglas cumplidas (incluyendo subitems) para el anuncio sr-only del narrador.
+  // Se usa un resumen en lugar de aria-live en el <ul> para evitar que el narrador
+  // lea los elementos en orden errático (primero items anidados, luego primer nivel,
+  // luego el texto introductorio).
+  const liveAnnouncement = useMemo(() => {
+    if (!validationRules || validationRules.length === 0) return "";
+    const countValid = (rules: PasswordComplexityRule[]): [number, number] => {
+      let valid = 0;
+      let total = 0;
+      for (const r of rules) {
+        if (r.items && r.items.length > 0) {
+          const [v, t] = countValid(r.items);
+          valid += v;
+          total += t;
+        } else {
+          total += 1;
+          if (r.isValid) valid += 1;
+        }
+      }
+      return [valid, total];
+    };
+    const [valid, total] = countValid(validationRules);
+    if (total === 0) return "";
+    return valid === total
+      ? "Todos los requisitos de contraseña cumplidos."
+      : `${valid} de ${total} requisitos de contraseña cumplidos.`;
+  }, [validationRules]);
+
   if (!show || !validationRules || validationRules.length === 0) {
     return null;
   }
@@ -119,10 +150,22 @@ export const ULThemePasswordValidator = ({
         {passwordSecurityText}
       </div>
 
-      {/* aria-live="polite": cuando el usuario escribe y cambia el estado de una regla,
-          el narrador anuncia el cambio sin interrumpir la escritura.
-          aria-atomic="false": anuncia solo el <li> que cambió, no toda la lista. */}
-      <ul className="space-y-2" aria-live="polite" aria-atomic="false" aria-label={passwordSecurityText}>
+      {/* Anuncio sr-only con aria-live="polite": anuncia un resumen del estado cuando
+          cambia (ej: "2 de 4 requisitos cumplidos") sin interferir con el orden de
+          lectura secuencial del DOM. El aria-live NO va en el <ul> porque causaría
+          que el narrador lea los items anidados antes que los de primer nivel. */}
+      <div
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+      >
+        {liveAnnouncement}
+      </div>
+
+      {/* La lista NO tiene aria-live — el narrador la lee en orden secuencial del DOM
+          cuando el usuario navega con Tab/flechas. */}
+      <ul className="space-y-2" aria-label={passwordSecurityText}>
         {validationRules.map((rule) => renderValidationItem(rule))}
       </ul>
     </div>
