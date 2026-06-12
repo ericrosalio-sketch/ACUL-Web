@@ -78,7 +78,7 @@ const AlternativeLogins = () => {
         </div>
       ) : (
         // Desktop: botones alargados
-        <div className="space-y-3 mt-2">
+        <div className="space-y-5 mt-2">
           {alternateConnections.map((connection: SocialConnection) => {
             if (!connection?.name) {
               return null;

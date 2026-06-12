@@ -54,7 +54,7 @@ function SignupIdScreen() {
 
   return (
     <CoppelPageLayout className="theme-universal">
-      <ULThemeCard className="w-full max-w-[400px] gap-0">
+      <ULThemeCard className="w-full max-w-[400px] gap-4">
         {/* Header (logo + título) — ancho completo */}
         <Header />
 

@@ -13,21 +13,40 @@ import type {
 } from "@auth0/auth0-acul-react/types";
 
 import Captcha from "@/components/Captcha/index";
-import { ULThemeFloatingLabelField } from "@/components/form/ULThemeFloatingLabelField";
 import { ULThemeFormMessage } from "@/components/form/ULThemeFormMessage";
+import { ULThemeStaticLabelField } from "@/components/form/ULThemeStaticLabelField";
+import { ULThemeStaticPasswordField } from "@/components/form/ULThemeStaticPasswordField";
 import { Form, FormField, FormItem } from "@/components/ui/form";
 import { ULThemeButton } from "@/components/ULThemeButton";
+// Los siguientes imports solo se usan cuando SHOW_SIGNUP_CHECKBOXES = true
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ULThemeCheckbox } from "@/components/ULThemeCheckbox";
 import { ULThemeAlert, ULThemeAlertTitle } from "@/components/ULThemeError";
 import ULThemeLink from "@/components/ULThemeLink";
-import { ULThemePasswordField } from "@/components/ULThemePasswordField";
 import { ULThemePasswordValidator } from "@/components/ULThemePasswordValidator";
 import { useCaptcha } from "@/hooks/useCaptcha";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { COPPEL_URLS } from "@/constants/coppelConfig";
 import { getCanalByClientId } from "@/utils/helpers/canalUtils";
-import { pushClicHipervinculo, pushCrearCuentaForm, pushErrorGeneral } from "@/utils/helpers/dataLayerUtils";
+import {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  pushClicHipervinculo,
+  pushCrearCuentaForm,
+  pushErrorGeneral,
+} from "@/utils/helpers/dataLayerUtils";
 
 import { useSignupPasswordManager } from "../hooks/useSignupPasswordManager";
+
+/**
+ * Feature flag — controla si los checkboxes de Términos y Condiciones y
+ * Aviso de Privacidad se muestran en el formulario.
+ *
+ *  true  → los checkboxes se renderizan y AMBOS deben estar marcados para
+ *           que el botón "Crear cuenta" quede habilitado.
+ *  false → los checkboxes NO se renderizan y el botón solo depende de que
+ *           la contraseña cumpla los requisitos de seguridad.
+ */
+const SHOW_SIGNUP_CHECKBOXES = false;
 
 function SignupPasswordForm() {
   const {
@@ -71,13 +90,6 @@ function SignupPasswordForm() {
   const userPhone = screenData?.phoneNumber;
   const userUsername = screenData?.username;
 
-  // Edit link for readonly fields — uses ULThemeLink like Login-password
-  const editButton = (
-    <ULThemeLink href={editLink || ""}>
-      {locales.form.fields.email.editButton}
-    </ULThemeLink>
-  );
-
   // Use locale strings with fallback to SDK texts
   const buttonText = locales.form.button || texts?.buttonText;
   const captchaLabel = texts?.captchaCodePlaceholder
@@ -92,6 +104,34 @@ function SignupPasswordForm() {
   const phoneLabel = locales.form.fields.phone.label || texts?.phonePlaceholder || "";
   const usernameLabel =
     locales.form.fields.username.label || texts?.usernamePlaceholder || "";
+
+  // Edit links for readonly fields — each has a distinct aria-label so the
+  // narrator announces "Editar correo electrónico", "Editar celular", etc.
+  // instead of plain "Editar" repeated three times.
+  const editEmailButton = (
+    <ULThemeLink
+      href={editLink || ""}
+      aria-label={`${locales.form.fields.email.editButton} ${emailLabel}`}
+    >
+      {locales.form.fields.email.editButton}
+    </ULThemeLink>
+  );
+  const editPhoneButton = (
+    <ULThemeLink
+      href={editLink || ""}
+      aria-label={`${locales.form.fields.phone.editButton} ${phoneLabel}`}
+    >
+      {locales.form.fields.phone.editButton}
+    </ULThemeLink>
+  );
+  const editUsernameButton = (
+    <ULThemeLink
+      href={editLink || ""}
+      aria-label={`${locales.form.fields.username.editButton} ${usernameLabel}`}
+    >
+      {locales.form.fields.username.editButton}
+    </ULThemeLink>
+  );
 
   // Setup captcha with useCaptcha hook
   const { captchaConfig, captchaProps } = useCaptcha(
@@ -145,8 +185,10 @@ function SignupPasswordForm() {
   const [tycAccepted, setTycAccepted] = useState(false);
   const [privacidadAccepted, setPrivacidadAccepted] = useState(false);
 
-  // El botón solo se habilita cuando la contraseña es válida Y ambos checks están marcados
-  const isFormReady = !!passwordValue && isPasswordValid && tycAccepted && privacidadAccepted;
+  // El botón se habilita cuando la contraseña es válida y, si SHOW_SIGNUP_CHECKBOXES
+  // está activo, también cuando ambos checkboxes están marcados.
+  const checkboxesReady = SHOW_SIGNUP_CHECKBOXES ? tycAccepted && privacidadAccepted : true;
+  const isFormReady = !!passwordValue && isPasswordValid && checkboxesReady;
 
   // Simplified submit handler
   const onSubmit = async (data: SignupPasswordOptions) => {
@@ -191,16 +233,22 @@ function SignupPasswordForm() {
             <span id="readonly-email-hint" className="sr-only">
               Campo de solo lectura. Usa el enlace Editar para modificarlo.
             </span>
-            <ULThemeFloatingLabelField
-              id="signup-email-field"
-              label={emailLabel}
-              type="email"
-              value={userEmail}
-              readOnly
-              aria-readonly="true"
-              aria-describedby="readonly-email-hint"
-              endAdornment={editButton}
-            />
+            <div className="relative w-full mb-2">
+              <ULThemeStaticLabelField
+                id="signup-email-field"
+                label={emailLabel}
+                type="email"
+                value={userEmail}
+                readOnly
+                aria-readonly="true"
+                aria-describedby="readonly-email-hint"
+                className="pr-20"
+              />
+              {/* bottom-2 offsets the input's own mb-2 so the button is centred within the input */}
+              <div className="absolute right-3 bottom-2 h-14 flex items-center">
+                {editEmailButton}
+              </div>
+            </div>
           </>
         )}
 
@@ -210,17 +258,22 @@ function SignupPasswordForm() {
             <span id="readonly-phone-hint" className="sr-only">
               Campo de solo lectura. Usa el enlace Editar para modificarlo.
             </span>
-            <ULThemeFloatingLabelField
-              id="signup-phone-field"
-              label={phoneLabel}
-              type="tel"
-              value={userPhone}
-              readOnly
-              disabled
-              aria-readonly="true"
-              aria-describedby="readonly-phone-hint"
-              endAdornment={editButton}
-            />
+            <div className="relative w-full mb-2">
+              <ULThemeStaticLabelField
+                id="signup-phone-field"
+                label={phoneLabel}
+                type="tel"
+                value={userPhone}
+                readOnly
+                disabled
+                aria-readonly="true"
+                aria-describedby="readonly-phone-hint"
+                className="pr-20"
+              />
+              <div className="absolute right-3 bottom-2 h-14 flex items-center">
+                {editPhoneButton}
+              </div>
+            </div>
           </>
         )}
 
@@ -230,17 +283,22 @@ function SignupPasswordForm() {
             <span id="readonly-username-hint" className="sr-only">
               Campo de solo lectura. Usa el enlace Editar para modificarlo.
             </span>
-            <ULThemeFloatingLabelField
-              id="signup-username-field"
-              label={usernameLabel}
-              type="text"
-              value={userUsername}
-              readOnly
-              disabled
-              aria-readonly="true"
-              aria-describedby="readonly-username-hint"
-              endAdornment={editButton}
-            />
+            <div className="relative w-full mb-2">
+              <ULThemeStaticLabelField
+                id="signup-username-field"
+                label={usernameLabel}
+                type="text"
+                value={userUsername}
+                readOnly
+                disabled
+                aria-readonly="true"
+                aria-describedby="readonly-username-hint"
+                className="pr-20"
+              />
+              <div className="absolute right-3 bottom-2 h-14 flex items-center">
+                {editUsernameButton}
+              </div>
+            </div>
           </>
         )}
 
@@ -259,9 +317,10 @@ function SignupPasswordForm() {
           }}
           render={({ field, fieldState }) => (
             <FormItem>
-              <ULThemePasswordField
+              <ULThemeStaticPasswordField
                 {...field}
                 label={passwordLabel}
+                placeholder={locales.form.fields.password.placeholder}
                 error={!!fieldState.error || !!passwordError}
                 autoFocus={true}
                 showLabel={locales.form.fields.password.showLabel}
@@ -297,91 +356,107 @@ function SignupPasswordForm() {
           className="mb-4"
         />
 
-        {/* Checkbox — Términos y Condiciones
-            Patrón accesible: htmlFor + id en vez de wrappear en <label>.
-            Razón: si el checkbox está DENTRO de <label>, clicar el enlace también
-            activa el checkbox (bug de usabilidad). Con htmlFor el enlace funciona
-            de forma independiente y el narrador asocia correctamente el texto al checkbox.
-            El texto del enlace incluye "(abre en nueva ventana)" visible solo para
-            el narrador (sr-only) porque el enlace usa target="_blank". */}
-        <div className="flex items-start gap-3 mb-3 mt-2">
-          <ULThemeCheckbox
-            id="checkbox-tyc"
-            checked={tycAccepted}
-            onCheckedChange={(checked) => setTycAccepted(checked === true)}
-          />
-          <label
-            htmlFor="checkbox-tyc"
-            className="text-sm text-body-text leading-relaxed cursor-pointer"
-          >
-            {locales.checkboxes.tyc.prefix}
-            <a
-              href={COPPEL_URLS.tycUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-link-focus underline"
-              onClick={(e) => {
-                e.stopPropagation();
-                // dataLayer: evento clicClienteDigital al seleccionar el hipervínculo de TyC
-                pushClicHipervinculo(
-                  locales.checkboxes.tyc.linkText,
-                  "/crear-cuenta/crear-password",
-                  getCanalByClientId()
-                );
-              }}
-            >
-              {locales.checkboxes.tyc.linkText}
-              <span className="sr-only"> (abre en nueva ventana)</span>
-            </a>
-          </label>
-        </div>
+        {/* Checkboxes — Términos y Condiciones + Aviso de Privacidad.
+            Solo se renderizan cuando SHOW_SIGNUP_CHECKBOXES = true. */}
+        {SHOW_SIGNUP_CHECKBOXES && (
+          <>
+            {/* Patrón accesible: htmlFor + id en vez de wrappear en <label>.
+                Razón: si el checkbox está DENTRO de <label>, clicar el enlace también
+                activa el checkbox (bug de usabilidad). Con htmlFor el enlace funciona
+                de forma independiente y el narrador asocia correctamente el texto al checkbox.
+                El texto del enlace incluye "(abre en nueva ventana)" visible solo para
+                el narrador (sr-only) porque el enlace usa target="_blank". */}
+            <div className="flex items-start gap-3 mb-3 mt-2">
+              <ULThemeCheckbox
+                id="checkbox-tyc"
+                checked={tycAccepted}
+                onCheckedChange={(checked) => setTycAccepted(checked === true)}
+              />
+              <label
+                htmlFor="checkbox-tyc"
+                className="text-sm text-body-text leading-relaxed cursor-pointer"
+              >
+                {locales.checkboxes.tyc.prefix}
+                <ULThemeLink
+                  href={COPPEL_URLS.tycUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-bold"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    // dataLayer: evento clicClienteDigital al seleccionar el hipervínculo de TyC
+                    pushClicHipervinculo(
+                      locales.checkboxes.tyc.linkText,
+                      "/crear-cuenta/crear-password",
+                      getCanalByClientId()
+                    );
+                  }}
+                >
+                  {locales.checkboxes.tyc.linkText}
+                  <span className="sr-only"> (abre en nueva ventana)</span>
+                </ULThemeLink>
+              </label>
+            </div>
 
-        {/* Checkbox — Aviso de Privacidad */}
-        <div className="flex items-start gap-3 mb-4">
-          <ULThemeCheckbox
-            id="checkbox-privacidad"
-            checked={privacidadAccepted}
-            onCheckedChange={(checked) => setPrivacidadAccepted(checked === true)}
-          />
-          <label
-            htmlFor="checkbox-privacidad"
-            className="text-sm text-body-text leading-relaxed cursor-pointer"
-          >
-            {locales.checkboxes.privacidad.prefix}
-            <a
-              href={COPPEL_URLS.privacidadUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-link-focus underline"
-              onClick={(e) => {
-                e.stopPropagation();
-                // dataLayer: evento clicClienteDigital al seleccionar el hipervínculo de Privacidad
-                pushClicHipervinculo(
-                  locales.checkboxes.privacidad.linkText,
-                  "/crear-cuenta/crear-password",
-                  getCanalByClientId()
-                );
-              }}
-            >
-              {locales.checkboxes.privacidad.linkText}
-              <span className="sr-only"> (abre en nueva ventana)</span>
-            </a>
-          </label>
-        </div>
-
-        {/* Descripción oculta para lectores de pantalla: explica por qué el botón está deshabilitado. */}
-        {!isFormReady && (
-          <span id="password-requirements-hint" className="sr-only">
-            El botón estará habilitado cuando la contraseña cumpla con todos los requisitos de seguridad y hayas aceptado los Términos y Condiciones y el Aviso de Privacidad.
-          </span>
+            {/* Checkbox — Aviso de Privacidad */}
+            <div className="flex items-start gap-3 mb-4">
+              <ULThemeCheckbox
+                id="checkbox-privacidad"
+                checked={privacidadAccepted}
+                onCheckedChange={(checked) => setPrivacidadAccepted(checked === true)}
+              />
+              <label
+                htmlFor="checkbox-privacidad"
+                className="text-sm text-body-text leading-relaxed cursor-pointer"
+              >
+                {locales.checkboxes.privacidad.prefix}
+                <ULThemeLink
+                  href={COPPEL_URLS.privacidadUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-bold"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    // dataLayer: evento clicClienteDigital al seleccionar el hipervínculo de Privacidad
+                    pushClicHipervinculo(
+                      locales.checkboxes.privacidad.linkText,
+                      "/crear-cuenta/crear-password",
+                      getCanalByClientId()
+                    );
+                  }}
+                >
+                  {locales.checkboxes.privacidad.linkText}
+                  <span className="sr-only"> (abre en nueva ventana)</span>
+                </ULThemeLink>
+              </label>
+            </div>
+          </>
         )}
 
-        {/* Submit button — deshabilitado si la contraseña no es válida o algún checkbox no está marcado. */}
+        {/* Descripción siempre en el DOM para lectores de pantalla.
+            aria-live="polite" + aria-atomic="true": el narrador anuncia el mensaje
+            cuando cambia (botón se habilita/deshabilita) sin interrumpir al usuario.
+            Mantenerlo siempre en el DOM evita que el narrador pierda el contexto
+            del aria-describedby cuando isFormReady cambia a true. */}
+        <span
+          id="password-requirements-hint"
+          className="sr-only"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          {!isFormReady
+            ? SHOW_SIGNUP_CHECKBOXES
+              ? "El botón estará habilitado cuando la contraseña cumpla con todos los requisitos de seguridad y hayas aceptado los Términos y Condiciones y el Aviso de Privacidad."
+              : "El botón estará habilitado cuando la contraseña cumpla con todos los requisitos de seguridad."
+            : ""}
+        </span>
+
+        {/* Submit button — deshabilitado si la contraseña no es válida. */}
         <ULThemeButton
           type="submit"
           className="w-full"
           disabled={isSubmitting || !isFormReady}
-          aria-describedby={!isFormReady ? "password-requirements-hint" : undefined}
+          aria-describedby="password-requirements-hint"
         >
           {buttonText}
         </ULThemeButton>

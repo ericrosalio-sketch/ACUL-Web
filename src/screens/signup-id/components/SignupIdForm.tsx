@@ -163,7 +163,7 @@ function SignupIdForm() {
               - Cuando se añade un error: role="alert" dentro de ULThemeAlert lo anuncia de inmediato.
               - Cuando se hace dismiss: el contenido desaparece de este contenedor y
                 aria-live="polite" anuncia el cambio (el área quedó vacía) al narrador. */}
-          <div aria-live="polite" aria-atomic="false" className="space-y-3 mb-2">
+          <div aria-live="polite" aria-atomic="false" className="space-y-5 mb-2">
             {hasError && generalErrors.length > 0 &&
               generalErrors.map((error) => (
                 <ULThemeAlert
