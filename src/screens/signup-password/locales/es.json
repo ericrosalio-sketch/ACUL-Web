@@ -47,6 +47,16 @@
       "noRepeating": "No más de 2 caracteres idénticos seguidos"
     }
   },
+  "checkboxes": {
+    "tyc": {
+      "prefix": "He leído y acepto los ",
+      "linkText": "Términos y Condiciones"
+    },
+    "privacidad": {
+      "prefix": "He leído y acepto el ",
+      "linkText": "Aviso de Privacidad"
+    }
+  },
   "footer": {
     "text": "¿Ya tienes una cuenta?",
     "linkText": "Iniciar sesión"

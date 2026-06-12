@@ -51,7 +51,7 @@ const AlternativeLogins = () => {
           <p className="text-center theme-universal:text-(length:--ul-theme-font-input-labels-size) theme-universal:font-input-label text-[--coppel-color-text-dark]">
             {locales?.social?.mobileLabel}
           </p>
-          <div className="flex flex-row justify-center gap-6">
+          <div className="flex flex-row justify-between w-full max-w-[341px] h-[72px]">
             {alternateConnections.map((connection: SocialConnection) => {
               if (!connection?.name) {
                 return null;
@@ -66,9 +66,9 @@ const AlternativeLogins = () => {
                   variant="outline"
                   onClick={() => handleConnectionSignup(connection)}
                   aria-label={`${locales?.social?.continueWith} ${displayName}`}
-                  className="rounded-full w-20 h-20 p-0 flex items-center justify-center border:color:--ul-theme-color-secondary-button-border text-(color:--ul-theme-color-secondary-button-label)"
+                  className="rounded-full w-[72px] h-[72px] p-0 flex items-center justify-center border-0 text-(color:--ul-theme-color-secondary-button-label)"
                 >
-                  <span className="w-8 h-8 flex items-center justify-center">
+                  <span className="w-9 h-9 flex items-center justify-center">
                     {iconComponent}
                   </span>
                 </Button>

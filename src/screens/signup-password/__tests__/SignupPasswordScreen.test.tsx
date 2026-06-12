@@ -91,17 +91,48 @@ describe("SignupPasswordScreen", () => {
       hidden: true,
     });
 
-    // Sin contraseña, el botón debe estar deshabilitado (mismo patrón que SignupIdForm)
+    // Sin contraseña, el botón debe estar deshabilitado
     expect(submitButton).toBeDisabled();
     // aria-describedby debe apuntar a la pista accesible cuando el botón está deshabilitado
     expect(submitButton).toHaveAttribute("aria-describedby", "password-requirements-hint");
   });
 
-  it("button should be enabled when password passes validation", async () => {
+  it("button should remain disabled when password is valid but checkboxes are not checked", async () => {
+    await renderScreen();
+
+    // Ingresar una contraseña válida pero sin marcar los checkboxes
+    await ScreenTestUtils.fillInput(/Password/i, "ValidPass123!");
+
+    // El botón debe seguir deshabilitado porque los checkboxes no están marcados
+    const submitButton = screen.getByRole("button", {
+      name: SUBMIT_BUTTON_TEXT,
+      hidden: true,
+    });
+    expect(submitButton).toBeDisabled();
+    expect(submitButton).toHaveAttribute("aria-describedby", "password-requirements-hint");
+  });
+
+  it("button should be enabled when password passes validation and both checkboxes are checked", async () => {
     await renderScreen();
 
     // Ingresar una contraseña que cumple todos los requisitos
     await ScreenTestUtils.fillInput(/Password/i, "ValidPass123!");
+
+    // Marcar el checkbox de Términos y Condiciones
+    const tycCheckbox = screen.getByRole("checkbox", {
+      name: /Términos y Condiciones/i,
+    });
+    await act(async () => {
+      tycCheckbox.click();
+    });
+
+    // Marcar el checkbox de Aviso de Privacidad
+    const privacidadCheckbox = screen.getByRole("checkbox", {
+      name: /Aviso de Privacidad/i,
+    });
+    await act(async () => {
+      privacidadCheckbox.click();
+    });
 
     // Ahora el botón debe estar habilitado y sin aria-describedby
     const submitButton = screen.getByRole("button", { name: SUBMIT_BUTTON_TEXT });
@@ -109,15 +140,56 @@ describe("SignupPasswordScreen", () => {
     expect(submitButton).not.toHaveAttribute("aria-describedby");
   });
 
-  it("should successfully submit with valid password", async () => {
+  it("should render TyC and Aviso de Privacidad checkboxes", async () => {
+    await renderScreen();
+
+    // Los links con el texto de TyC y Aviso de Privacidad deben estar presentes
+    expect(screen.getByText("Términos y Condiciones")).toBeInTheDocument();
+    expect(screen.getByText("Aviso de Privacidad")).toBeInTheDocument();
+
+    // El prefijo del checkbox de TyC está en el mismo span que el link,
+    // así que buscamos usando una función de matcher que evalúe el textContent completo.
+    expect(
+      screen.getByText((_, element) =>
+        element?.tagName === "SPAN" &&
+        (element.textContent ?? "").includes("He leído y acepto") &&
+        (element.textContent ?? "").includes("Términos y Condiciones")
+      )
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText((_, element) =>
+        element?.tagName === "SPAN" &&
+        (element.textContent ?? "").includes("He leído y acepto el") &&
+        (element.textContent ?? "").includes("Aviso de Privacidad")
+      )
+    ).toBeInTheDocument();
+  });
+
+  it("should successfully submit with valid password and both checkboxes checked", async () => {
     await renderScreen();
     const mockSignupPasswordInstance = (useSignupPassword as jest.Mock)();
 
     // Use a password that will pass all validation rules
     const validPassword = "ValidPass123!";
 
-    // Ingresar la contraseña válida primero para habilitar el botón
+    // Ingresar la contraseña válida
     await ScreenTestUtils.fillInput(/Password/i, validPassword);
+
+    // Marcar ambos checkboxes
+    const tycCheckbox = screen.getByRole("checkbox", {
+      name: /Términos y Condiciones/i,
+    });
+    await act(async () => {
+      tycCheckbox.click();
+    });
+
+    const privacidadCheckbox = screen.getByRole("checkbox", {
+      name: /Aviso de Privacidad/i,
+    });
+    await act(async () => {
+      privacidadCheckbox.click();
+    });
 
     // Verify the component shows some validation success indicators
     const checkmarks = screen.queryAllByTestId(/^check-icon-/);

@@ -86,7 +86,7 @@ const CoppelPageHeader = ({
      *   padding: 8px 16px, gap: 16px, z-index: 10
      */
     <header
-      className="w-full flex flex-row justify-between items-center px-4 py-2 gap-4 z-10"
+      className="w-full flex flex-row justify-between max-[500px]:justify-center items-center px-4 py-2 gap-4 z-10"
       style={{
         backgroundColor: "var(--coppel-color-header-bg)", // #1C42E8
         borderBottom: "1px solid var(--coppel-color-border-light)", // #D9E3F2

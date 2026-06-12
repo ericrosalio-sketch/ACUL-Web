@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+
 import { useForm } from "react-hook-form";
 
 import {
@@ -15,13 +17,15 @@ import { ULThemeFloatingLabelField } from "@/components/form/ULThemeFloatingLabe
 import { ULThemeFormMessage } from "@/components/form/ULThemeFormMessage";
 import { Form, FormField, FormItem } from "@/components/ui/form";
 import { ULThemeButton } from "@/components/ULThemeButton";
+import { ULThemeCheckbox } from "@/components/ULThemeCheckbox";
 import { ULThemeAlert, ULThemeAlertTitle } from "@/components/ULThemeError";
 import ULThemeLink from "@/components/ULThemeLink";
 import { ULThemePasswordField } from "@/components/ULThemePasswordField";
 import { ULThemePasswordValidator } from "@/components/ULThemePasswordValidator";
 import { useCaptcha } from "@/hooks/useCaptcha";
+import { COPPEL_URLS } from "@/constants/coppelConfig";
 import { getCanalByClientId } from "@/utils/helpers/canalUtils";
-import { pushCrearCuentaForm } from "@/utils/helpers/dataLayerUtils";
+import { pushClicHipervinculo, pushCrearCuentaForm, pushErrorGeneral } from "@/utils/helpers/dataLayerUtils";
 
 import { useSignupPasswordManager } from "../hooks/useSignupPasswordManager";
 
@@ -112,6 +116,37 @@ function SignupPasswordForm() {
   // Get field-specific errors
   const passwordError = errors.byField("password")[0]?.message;
   const captchaSDKError = errors.byField("captcha")[0]?.message;
+
+  // Título de pantalla para eventos de error (según modelo de medición)
+  const PAGE_ERROR_TITLE = `${locales.header.title} - Password`;
+  const PAGE_ERROR_PATH = "crear-cuenta/crear-password";
+
+  // Rastrear errores ya taggeados para no duplicar eventos en re-renders
+  const taggedErrorIds = useRef<Set<string>>(new Set());
+
+  // dataLayer: disparar mensajeErrorGeneral cuando aparecen errores nuevos
+  useEffect(() => {
+    if (!hasError || generalErrors.length === 0) return;
+    generalErrors.forEach((error) => {
+      if (!taggedErrorIds.current.has(error.id)) {
+        taggedErrorIds.current.add(error.id);
+        pushErrorGeneral(
+          PAGE_ERROR_TITLE,
+          PAGE_ERROR_PATH,
+          error.id,
+          error.message,
+          getCanalByClientId()
+        );
+      }
+    });
+  }, [generalErrors, hasError, PAGE_ERROR_TITLE]);
+
+  // Estado de los checkboxes de TyC y Aviso de Privacidad
+  const [tycAccepted, setTycAccepted] = useState(false);
+  const [privacidadAccepted, setPrivacidadAccepted] = useState(false);
+
+  // El botón solo se habilita cuando la contraseña es válida Y ambos checks están marcados
+  const isFormReady = !!passwordValue && isPasswordValid && tycAccepted && privacidadAccepted;
 
   // Simplified submit handler
   const onSubmit = async (data: SignupPasswordOptions) => {
@@ -262,23 +297,91 @@ function SignupPasswordForm() {
           className="mb-4"
         />
 
-        {/* Descripción oculta para lectores de pantalla: explica por qué el botón está deshabilitado.
-            Solo se monta en el DOM cuando la contraseña no es válida o está vacía,
-            siguiendo el mismo patrón que SignupIdForm. */}
-        {(!isPasswordValid || !passwordValue) && (
+        {/* Checkbox — Términos y Condiciones
+            Patrón accesible: htmlFor + id en vez de wrappear en <label>.
+            Razón: si el checkbox está DENTRO de <label>, clicar el enlace también
+            activa el checkbox (bug de usabilidad). Con htmlFor el enlace funciona
+            de forma independiente y el narrador asocia correctamente el texto al checkbox.
+            El texto del enlace incluye "(abre en nueva ventana)" visible solo para
+            el narrador (sr-only) porque el enlace usa target="_blank". */}
+        <div className="flex items-start gap-3 mb-3 mt-2">
+          <ULThemeCheckbox
+            id="checkbox-tyc"
+            checked={tycAccepted}
+            onCheckedChange={(checked) => setTycAccepted(checked === true)}
+          />
+          <label
+            htmlFor="checkbox-tyc"
+            className="text-sm text-body-text leading-relaxed cursor-pointer"
+          >
+            {locales.checkboxes.tyc.prefix}
+            <a
+              href={COPPEL_URLS.tycUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-link-focus underline"
+              onClick={(e) => {
+                e.stopPropagation();
+                // dataLayer: evento clicClienteDigital al seleccionar el hipervínculo de TyC
+                pushClicHipervinculo(
+                  locales.checkboxes.tyc.linkText,
+                  "/crear-cuenta/crear-password",
+                  getCanalByClientId()
+                );
+              }}
+            >
+              {locales.checkboxes.tyc.linkText}
+              <span className="sr-only"> (abre en nueva ventana)</span>
+            </a>
+          </label>
+        </div>
+
+        {/* Checkbox — Aviso de Privacidad */}
+        <div className="flex items-start gap-3 mb-4">
+          <ULThemeCheckbox
+            id="checkbox-privacidad"
+            checked={privacidadAccepted}
+            onCheckedChange={(checked) => setPrivacidadAccepted(checked === true)}
+          />
+          <label
+            htmlFor="checkbox-privacidad"
+            className="text-sm text-body-text leading-relaxed cursor-pointer"
+          >
+            {locales.checkboxes.privacidad.prefix}
+            <a
+              href={COPPEL_URLS.privacidadUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-link-focus underline"
+              onClick={(e) => {
+                e.stopPropagation();
+                // dataLayer: evento clicClienteDigital al seleccionar el hipervínculo de Privacidad
+                pushClicHipervinculo(
+                  locales.checkboxes.privacidad.linkText,
+                  "/crear-cuenta/crear-password",
+                  getCanalByClientId()
+                );
+              }}
+            >
+              {locales.checkboxes.privacidad.linkText}
+              <span className="sr-only"> (abre en nueva ventana)</span>
+            </a>
+          </label>
+        </div>
+
+        {/* Descripción oculta para lectores de pantalla: explica por qué el botón está deshabilitado. */}
+        {!isFormReady && (
           <span id="password-requirements-hint" className="sr-only">
-            El botón estará habilitado cuando la contraseña cumpla con todos los requisitos de seguridad.
+            El botón estará habilitado cuando la contraseña cumpla con todos los requisitos de seguridad y hayas aceptado los Términos y Condiciones y el Aviso de Privacidad.
           </span>
         )}
 
-        {/* Submit button — deshabilitado si la contraseña está vacía o no cumple los requisitos.
-            Mismo patrón que SignupIdForm: solo atributo disabled nativo + aria-describedby
-            que apunta a la pista accesible cuando el botón no está disponible. */}
+        {/* Submit button — deshabilitado si la contraseña no es válida o algún checkbox no está marcado. */}
         <ULThemeButton
           type="submit"
           className="w-full"
-          disabled={isSubmitting || !passwordValue || !isPasswordValid}
-          aria-describedby={(!passwordValue || !isPasswordValid) ? "password-requirements-hint" : undefined}
+          disabled={isSubmitting || !isFormReady}
+          aria-describedby={!isFormReady ? "password-requirements-hint" : undefined}
         >
           {buttonText}
         </ULThemeButton>
