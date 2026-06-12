@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type React from "react";
 
 import {
   ULThemeStaticLabelField,
@@ -53,14 +54,29 @@ export const ULThemeStaticPasswordField = ({
   // para que el narrador no lo anuncie. El hint visual lo provee el <span>.
   const hasValue = value !== undefined && value !== "";
 
+  // Siempre usamos type="text" para evitar que el narrador anuncie "contraseña"
+  // como parte del rol del input (lo que causaba "Contraseña, edición, contraseña,
+  // en blanco"). Cuando la contraseña está oculta, -webkit-text-security:disc
+  // muestra los bullets visualmente sin cambiar el tipo semántico del input.
+  // Cuando está visible, se remueve esa propiedad CSS y el texto se muestra normal.
+  const textSecurityStyle: React.CSSProperties = !showPassword
+    ? ({
+        WebkitTextSecurity: "disc",
+        // Firefox no soporta -webkit-text-security, pero tampoco añade "contraseña"
+        // al anuncio del rol, así que el problema solo existe en Chromium/Safari.
+      } as React.CSSProperties)
+    : {};
+
   return (
     <div className="relative w-full">
       <ULThemeStaticLabelField
         {...props}
         value={value}
+        // Siempre type="text" — la apariencia de password se logra via CSS
+        type="text"
         // Si hay visualPlaceholder, se omite el placeholder HTML del input
         placeholder={visualPlaceholder ? "" : props.placeholder}
-        type={showPassword ? "text" : "password"}
+        style={textSecurityStyle}
         className={cn(
           // Extra right padding so the text does not overlap the toggle button
           "pr-24",
