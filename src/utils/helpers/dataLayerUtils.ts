@@ -113,7 +113,30 @@ export function pushCrearCuentaSocial(
 }
 
 /**
+ * Click en cualquier hipervínculo dentro de una pantalla (ej. TyC, Aviso de privacidad).
+ *
+ * event: 'clicClienteDigital'
+ *
+ * @param interaccionNombre  Texto del hipervínculo clickeado (ej. 'Términos y condiciones')
+ * @param page               Path amigable de la página donde ocurrió el click
+ * @param canal              Canal detectado por getCanalByClientId()
+ */
+export function pushClicHipervinculo(
+  interaccionNombre: string,
+  page: string,
+  canal: Canal
+): void {
+  push({
+    interaccionNombre,
+    page,
+    canal,
+    event: "clicClienteDigital",
+  });
+}
+
+/**
  * Click en el link "Inicia sesión" del footer de las pantallas de registro.
+ * Reutiliza pushClicHipervinculo con el interaccionNombre fijo "Inicia Sesión".
  *
  * event: 'clicClienteDigital'
  *
@@ -121,11 +144,37 @@ export function pushCrearCuentaSocial(
  * @param canal  Canal detectado por getCanalByClientId()
  */
 export function pushIniciarSesion(page: string, canal: Canal): void {
+  pushClicHipervinculo("Inicia Sesión", page, canal);
+}
+
+/**
+ * Error de validación o servidor presentado al usuario en una pantalla de registro.
+ *
+ * event: 'mensajeErrorGeneral'
+ *
+ * @param tituloPantalla  Título visible de la pantalla donde ocurrió el error
+ *                        (ej. 'Crea tu cuenta - Password')
+ * @param page            Path amigable de la página (ej. 'crear-cuenta/crear-password')
+ * @param errorId         Código o identificador del error (ej. 'user_already_exists')
+ * @param errorMensaje    Mensaje de error visible para el usuario
+ * @param canal           Canal detectado por getCanalByClientId()
+ */
+export function pushErrorGeneral(
+  tituloPantalla: string,
+  page: string,
+  errorId: string,
+  errorMensaje: string,
+  canal: Canal
+): void {
   push({
-    interaccionNombre: "Inicia Sesión",
+    interaccionNombre: `Error - ${tituloPantalla}`,
     page,
     canal,
-    event: "clicClienteDigital",
+    error: {
+      id: errorId,
+      mensaje: errorMensaje,
+    },
+    event: "mensajeErrorGeneral",
   });
 }
 

@@ -39,7 +39,10 @@ const ulThemeFloatingLabelFieldVariants = cva(
     "theme-universal:[&_label]:bg-input-bg",
 
     // Floating Label - Base Styling (applies to all labels)
+    // When label is in placeholder position (not floating): use placeholder/input-labels color
     "theme-universal:[&_label]:text-input-labels",
+    // When label is floating (scale-80 class is applied by the base component): use dark text color
+    "theme-universal:[&_label.scale-80]:text-(--coppel-color-text-dark)",
     "theme-universal:[&_label]:text-(length:--ul-theme-font-input-labels-size)",
     "theme-universal:[&_label]:font-input-label",
   ],

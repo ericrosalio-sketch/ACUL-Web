@@ -67,8 +67,8 @@ const ulThemeStaticLabelVariants = cva(
     variants: {
       themeState: {
         default: [
-          // Use the header color token for the static label
-          "text-[--ul-theme-color-header]",
+          // Use the Coppel dark text color for the static label
+          "text-(--coppel-color-text-dark)",
         ],
         error: [
           "theme-universal:text-error",

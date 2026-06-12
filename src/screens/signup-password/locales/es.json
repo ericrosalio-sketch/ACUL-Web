@@ -45,10 +45,16 @@
       "numbers": "Números (0-9)",
       "specialChars": "Caracteres especiales (!;?.#)",
       "noRepeating": "No más de 2 caracteres idénticos seguidos"
+    }
+  },
+  "checkboxes": {
+    "tyc": {
+      "prefix": "He leído y acepto los ",
+      "linkText": "Términos y Condiciones"
     },
-    "loginPrompt": {
-      "text": "¿Ya tienes una cuenta?",
-      "linkText": "Inicia sesión"
+    "privacidad": {
+      "prefix": "He leído y acepto el ",
+      "linkText": "Aviso de Privacidad"
     }
   },
   "footer": {

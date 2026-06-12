@@ -14,6 +14,8 @@ import Header from "./components/Header";
 import SignupIdForm from "./components/SignupIdForm";
 import { useSignupIdManager } from "./hooks/useSignupIdManager";
 
+
+
 function SignupIdScreen() {
   const { signupId, texts, locales, alternateConnections } = useSignupIdManager();
 
@@ -31,34 +33,40 @@ function SignupIdScreen() {
   const showSeparator = alternateConnections && alternateConnections.length > 0;
   const separatorText = locales?.page?.separator || texts?.separatorText;
 
+  // Leer la posición configurada desde la CSS variable (set por applyScreenThemeOverrides)
+  const socialButtonsPosition =
+    getComputedStyle(document.documentElement)
+      .getPropertyValue("--ul-signup-id-social-buttons-position")
+      .trim() || "bottom";
+
+  // Bloque reutilizable: separador + botones sociales
+  const renderSocialLogins = (alignment: "top" | "bottom") => (
+    <>
+      {alignment === "bottom" && showSeparator && (
+        <ULThemeSeparator text={separatorText} />
+      )}
+      <AlternativeLogins />
+      {alignment === "top" && showSeparator && (
+        <ULThemeSeparator text={separatorText} />
+      )}
+    </>
+  );
+
   return (
     <CoppelPageLayout className="theme-universal">
-      <ULThemeCard className="w-full max-w-[400px] gap-0">
+      <ULThemeCard className="w-full max-w-[400px] gap-4">
         {/* Header (logo + título) — ancho completo */}
         <Header />
 
-        {/* Contenedor principal con separación clara entre formulario y botones sociales */}
-        <div className="flex flex-col gap-6 items-stretch mt-2">
+        {/* ── Sociales arriba cuando position = "top" ── */}
+        {socialButtonsPosition === "top" && renderSocialLogins("top")}
 
-          {/* ── Sección superior: formulario y footer ── */}
-          <div className="flex-1 flex flex-col">
-            <SignupIdForm />
-            <Footer />
-          </div>
+        {/* ── Formulario principal ── */}
+        <SignupIdForm />
+        <Footer />
 
-          {/* ── Separador horizontal — usa ULThemeSeparator para consistencia y
-              accesibilidad (aria-hidden ya aplicado en el componente) ── */}
-          {showSeparator && (
-            <ULThemeSeparator text={separatorText} />
-          )}
-
-          {/* ── Sección inferior: botones sociales ── */}
-          {showSeparator && (
-            <div className="flex flex-col justify-center gap-3">
-              <AlternativeLogins />
-            </div>
-          )}
-        </div>
+        {/* ── Sociales abajo cuando position = "bottom" ── */}
+        {socialButtonsPosition === "bottom" && renderSocialLogins("bottom")}
       </ULThemeCard>
     </CoppelPageLayout>
   );

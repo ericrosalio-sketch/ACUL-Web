@@ -15,8 +15,9 @@ export interface ULThemeCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const ULThemeCard = ({ children, className, ...rest }: ULThemeCardProps) => {
   const themeClasses = cn(
-    "px-10",
-    "py-10",
+    "px-5",  // Base padding - overridden by theme variable --ul-theme-card-padding (if set)
+    "py-0",  // Base padding - overridden by theme variable --ul-theme-card-padding (if set)
+    "min-w-[360px]",
     "theme-universal:bg-widget-bg",
     "theme-universal:border-(--color-widget-border)",
     "theme-universal:rounded-widget",

@@ -31,8 +31,9 @@ const ULThemeLink = ({
   ...props
 }: ULThemeLinkProps) => {
   // Base component styles
+  // hover: subrayado sin cambio de color (homologado con footer de Coppel)
   const baseStyles =
-    "text-link-focus text-(length:--ul-theme-font-links-size) font-(weight:--ul-theme-font-links-weight) focus:rounded-(--ul-theme-border-links-border-radius) hover:text-link-focus/80";
+    "text-link-focus text-(length:--ul-theme-font-links-size) font-(weight:--ul-theme-font-links-weight) focus:rounded-(--ul-theme-border-links-border-radius) hover:underline hover:text-link-focus";
 
   // Disabled state styles
   const disabledStyles = disabled

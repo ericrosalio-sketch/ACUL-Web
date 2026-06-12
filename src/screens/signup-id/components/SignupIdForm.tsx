@@ -24,6 +24,7 @@ import { getIndividualIdentifierDetails } from "@/utils/helpers/identifierUtils"
 import { createUsernameValidator } from "@/utils/validations";
 
 import { useSignupIdManager } from "../hooks/useSignupIdManager";
+import ULThemeSubtitle from "@/components/ULThemeSubtitle";
 
 function SignupIdForm() {
   const {
@@ -50,6 +51,8 @@ function SignupIdForm() {
     formState: { isSubmitting },
     watch,
   } = form;
+
+  const description = locales.header.description || texts?.description;
 
   // Get username validation
   const userNameValue = watch("username");
@@ -152,64 +155,67 @@ function SignupIdForm() {
   const isEmailValid = isValidEmail(userEmail);
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} aria-label="Crear cuenta">
-        {/* Contenedor aria-live siempre presente en el DOM.
-            - Cuando se añade un error: role="alert" dentro de ULThemeAlert lo anuncia de inmediato.
-            - Cuando se hace dismiss: el contenido desaparece de este contenedor y
-              aria-live="polite" anuncia el cambio (el área quedó vacía) al narrador. */}
-        <div aria-live="polite" aria-atomic="false" className="space-y-3 mb-4">
-          {hasError && generalErrors.length > 0 &&
-            generalErrors.map((error) => (
-              <ULThemeAlert
-                key={error.id}
-                variant="destructive"
-                onDismiss={() => dismiss(error.id)}
-              >
-                <ULThemeAlertTitle>{error.message}</ULThemeAlertTitle>
-              </ULThemeAlert>
-            ))
-          }
-        </div>
-        
-        {/* Email field - REQUIRED (label is rendered inside ULThemeStaticLabelField) */}
-        {renderIdentifierField('email', true)}
+    <>
+      <ULThemeSubtitle>{description}</ULThemeSubtitle>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} aria-label="Crear cuenta">
+          {/* Contenedor aria-live siempre presente en el DOM.
+              - Cuando se añade un error: role="alert" dentro de ULThemeAlert lo anuncia de inmediato.
+              - Cuando se hace dismiss: el contenido desaparece de este contenedor y
+                aria-live="polite" anuncia el cambio (el área quedó vacía) al narrador. */}
+          <div aria-live="polite" aria-atomic="false" className="space-y-5 mb-2">
+            {hasError && generalErrors.length > 0 &&
+              generalErrors.map((error) => (
+                <ULThemeAlert
+                  key={error.id}
+                  variant="destructive"
+                  onDismiss={() => dismiss(error.id)}
+                >
+                  <ULThemeAlertTitle>{error.message}</ULThemeAlertTitle>
+                </ULThemeAlert>
+              ))
+            }
+          </div>
+          
+          {/* Email field - REQUIRED (label is rendered inside ULThemeStaticLabelField) */}
+          {renderIdentifierField('email', true)}
 
 
-        {/* CAPTCHA Box */}
-        {isCaptchaAvailable && captchaConfig && (
-          <Captcha
-            control={form.control}
-            name="captcha"
-            captcha={captchaConfig}
-            {...captchaProps}
-            sdkError={captchaSDKError}
-            rules={{
-              required: locales.form.fields.captcha.required,
-            }}
-          />
-        )}
+          {/* CAPTCHA Box */}
+          {isCaptchaAvailable && captchaConfig && (
+            <Captcha
+              control={form.control}
+              name="captcha"
+              captcha={captchaConfig}
+              {...captchaProps}
+              sdkError={captchaSDKError}
+              rules={{
+                required: locales.form.fields.captcha.required,
+              }}
+            />
+          )}
 
-        {/* Hidden description for screen readers when the submit button is disabled.
-            aria-describedby on the button points here so the narrator announces
-            the reason instead of just "botón deshabilitado". */}
-        {!isEmailValid && (
-          <span id="submit-btn-hint" className="sr-only">
-            Ingresa un correo electrónico válido para continuar
-          </span>
-        )}
+          {/* Hidden description for screen readers when the submit button is disabled.
+              aria-describedby on the button points here so the narrator announces
+              the reason instead of just "botón deshabilitado". */}
+          {!isEmailValid && (
+            <span id="submit-btn-hint" className="sr-only">
+              Ingresa un correo electrónico válido para continuar
+            </span>
+          )}
 
-        {/* Submit button */}
-        <ULThemeButton
-          type="submit"
-          className="w-full"
-          disabled={isSubmitting || !isEmailValid}
-          aria-describedby={!isEmailValid ? "submit-btn-hint" : undefined}
-        >
-          {buttonText}
-        </ULThemeButton>
-      </form>
-    </Form>
+          {/* Submit button */}
+          <ULThemeButton
+            type="submit"
+            className="w-full"
+            disabled={isSubmitting || !isEmailValid}
+            aria-describedby={!isEmailValid ? "submit-btn-hint" : undefined}
+          >
+            {buttonText}
+          </ULThemeButton>
+        </form>
+      </Form>
+    </>
   );
 }
 

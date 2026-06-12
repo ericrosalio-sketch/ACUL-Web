@@ -15,14 +15,16 @@ function SignupPasswordScreen() {
   // Extracting attributes from hook made out of SignupPasswordInstance class of Auth0 React ACUL SDK
   const { signupPassword, texts, locales } = useSignupPasswordManager();
 
-  document.title = locales.page.title || texts?.pageTitle || "";
-
   // Apply theme from SDK instance when screen loads
   applyAuth0Theme(signupPassword);
 
-  // dataLayer: page view al montar la pantalla de contraseña
+  // Actualiza el título del documento y dispara el page view al montar la pantalla.
+  // document.title se asigna dentro de useEffect para que el narrador anuncie el título
+  // correcto en el primer render (evita que lea el título del render anterior).
   useEffect(() => {
+    document.title = locales.page.title || texts?.pageTitle || "";
     pushPageView("/crear-cuenta", "Registro de clientes", getCanalByClientId());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

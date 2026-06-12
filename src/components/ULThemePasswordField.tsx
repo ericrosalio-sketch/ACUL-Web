@@ -40,9 +40,8 @@ export const ULThemePasswordField = ({
         // Border Radius - matches input field
         "theme-universal:rounded-r-input theme-universal:rounded-l-none",
 
-        // Colors - texto azul Coppel como en el template
-        "text-primary-button hover:text-base-hover-color",
-        "text-link-focus text-(length:--ul-theme-font-links-size) font-(weight:--ul-theme-font-links-weight) focus:rounded-(--ul-theme-border-links-border-radius) hover:text-link-focus/80",
+        // Colors - hover: subrayado sin cambio de color (homologado con ULThemeLink)
+        "text-link-focus text-(length:--ul-theme-font-links-size) font-(weight:--ul-theme-font-links-weight) focus:rounded-(--ul-theme-border-links-border-radius) hover:underline hover:text-link-focus",
 
         // Transitions
         "transition-colors",
@@ -58,7 +57,7 @@ export const ULThemePasswordField = ({
 
         buttonClassName
       )}
-      aria-label={showPassword ? hideLabel : showLabel}
+      aria-pressed={showPassword}
     >
       {showPassword ? hideLabel : showLabel}
     </button>

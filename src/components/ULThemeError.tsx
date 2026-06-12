@@ -83,7 +83,8 @@ function ULThemeAlert({
           )}
           aria-label="Cerrar"
         >
-          <X className="h-4 w-4" />
+          {/* aria-hidden: ícono decorativo, el botón ya tiene aria-label="Cerrar" */}
+          <X className="h-4 w-4" aria-hidden="true" />
         </button>
       )}
     </div>

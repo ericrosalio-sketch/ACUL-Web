@@ -22,10 +22,12 @@ function Checkbox({
         data-slot="checkbox-indicator"
         className="data-checked:animate-in data-unchecked:animate-out data-unchecked:fade-out-0 data-checked:fade-in-0 data-unchecked:slide-out-to-bottom-5 data-unchecked:zoom-out-75 data-checked:zoom-in-75 data-checked:slide-in-from-bottom-5 text-primary-foreground stroke-primary-foreground flex duration-150 ease-in-out data-checked:block data-unchecked:hidden"
       >
+        {/* aria-hidden: íconos decorativos — el estado checked/unchecked ya lo
+            comunica el rol nativo "checkbox" del CheckboxPrimitive.Root */}
         {props.indeterminate ? (
-          <MinusIcon className="size-3 stroke-[4px]" absoluteStrokeWidth />
+          <MinusIcon className="size-3 stroke-[4px]" absoluteStrokeWidth aria-hidden="true" />
         ) : (
-          <CheckIcon className="size-3 stroke-[4px]" absoluteStrokeWidth />
+          <CheckIcon className="size-3 stroke-[4px]" absoluteStrokeWidth aria-hidden="true" />
         )}
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
