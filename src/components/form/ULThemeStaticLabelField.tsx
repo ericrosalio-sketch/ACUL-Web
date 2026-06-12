@@ -91,6 +91,13 @@ export interface ULThemeStaticLabelFieldProps
   wrapperClassName?: string;
   /** Marks the field as required (adds * to label) */
   isRequired?: boolean;
+  /**
+   * Cuando es `true`, aplica `aria-hidden="true"` al `<div>` wrapper completo
+   * (label + input), ocultando todo el componente del árbol de accesibilidad.
+   * Útil para campos de solo lectura cuya información ya se provee via un
+   * elemento padre con `aria-label` descriptivo.
+   */
+  wrapperAriaHidden?: boolean;
 }
 
 /**
@@ -104,6 +111,7 @@ function ULThemeStaticLabelField({
   error = false,
   wrapperClassName,
   isRequired,
+  wrapperAriaHidden,
   className,
   ...props
 }: ULThemeStaticLabelFieldProps) {
@@ -117,7 +125,10 @@ function ULThemeStaticLabelField({
   const themeState = error ? "error" : "default";
 
   return (
-    <div className={cn("w-full", wrapperClassName)}>
+    <div
+      aria-hidden={wrapperAriaHidden || undefined}
+      className={cn("w-full", wrapperClassName)}
+    >
       {/* Static label – always visible above the input, correctly associated */}
       <label
         htmlFor={formItemId}

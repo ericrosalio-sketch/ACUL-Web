@@ -226,26 +226,23 @@ function SignupPasswordForm() {
         </div>
 
         {/* Campos de solo lectura (correo / celular / nombre de usuario).
-            WCAG 4.1.2: el narrador debe anunciar [nombre] [rol] [estado] [valor].
-            Para un campo readonly con valor visible, el anuncio correcto es:
-            "Correo electrónico, edición de correo electrónico, solo lectura, usuario@ejemplo.com"
-            
-            Decisiones de implementación:
-            - aria-label en el <input> provee el nombre accesible directamente,
-              sin depender de la asociación htmlFor/id (que requiere FormItem context).
-            - readOnly nativo comunica "solo lectura" al narrador sin necesidad de
-              aria-readonly redundante.
-            - Sin aria-describedby: el hint largo "campo de solo lectura, usa el enlace..."
-              generaba un anuncio desordenado y verboso. El enlace "Editar" con su
-              aria-label descriptivo ("Editar correo electrónico") es suficiente contexto. */}
+            El <div role="group" aria-label="Correo electrónico: user@email.com"> provee
+            el anuncio limpio al narrador: "[campo]: [valor]".
+            wrapperAriaHidden={true} oculta el <label> y el <input> al árbol AT para
+            evitar redundancias — el único anuncio viene del aria-label del grupo padre.
+            El enlace "Editar [campo]" sigue siendo accesible con su aria-label descriptivo. */}
         {userEmail && (
-          <div className="relative w-full mb-2">
+          <div
+            role="group"
+            aria-label={`${emailLabel}: ${userEmail}`}
+            className="relative w-full mb-2"
+          >
             <ULThemeStaticLabelField
               label={emailLabel}
-              aria-label={emailLabel}
               type="email"
               value={userEmail}
               readOnly
+              wrapperAriaHidden={true}
               className="pr-20"
             />
             <div className="absolute right-3 bottom-2 h-14 flex items-center">
@@ -255,14 +252,18 @@ function SignupPasswordForm() {
         )}
 
         {userPhone && (
-          <div className="relative w-full mb-2">
+          <div
+            role="group"
+            aria-label={`${phoneLabel}: ${userPhone}`}
+            className="relative w-full mb-2"
+          >
             <ULThemeStaticLabelField
               label={phoneLabel}
-              aria-label={phoneLabel}
               type="tel"
               value={userPhone}
               readOnly
               disabled
+              wrapperAriaHidden={true}
               className="pr-20"
             />
             <div className="absolute right-3 bottom-2 h-14 flex items-center">
@@ -272,14 +273,18 @@ function SignupPasswordForm() {
         )}
 
         {userUsername && (
-          <div className="relative w-full mb-2">
+          <div
+            role="group"
+            aria-label={`${usernameLabel}: ${userUsername}`}
+            className="relative w-full mb-2"
+          >
             <ULThemeStaticLabelField
               label={usernameLabel}
-              aria-label={usernameLabel}
               type="text"
               value={userUsername}
               readOnly
               disabled
+              wrapperAriaHidden={true}
               className="pr-20"
             />
             <div className="absolute right-3 bottom-2 h-14 flex items-center">
