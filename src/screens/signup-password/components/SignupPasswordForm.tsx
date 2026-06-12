@@ -225,81 +225,67 @@ function SignupPasswordForm() {
           }
         </div>
 
-        {/* Readonly email field.
-            aria-readonly + aria-describedby informan al narrador que el campo
-            no es editable aquí y que puede usar el enlace "Editar" para cambiarlo. */}
+        {/* Campos de solo lectura (correo / celular / nombre de usuario).
+            WCAG 4.1.2: el narrador debe anunciar [nombre] [rol] [estado] [valor].
+            Para un campo readonly con valor visible, el anuncio correcto es:
+            "Correo electrónico, edición de correo electrónico, solo lectura, usuario@ejemplo.com"
+            
+            Decisiones de implementación:
+            - aria-label en el <input> provee el nombre accesible directamente,
+              sin depender de la asociación htmlFor/id (que requiere FormItem context).
+            - readOnly nativo comunica "solo lectura" al narrador sin necesidad de
+              aria-readonly redundante.
+            - Sin aria-describedby: el hint largo "campo de solo lectura, usa el enlace..."
+              generaba un anuncio desordenado y verboso. El enlace "Editar" con su
+              aria-label descriptivo ("Editar correo electrónico") es suficiente contexto. */}
         {userEmail && (
-          <>
-            <span id="readonly-email-hint" className="sr-only">
-              Campo de solo lectura. Usa el enlace Editar para modificarlo.
-            </span>
-            <div className="relative w-full mb-2">
-              <ULThemeStaticLabelField
-                id="signup-email-field"
-                label={emailLabel}
-                type="email"
-                value={userEmail}
-                readOnly
-                aria-readonly="true"
-                aria-describedby="readonly-email-hint"
-                className="pr-20"
-              />
-              {/* bottom-2 offsets the input's own mb-2 so the button is centred within the input */}
-              <div className="absolute right-3 bottom-2 h-14 flex items-center">
-                {editEmailButton}
-              </div>
+          <div className="relative w-full mb-2">
+            <ULThemeStaticLabelField
+              label={emailLabel}
+              aria-label={emailLabel}
+              type="email"
+              value={userEmail}
+              readOnly
+              className="pr-20"
+            />
+            <div className="absolute right-3 bottom-2 h-14 flex items-center">
+              {editEmailButton}
             </div>
-          </>
+          </div>
         )}
 
-        {/* Readonly phone field */}
         {userPhone && (
-          <>
-            <span id="readonly-phone-hint" className="sr-only">
-              Campo de solo lectura. Usa el enlace Editar para modificarlo.
-            </span>
-            <div className="relative w-full mb-2">
-              <ULThemeStaticLabelField
-                id="signup-phone-field"
-                label={phoneLabel}
-                type="tel"
-                value={userPhone}
-                readOnly
-                disabled
-                aria-readonly="true"
-                aria-describedby="readonly-phone-hint"
-                className="pr-20"
-              />
-              <div className="absolute right-3 bottom-2 h-14 flex items-center">
-                {editPhoneButton}
-              </div>
+          <div className="relative w-full mb-2">
+            <ULThemeStaticLabelField
+              label={phoneLabel}
+              aria-label={phoneLabel}
+              type="tel"
+              value={userPhone}
+              readOnly
+              disabled
+              className="pr-20"
+            />
+            <div className="absolute right-3 bottom-2 h-14 flex items-center">
+              {editPhoneButton}
             </div>
-          </>
+          </div>
         )}
 
-        {/* Readonly username field */}
         {userUsername && (
-          <>
-            <span id="readonly-username-hint" className="sr-only">
-              Campo de solo lectura. Usa el enlace Editar para modificarlo.
-            </span>
-            <div className="relative w-full mb-2">
-              <ULThemeStaticLabelField
-                id="signup-username-field"
-                label={usernameLabel}
-                type="text"
-                value={userUsername}
-                readOnly
-                disabled
-                aria-readonly="true"
-                aria-describedby="readonly-username-hint"
-                className="pr-20"
-              />
-              <div className="absolute right-3 bottom-2 h-14 flex items-center">
-                {editUsernameButton}
-              </div>
+          <div className="relative w-full mb-2">
+            <ULThemeStaticLabelField
+              label={usernameLabel}
+              aria-label={usernameLabel}
+              type="text"
+              value={userUsername}
+              readOnly
+              disabled
+              className="pr-20"
+            />
+            <div className="absolute right-3 bottom-2 h-14 flex items-center">
+              {editUsernameButton}
             </div>
-          </>
+          </div>
         )}
 
         {/* Password field */}
@@ -317,10 +303,16 @@ function SignupPasswordForm() {
           }}
           render={({ field, fieldState }) => (
             <FormItem>
+              {/* visualPlaceholder en lugar de placeholder:
+                  el texto de hint se renderiza como <span aria-hidden="true">
+                  dentro del campo, por lo que el narrador NO lo anuncia.
+                  El <input> queda con placeholder="" (vacío), evitando el anuncio
+                  "Contraseña, edición, escribe una contraseña, en blanco".
+                  El hint sigue siendo visible visualmente según el diseño de UX. */}
               <ULThemeStaticPasswordField
                 {...field}
                 label={passwordLabel}
-                placeholder={locales.form.fields.password.placeholder}
+                visualPlaceholder={locales.form.fields.password.placeholder}
                 error={!!fieldState.error || !!passwordError}
                 autoFocus={true}
                 showLabel={locales.form.fields.password.showLabel}
