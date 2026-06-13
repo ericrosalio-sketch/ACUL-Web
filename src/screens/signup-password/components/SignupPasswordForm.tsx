@@ -233,7 +233,7 @@ function SignupPasswordForm() {
             El enlace "Editar [campo]" sigue siendo accesible con su aria-label descriptivo. */}
         {userEmail && (
           <div
-            aria-label={`${emailLabel}: ${userEmail}`}
+            aria-hidden={true}
             className="relative w-full mb-2"
           >
             <ULThemeStaticLabelField
@@ -243,7 +243,7 @@ function SignupPasswordForm() {
               readOnly
               wrapperAriaHidden={true}
               className="pr-20"
-              aria-hidden="true"
+              aria-hidden={true}
             />
             <div className="absolute right-3 bottom-2 h-14 flex items-center">
               {editEmailButton}
