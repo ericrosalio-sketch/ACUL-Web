@@ -116,7 +116,7 @@ export const ULThemePasswordValidator = ({
     if (pendingLabels.length === 0) {
       return "Todos los requisitos de contraseña cumplidos.";
     }
-    return `Requisitos pendientes: ${pendingLabels.join(", ")}.`;
+    return `A tu contraseña le falta: ${pendingLabels.join(", ")}.`;
   }, [validationRules, passwordValue]);
 
   if (!show || !validationRules || validationRules.length === 0) {

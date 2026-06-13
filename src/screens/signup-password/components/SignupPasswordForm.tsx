@@ -112,7 +112,7 @@ function SignupPasswordForm() {
     <ULThemeLink
       href={editLink || ""}
       aria-label={`${locales.form.fields.email.editButton} ${emailLabel}`}
-    >
+      >
       {locales.form.fields.email.editButton}
     </ULThemeLink>
   );
@@ -233,7 +233,6 @@ function SignupPasswordForm() {
             El enlace "Editar [campo]" sigue siendo accesible con su aria-label descriptivo. */}
         {userEmail && (
           <div
-            role="group"
             aria-label={`${emailLabel}: ${userEmail}`}
             className="relative w-full mb-2"
           >
@@ -244,6 +243,7 @@ function SignupPasswordForm() {
               readOnly
               wrapperAriaHidden={true}
               className="pr-20"
+              aria-hidden="true"
             />
             <div className="absolute right-3 bottom-2 h-14 flex items-center">
               {editEmailButton}
@@ -253,7 +253,6 @@ function SignupPasswordForm() {
 
         {userPhone && (
           <div
-            role="group"
             aria-label={`${phoneLabel}: ${userPhone}`}
             className="relative w-full mb-2"
           >
@@ -274,7 +273,6 @@ function SignupPasswordForm() {
 
         {userUsername && (
           <div
-            role="group"
             aria-label={`${usernameLabel}: ${userUsername}`}
             className="relative w-full mb-2"
           >

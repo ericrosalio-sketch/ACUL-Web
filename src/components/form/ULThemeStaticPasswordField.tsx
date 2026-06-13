@@ -138,7 +138,6 @@ export const ULThemeStaticPasswordField = ({
 
           buttonClassName
         )}
-        aria-pressed={showPassword}
       >
         {/* aria-pressed comunica el estado toggle al narrador.
             No se usa aria-label porque el texto visible ("Mostrar"/"Ocultar")
