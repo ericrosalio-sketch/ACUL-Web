@@ -253,7 +253,7 @@ function SignupPasswordForm() {
 
         {userPhone && (
           <div
-            aria-label={`${phoneLabel}: ${userPhone}`}
+            aria-hidden={true}
             className="relative w-full mb-2"
           >
             <ULThemeStaticLabelField
@@ -273,7 +273,7 @@ function SignupPasswordForm() {
 
         {userUsername && (
           <div
-            aria-label={`${usernameLabel}: ${userUsername}`}
+            aria-hidden={true}
             className="relative w-full mb-2"
           >
             <ULThemeStaticLabelField
