@@ -30,6 +30,12 @@
           "path": "/screens/login-password/login-password",
           "variants": ["default", "with-errors"]
         }
+      },
+      "reset-password-request": {
+        "reset-password-request": {
+          "path": "/screens/reset-password-request/reset-password-request",
+          "variants": ["default", "with-errors"]
+        }
       }
     }
   ]

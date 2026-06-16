@@ -13,8 +13,10 @@ function Header() {
   return (
     <>
       <ULThemeLogo altText={logoAltText}></ULThemeLogo>
-      <ULThemeTitle>{texts?.title || locales?.heading?.title}</ULThemeTitle>
-      <ULThemeSubtitle>
+      <ULThemeTitle className="m-0">
+        {texts?.title || locales?.heading?.title}
+      </ULThemeTitle>
+      <ULThemeSubtitle className="m-0">
         {texts?.description || locales?.heading?.description}
       </ULThemeSubtitle>
     </>

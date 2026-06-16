@@ -29,11 +29,11 @@ interface IdentifierConfig {
 const INDIVIDUAL_IDENTIFIER_CONFIG: Record<IdentifierType, IdentifierConfig> = {
   email: {
     labelKey: "emailPlaceholder",
-    labelFallback: "Email Address",
+    labelFallback: "Correo electrónico",
     type: "email",
     autoComplete: "email",
     description:
-      "Enter your Email address and we will send you instructions to reset your password.",
+      "Ingresa tu información y te enviaremos instrucciones para cambiar tu contraseña",
   },
   phone: {
     labelKey: "phonePlaceholder",
@@ -121,7 +121,8 @@ export const getIndividualIdentifierDetails = (
  */
 export const getIdentifierDetails = (
   connectionAttributes?: IdentifierType[],
-  screenTexts?: Record<string, string> | null // Auth0 screen.texts object
+  screenTexts?: Record<string, string> | null, // Auth0 screen.texts object
+  showAsterisk: boolean = true
 ): IdentifierDetails => {
   // Initialize with the most common / general defaults
   let finalLabel =
@@ -192,7 +193,7 @@ export const getIdentifierDetails = (
   }
 
   // For login screens, always append asterisk since all fields are required
-  if (!finalLabel.endsWith("*")) {
+  if (showAsterisk && !finalLabel.endsWith("*")) {
     finalLabel += "*";
   }
 

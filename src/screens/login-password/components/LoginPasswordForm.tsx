@@ -40,6 +40,9 @@ function LoginPasswordForm() {
     reValidateMode: "onBlur",
   });
 
+  const passwordValue = form.watch("password") || "";
+  const isPasswordInvalid = passwordValue.length < 8;
+
   const {
     formState: { isSubmitting },
   } = form;
@@ -107,6 +110,9 @@ function LoginPasswordForm() {
           name="username"
           render={({ field, fieldState }) => (
             <FormItem>
+              <span className="block mb-1 theme-universal:text-(length:--ul-theme-font-input-labels-size) theme-universal:font-input-label text-[#081754]">
+                {"Correo electrónico"}
+              </span>
               <ULThemeFloatingLabelField
                 {...field}
                 label={""}
@@ -148,9 +154,11 @@ function LoginPasswordForm() {
               <ULThemePasswordField
                 {...field}
                 label={passwordLabel}
+                placeholder={passwordLabel}
                 autoFocus={true}
                 autoComplete="current-password"
                 error={!!fieldState.error || !!passwordSDKError}
+                labelClassName="mt-6"
               />
               <ULThemeFormMessage
                 sdkError={passwordSDKError}
@@ -186,7 +194,11 @@ function LoginPasswordForm() {
           </div>
         )}
 
-        <ULThemeButton type="submit" className="w-full" disabled={isSubmitting}>
+        <ULThemeButton
+          type="submit"
+          className="w-full"
+          disabled={isSubmitting || isPasswordInvalid}
+        >
           {continueButtonText}
         </ULThemeButton>
       </form>

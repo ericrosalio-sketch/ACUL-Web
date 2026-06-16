@@ -1,7 +1,6 @@
 import ULThemeLink from "@/components/ULThemeLink";
 
 import { useLoginPasswordManager } from "../hooks/useLoginPasswordManager";
-import { AlignCenter } from "lucide-react";
 
 function Footer() {
   const { signupLink, texts, locales } = useLoginPasswordManager();
@@ -11,7 +10,7 @@ function Footer() {
   }
 
   return (
-    <div className="mt-4 text-center">
+    <div className="text-center">
       <span className="pr-1 text-body-text text-(length:--ul-theme-font-body-text-size) font-body">
         {texts?.signupActionText || locales?.footer?.signupActionText}
       </span>

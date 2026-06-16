@@ -68,11 +68,9 @@ const ulThemeStaticLabelVariants = cva(
       themeState: {
         default: [
           // Use the header color token for the static label
-          "text-[--ul-theme-color-header]",
+          "text-[#081754]",
         ],
-        error: [
-          "theme-universal:text-error",
-        ],
+        error: ["theme-universal:text-error"],
       },
     },
     defaultVariants: {
@@ -131,8 +129,8 @@ function ULThemeStaticLabelField({
         aria-invalid={error || undefined}
         className={cn(
           // Structural base styles matching FloatingLabelField input
-          "w-full h-14 rounded-2xl px-3 py-4 outline-none",
-          "bg-transparent border",
+          "w-full h-[45px] rounded-[8px] px-3 py-2 outline-none",
+          "bg-white border border-[#C9C9C9]",
           "transition-[color,box-shadow] duration-150 ease-in-out",
           "file:border-0 file:bg-transparent file:text-sm file:font-medium",
           "disabled:pointer-events-none disabled:opacity-50",
