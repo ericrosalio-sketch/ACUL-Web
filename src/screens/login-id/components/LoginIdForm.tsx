@@ -5,7 +5,6 @@ import ULThemeSubtitle from "@/components/ULThemeSubtitle";
 
 import {
   useErrors,
-  useLoginIdentifiers,
   usePasskeyAutofill
 } from "@auth0/auth0-acul-react/login-id";
 import type {
@@ -17,14 +16,9 @@ import Captcha from "@/components/Captcha/index";
 import { ULThemeFormMessage } from "@/components/form/ULThemeFormMessage";
 import { Form, FormField, FormItem } from "@/components/ui/form";
 import { ULThemeButton } from "@/components/ULThemeButton";
-import ULThemeCountryCodePicker from "@/components/ULThemeCountryCodePicker";
 import { ULThemeAlert, ULThemeAlertTitle } from "@/components/ULThemeError";
 import { useCaptcha } from "@/hooks/useCaptcha";
 import { useAuthSession } from "@/hooks/useAuthSession";
-import {
-  isPhoneNumberSupported,
-  transformAuth0CountryCode,
-} from "@/utils/helpers/countryUtils";
 import { getCanalByClientId } from "@/utils/helpers/canalUtils";
 import { pushClicHipervinculo } from "@/utils/helpers/dataLayerUtils";
 
@@ -37,18 +31,13 @@ function LoginIdForm() {
     texts,
     locales,
     captcha,
-    countryCode,
-    countryPrefix,
     isCaptchaAvailable,
     isPasskeyEnabled,
     showPasskeyAutofill,
     handleLoginId,
-    handlePickCountryCode,
   } = useLoginIdManager();
 
   const { setAuthUser } = useAuthSession();
-
-  const activeIdentifiers = useLoginIdentifiers();
 
   const form = useForm<LoginOptions>({
     defaultValues: {
@@ -94,30 +83,9 @@ function LoginIdForm() {
     .byType("auth0")
     .filter((err) => !err.field);
 
-  const shouldShowCountryPicker = isPhoneNumberSupported(
-    activeIdentifiers || []
-  );
 
   // Rastrear si el envío fue por Enter o por clic en Continuar
   const submissionType = useRef<"Continuar" | "Enter">("Continuar");
-
-  // Proper submit handler with form data
-  const onSubmit = async (data: LoginOptions) => {
-    // dataLayer: event 'clicClienteDigital' on login submission (Continuar / Enter)
-    pushClicHipervinculo(submissionType.current, "/login-universal", getCanalByClientId());
-
-    // Se puede iniciar sesión con correo o numero telofónico, el backend de Auth0 lo detecta automáticamente, solo hay que enviar el valor en el campo "username"
-    setAuthUser({
-      email: data.username,
-      name: "Usuario autenticado",
-    });
-
-    await handleLoginId({
-      username: data.username,
-      captcha: isCaptchaAvailable && captchaValue ? captchaValue : undefined,
-    });
-  };
-
 
   // Validation for enabling submit button (email or phone must be valid)
   const isValidEmail = (value: string) =>
@@ -131,6 +99,28 @@ function LoginIdForm() {
   const isPhoneValid = isValidPhone(userPhone);
 
   const isFormValid = isEmailValid || isPhoneValid;
+
+  // Proper submit handler with form data
+  const onSubmit = async (data: LoginOptions) => {
+    // dataLayer: event 'clicClienteDigital' on login submission (Continuar / Enter)
+    pushClicHipervinculo(submissionType.current, "/login-universal", getCanalByClientId());
+
+    let formattedUsername = data.username.trim();
+    if (isValidPhone(formattedUsername) && !formattedUsername.startsWith("+")) {
+      formattedUsername = `+52${formattedUsername}`;
+    }
+
+    // Se puede iniciar sesión con correo o numero telofónico, el backend de Auth0 lo detecta automáticamente, solo hay que enviar el valor en el campo "username"
+    setAuthUser({
+      email: formattedUsername,
+      name: "Usuario autenticado",
+    });
+
+    await handleLoginId({
+      username: formattedUsername,
+      captcha: isCaptchaAvailable && captchaValue ? captchaValue : undefined,
+    });
+  };
 
 
   return (
@@ -160,21 +150,6 @@ function LoginIdForm() {
                 </ULThemeAlertTitle>
               </ULThemeAlert>
             ))}
-          </div>
-        )}
-
-        {/* Country Code Picker - only show if phone numbers are supported */}
-        {shouldShowCountryPicker && (
-          <div className="mb-4">
-            <ULThemeCountryCodePicker
-              selectedCountry={transformAuth0CountryCode(
-                countryCode,
-                countryPrefix
-              )}
-              onClick={handlePickCountryCode}
-              fullWidth
-              placeholder={locales?.loginIdForm?.selectCountryPlaceholder}
-            />
           </div>
         )}
 
