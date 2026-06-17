@@ -60,7 +60,7 @@ export default defineConfig({
         entryFileNames: (chunkInfo) =>
           screenEntries[chunkInfo.name]
             ? `assets/${chunkInfo.name}/index.js`
-            : "assets/main.[hash].js",
+            : "assets/main.js",
 
         // Chunks naming strategy
         chunkFileNames: (chunkInfo) => {
