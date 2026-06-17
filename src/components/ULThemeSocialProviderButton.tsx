@@ -43,7 +43,7 @@ const ULThemeSocialProviderButton = ({
 
   // Base Styles getting applied for look and feel
   const baseStyles =
-    "flex items-center justify-center w-full max-w-[400px] h-[52px] py-3.5 px-4 gap-x-4";
+    "flex items-center justify-center w-full h-[52px] py-3.5 px-4 gap-x-4";
 
   // Keeping the button enable and disable styles as is. Will need to revisit this in future if needed
   const enabledStyles =

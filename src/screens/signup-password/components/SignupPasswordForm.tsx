@@ -207,7 +207,7 @@ function SignupPasswordForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} aria-label="Crear cuenta">
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         {/* Contenedor aria-live siempre presente en el DOM.
             - Errores nuevos: role="alert" de ULThemeAlert los anuncia de inmediato.
             - Dismiss: el contenido desaparece y aria-live="polite" confirma el cambio. */}
@@ -315,7 +315,7 @@ function SignupPasswordForm() {
               <ULThemeStaticPasswordField
                 {...field}
                 label={passwordLabel}
-                visualPlaceholder={locales.form.fields.password.placeholder}
+                placeholder={locales.form.fields.password.placeholder}
                 error={!!fieldState.error || !!passwordError}
                 autoFocus={true}
                 showLabel={locales.form.fields.password.showLabel}

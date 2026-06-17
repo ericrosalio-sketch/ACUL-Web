@@ -18,6 +18,7 @@ const ULThemeCard = ({ children, className, ...rest }: ULThemeCardProps) => {
     "px-5",  // Base padding - overridden by theme variable --ul-theme-card-padding (if set)
     "py-0",  // Base padding - overridden by theme variable --ul-theme-card-padding (if set)
     "min-w-[360px]",
+    "max-w-[389px]",
     "theme-universal:bg-widget-bg",
     "theme-universal:border-(--color-widget-border)",
     "theme-universal:rounded-widget",

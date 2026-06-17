@@ -158,7 +158,7 @@ function SignupIdForm() {
     <>
       <ULThemeSubtitle>{description}</ULThemeSubtitle>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} aria-label="Crear cuenta">
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           {/* Contenedor aria-live siempre presente en el DOM.
               - Cuando se añade un error: role="alert" dentro de ULThemeAlert lo anuncia de inmediato.
               - Cuando se hace dismiss: el contenido desaparece de este contenedor y
@@ -209,7 +209,7 @@ function SignupIdForm() {
             type="submit"
             className="w-full"
             disabled={isSubmitting || !isEmailValid}
-            aria-describedby={!isEmailValid ? "submit-btn-hint" : undefined}
+            aria-describedby={isEmailValid ? undefined : "submit-btn-hint"}
           >
             {buttonText}
           </ULThemeButton>

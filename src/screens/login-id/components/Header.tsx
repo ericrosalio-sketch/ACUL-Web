@@ -1,5 +1,4 @@
 import ULThemeLogo from "@/components/ULThemeLogo";
-import ULThemeSubtitle from "@/components/ULThemeSubtitle";
 import ULThemeTitle from "@/components/ULThemeTitle";
 
 import { useLoginIdManager } from "../hooks/useLoginIdManager";
@@ -8,7 +7,7 @@ function Header() {
   const { texts, locales, appName } = useLoginIdManager();
 
   // Use locale strings as fallback to SDK texts
-  const logoAltText = locales?.heading?.logoAltText || texts?.logoAltText || "";
+  const logoAltText = locales?.header?.logoAltText || texts?.logoAltText || "";
 
   return (
     <>
@@ -18,10 +17,7 @@ function Header() {
           Accediendo a: <strong>{appName}</strong>
         </p>
       )}
-      <ULThemeTitle>{locales?.heading?.title || texts?.title}</ULThemeTitle>
-      <ULThemeSubtitle>
-        {locales?.heading?.description || texts?.description}
-      </ULThemeSubtitle>
+      <ULThemeTitle>{locales?.header?.title || texts?.title}</ULThemeTitle>
     </>
   );
 }

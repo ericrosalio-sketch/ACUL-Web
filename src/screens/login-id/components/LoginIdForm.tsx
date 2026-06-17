@@ -1,18 +1,19 @@
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
+
+import ULThemeSubtitle from "@/components/ULThemeSubtitle";
 
 import {
   useErrors,
   useLoginIdentifiers,
-  usePasskeyAutofill,
+  usePasskeyAutofill
 } from "@auth0/auth0-acul-react/login-id";
 import type {
   ErrorItem,
-  IdentifierType,
-  LoginOptions,
+  LoginOptions
 } from "@auth0/auth0-acul-react/types";
 
 import Captcha from "@/components/Captcha/index";
-import { ULThemeFloatingLabelField } from "@/components/form/ULThemeFloatingLabelField";
 import { ULThemeFormMessage } from "@/components/form/ULThemeFormMessage";
 import { Form, FormField, FormItem } from "@/components/ui/form";
 import { ULThemeButton } from "@/components/ULThemeButton";
@@ -24,13 +25,12 @@ import {
   isPhoneNumberSupported,
   transformAuth0CountryCode,
 } from "@/utils/helpers/countryUtils";
-import { getIdentifierDetails } from "@/utils/helpers/identifierUtils";
+import { getCanalByClientId } from "@/utils/helpers/canalUtils";
+import { pushClicHipervinculo } from "@/utils/helpers/dataLayerUtils";
 
-import { ULThemeCheckbox } from "@/components/ULThemeCheckbox";
-
-import { useState } from "react";
 
 import { useLoginIdManager } from "../hooks/useLoginIdManager";
+import { ULThemeStaticLabelField } from "@/components/form/ULThemeStaticLabelField";
 
 function LoginIdForm() {
   const {
@@ -50,12 +50,6 @@ function LoginIdForm() {
 
   const activeIdentifiers = useLoginIdentifiers();
 
-  // Use helper to determine placeholder based on active identifiers
-  const identifierDetails = getIdentifierDetails(
-    (activeIdentifiers || undefined) as IdentifierType[] | undefined,
-    texts
-  );
-
   const form = useForm<LoginOptions>({
     defaultValues: {
       username: "",
@@ -66,7 +60,10 @@ function LoginIdForm() {
 
   const {
     formState: { isSubmitting },
+    watch,
   } = form;
+
+  const description = locales.header.description || texts?.description;
 
   // Use locales as fallback to SDK texts
   const captchaLabel = texts?.captchaCodePlaceholder
@@ -101,12 +98,15 @@ function LoginIdForm() {
     activeIdentifiers || []
   );
 
-  // Estado del checkbox de términos y condiciones
-  const [termsAccepted, setTermsAccepted] = useState(false);
+  // Rastrear si el envío fue por Enter o por clic en Continuar
+  const submissionType = useRef<"Continuar" | "Enter">("Continuar");
 
   // Proper submit handler with form data
   const onSubmit = async (data: LoginOptions) => {
-    // Save email to session for page (development feature)
+    // dataLayer: event 'clicClienteDigital' on login submission (Continuar / Enter)
+    pushClicHipervinculo(submissionType.current, "/login-universal", getCanalByClientId());
+
+    // Se puede iniciar sesión con correo o numero telofónico, el backend de Auth0 lo detecta automáticamente, solo hay que enviar el valor en el campo "username"
     setAuthUser({
       email: data.username,
       name: "Usuario autenticado",
@@ -118,9 +118,34 @@ function LoginIdForm() {
     });
   };
 
+
+  // Validation for enabling submit button (email or phone must be valid)
+  const isValidEmail = (value: string) =>
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
+  const userEmail = watch("username") ?? "";
+  const isEmailValid = isValidEmail(userEmail);
+
+  const isValidPhone = (value: string) =>
+    /^\+?[1-9]\d{9}$/.test(value); // Simple E.164 format validation
+  const userPhone = watch("username") ?? "";
+  const isPhoneValid = isValidPhone(userPhone);
+
+  const isFormValid = isEmailValid || isPhoneValid;
+
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <ULThemeSubtitle>
+        {description}
+      </ULThemeSubtitle>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            submissionType.current = "Enter";
+          }
+        }}
+      >
         {/* Display general errors */}
         {hasError && generalErrors.length > 0 && (
           <div className="space-y-3 mb-4">
@@ -162,11 +187,12 @@ function LoginIdForm() {
           }}
           render={({ field, fieldState }) => (
             <FormItem>
-              <ULThemeFloatingLabelField
+              <ULThemeStaticLabelField
                 {...field}
-                label={identifierDetails.label}
-                type={identifierDetails.type}
-                autoComplete={identifierDetails.autoComplete}
+                label={locales.form.fields.username?.label}
+                placeholder={locales.form.fields.username?.placeholder}
+                type={"text"}
+                autoComplete={"username"}
                 autoFocus
                 error={!!fieldState.error || !!usernameSDKError}
               />
@@ -192,35 +218,14 @@ function LoginIdForm() {
           />
         )}
 
-        {/* Checkbox de términos y condiciones */}
-        <label className="flex items-start gap-3 mb-4 mt-2 cursor-pointer">
-          <ULThemeCheckbox
-            checked={termsAccepted}
-            onCheckedChange={(checked) => setTermsAccepted(checked === true)}
-          />
-          <span className="text-sm text-body-text leading-relaxed">
-            Acepto los{" "}
-            <a
-              href="https://www.coppel.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-link-focus underline"
-            >
-              Términos y Condiciones
-            </a>
-            {" "}y el{" "}
-            <a
-              href="https://www.coppel.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-link-focus underline"
-            >
-              Aviso de Privacidad
-            </a>
-          </span>
-        </label>
-
-        <ULThemeButton type="submit" className="w-full" disabled={isSubmitting || !termsAccepted}>
+        <ULThemeButton
+          type="submit"
+          className="w-full"
+          disabled={isSubmitting || !isFormValid}
+          onClick={() => {
+            submissionType.current = "Continuar";
+          }}
+        >
           {continueButtonText}
         </ULThemeButton>
       </form>

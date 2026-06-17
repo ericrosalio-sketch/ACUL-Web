@@ -1,4 +1,4 @@
-import CoppelPageLayout from "@/components/ULThemePageLayout";
+import CoppelPageLayout from "@/components/CoppelPageLayout";
 import ULThemeCard from "@/components/ULThemeCard";
 import { applyAuth0Theme } from "@/utils/theme/themeEngine";
 
@@ -14,11 +14,10 @@ function PasskeyEnrollmentScreen() {
 
   // Apply theme from SDK instance when screen loads
   applyAuth0Theme(passkeyEnrollmentInstance);
-  document.title = locales.page.title || texts?.pageTitle || "";
 
   return (
     // Applying UDS theme overrides using the "theme-universal" class
-    <CoppelPageLayout className="theme-universal">
+    <CoppelPageLayout className="theme-universal" pageTitle={locales?.page?.title || texts?.pageTitle}>
       <ULThemeCard className="w-full max-w-[400px] gap-0">
         <Header />
         <Details />

@@ -31,7 +31,7 @@
  *   </CoppelPageLayout>
  */
 
-import type { HTMLAttributes, ReactNode } from "react";
+import { useEffect, type HTMLAttributes, ReactNode } from "react";
 
 import CoppelPageFooter, { type CoppelPageFooterProps } from "./CoppelPageFooter";
 import CoppelPageHeader, { type CoppelPageHeaderProps } from "./CoppelPageHeader";
@@ -39,6 +39,9 @@ import CoppelPageHeader, { type CoppelPageHeaderProps } from "./CoppelPageHeader
 export interface CoppelPageLayoutProps extends HTMLAttributes<HTMLDivElement> {
   /** Contenido principal de la pantalla (la card ACUL, formularios, etc.) */
   children: ReactNode;
+
+  /** Título de la página que se mostrará en la pestaña del navegador */
+  pageTitle?: string;
 
   /** Props opcionales para personalizar el header */
   headerProps?: CoppelPageHeaderProps;
@@ -69,6 +72,7 @@ export interface CoppelPageLayoutProps extends HTMLAttributes<HTMLDivElement> {
 
 const CoppelPageLayout = ({
   children,
+  pageTitle,
   headerProps,
   footerProps,
   hideHeader = false,
@@ -78,6 +82,14 @@ const CoppelPageLayout = ({
   style,
   ...rest
 }: CoppelPageLayoutProps) => {
+  useEffect(() => {
+    if (pageTitle) {
+      const loginContext = window.universal_login_context ?? {};
+      const app = loginContext.client?.name ?? "Coppel";
+      document.title = `${pageTitle} | ${app}`;
+    }
+  }, [pageTitle]);
+
   return (
     /**
      * Equivalente al <body class="_widget-auto-layout"> del template:

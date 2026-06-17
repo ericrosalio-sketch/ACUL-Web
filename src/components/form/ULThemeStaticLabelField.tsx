@@ -131,7 +131,6 @@ function ULThemeStaticLabelField({
     >
       {/* Static label – always visible above the input, correctly associated */}
       <label
-        htmlFor={formItemId}
         className={cn(ulThemeStaticLabelVariants({ themeState }))}
       >
         {label}
