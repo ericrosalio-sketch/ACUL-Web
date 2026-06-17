@@ -9,6 +9,21 @@
 ------------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
+/* Helvetica Neue is a widely used sans-serif typeface that serves as a secondary font in the Coppel brand. 
+   It is often used for body text and smaller UI elements to complement the primary font, Poppins. 
+   By including Helvetica Neue as a fallback, we ensure that if Poppins fails to load for any reason, the design will still maintain a clean and professional appearance using Helvetica Neue.
+*/
+@font-face {
+  font-family: 'Helvetica Neue', sans-serif;
+  src: url('https://fonts.cdnfonts.com/css/helvetica-neue-55');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/*
+ * Roboto is used as a fallback font in case Poppins or Helvetica Neue fail to load. 
+ * This ensures that the UI remains functional and visually consistent even if the primary fonts are unavailable.
+*/
 @font-face {
   font-family: 'Roboto';
   src: url('https://fonts.cdnfonts.com/s/12165/Ro/boto-Regular.woff') format('woff');
@@ -209,7 +224,7 @@ Created to support alignment related utlities like justify, text-align etc with 
   /* Borders — pill-shape buttons and rounded inputs (matches branding_templates) */
   --ul-theme-border-buttons-style: rounded;
   --ul-theme-border-inputs-style: rounded;
-  --ul-theme-border-button-border-weight: 2px;
+  --ul-theme-border-button-border-weight: 1px;
   --ul-theme-border-button-border-radius: 999px;
   --ul-theme-border-input-border-weight: 1px;
   --ul-theme-border-input-border-radius: 8px;
@@ -223,7 +238,7 @@ Created to support alignment related utlities like justify, text-align etc with 
   --ul-theme-font-links-style: normal;
   /* Title: 28px / 600-700 weight — matches .title-text in branding_templates */
   --ul-theme-font-title-size: 1.75rem;
-  --ul-theme-font-title-weight: 700;
+  --ul-theme-font-title-weight: 600;
   /* Subtitle: 16px / 400 */
   --ul-theme-font-subtitle-size: 1rem;
   --ul-theme-font-subtitle-weight: 400;

@@ -112,7 +112,7 @@ function SignupPasswordForm() {
     <ULThemeLink
       href={editLink || ""}
       aria-label={`${locales.form.fields.email.editButton} ${emailLabel}`}
-    >
+      >
       {locales.form.fields.email.editButton}
     </ULThemeLink>
   );
@@ -207,7 +207,7 @@ function SignupPasswordForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} aria-label="Crear cuenta">
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         {/* Contenedor aria-live siempre presente en el DOM.
             - Errores nuevos: role="alert" de ULThemeAlert los anuncia de inmediato.
             - Dismiss: el contenido desaparece y aria-live="polite" confirma el cambio. */}
@@ -225,81 +225,70 @@ function SignupPasswordForm() {
           }
         </div>
 
-        {/* Readonly email field.
-            aria-readonly + aria-describedby informan al narrador que el campo
-            no es editable aquí y que puede usar el enlace "Editar" para cambiarlo. */}
+        {/* Campos de solo lectura (correo / celular / nombre de usuario).
+            El <div role="group" aria-label="Correo electrónico: user@email.com"> provee
+            el anuncio limpio al narrador: "[campo]: [valor]".
+            wrapperAriaHidden={true} oculta el <label> y el <input> al árbol AT para
+            evitar redundancias — el único anuncio viene del aria-label del grupo padre.
+            El enlace "Editar [campo]" sigue siendo accesible con su aria-label descriptivo. */}
         {userEmail && (
-          <>
-            <span id="readonly-email-hint" className="sr-only">
-              Campo de solo lectura. Usa el enlace Editar para modificarlo.
-            </span>
-            <div className="relative w-full mb-2">
-              <ULThemeStaticLabelField
-                id="signup-email-field"
-                label={emailLabel}
-                type="email"
-                value={userEmail}
-                readOnly
-                aria-readonly="true"
-                aria-describedby="readonly-email-hint"
-                className="pr-20"
-              />
-              {/* bottom-2 offsets the input's own mb-2 so the button is centred within the input */}
-              <div className="absolute right-3 bottom-2 h-14 flex items-center">
-                {editEmailButton}
-              </div>
+          <div
+            aria-hidden={true}
+            className="relative w-full mb-2"
+          >
+            <ULThemeStaticLabelField
+              label={emailLabel}
+              type="email"
+              value={userEmail}
+              readOnly
+              wrapperAriaHidden={true}
+              className="pr-20"
+              aria-hidden={true}
+            />
+            <div className="absolute right-3 bottom-2 h-14 flex items-center">
+              {editEmailButton}
             </div>
-          </>
+          </div>
         )}
 
-        {/* Readonly phone field */}
         {userPhone && (
-          <>
-            <span id="readonly-phone-hint" className="sr-only">
-              Campo de solo lectura. Usa el enlace Editar para modificarlo.
-            </span>
-            <div className="relative w-full mb-2">
-              <ULThemeStaticLabelField
-                id="signup-phone-field"
-                label={phoneLabel}
-                type="tel"
-                value={userPhone}
-                readOnly
-                disabled
-                aria-readonly="true"
-                aria-describedby="readonly-phone-hint"
-                className="pr-20"
-              />
-              <div className="absolute right-3 bottom-2 h-14 flex items-center">
-                {editPhoneButton}
-              </div>
+          <div
+            aria-hidden={true}
+            className="relative w-full mb-2"
+          >
+            <ULThemeStaticLabelField
+              label={phoneLabel}
+              type="tel"
+              value={userPhone}
+              readOnly
+              disabled
+              wrapperAriaHidden={true}
+              className="pr-20"
+            />
+            <div className="absolute right-3 bottom-2 h-14 flex items-center">
+              {editPhoneButton}
             </div>
-          </>
+          </div>
         )}
 
-        {/* Readonly username field */}
         {userUsername && (
-          <>
-            <span id="readonly-username-hint" className="sr-only">
-              Campo de solo lectura. Usa el enlace Editar para modificarlo.
-            </span>
-            <div className="relative w-full mb-2">
-              <ULThemeStaticLabelField
-                id="signup-username-field"
-                label={usernameLabel}
-                type="text"
-                value={userUsername}
-                readOnly
-                disabled
-                aria-readonly="true"
-                aria-describedby="readonly-username-hint"
-                className="pr-20"
-              />
-              <div className="absolute right-3 bottom-2 h-14 flex items-center">
-                {editUsernameButton}
-              </div>
+          <div
+            aria-hidden={true}
+            className="relative w-full mb-2"
+          >
+            <ULThemeStaticLabelField
+              label={usernameLabel}
+              type="text"
+              value={userUsername}
+              readOnly
+              disabled
+              wrapperAriaHidden={true}
+              className="pr-20"
+            />
+            <div className="absolute right-3 bottom-2 h-14 flex items-center">
+              {editUsernameButton}
             </div>
-          </>
+          </div>
         )}
 
         {/* Password field */}
@@ -317,6 +306,12 @@ function SignupPasswordForm() {
           }}
           render={({ field, fieldState }) => (
             <FormItem>
+              {/* visualPlaceholder en lugar de placeholder:
+                  el texto de hint se renderiza como <span aria-hidden="true">
+                  dentro del campo, por lo que el narrador NO lo anuncia.
+                  El <input> queda con placeholder="" (vacío), evitando el anuncio
+                  "Contraseña, edición, escribe una contraseña, en blanco".
+                  El hint sigue siendo visible visualmente según el diseño de UX. */}
               <ULThemeStaticPasswordField
                 {...field}
                 label={passwordLabel}
@@ -348,10 +343,13 @@ function SignupPasswordForm() {
           />
         )}
 
-        {/* Password Validation Rules - siempre visible como en el template de Coppel */}
+        {/* Password Validation Rules - siempre visible como en el template de Coppel.
+            passwordValue permite al validador anunciar todos los requisitos cuando el
+            campo está vacío, y solo los pendientes cuando el usuario ya escribió algo. */}
         <ULThemePasswordValidator
           validationRules={passwordResults}
           passwordSecurityText={passwordSecurityText}
+          passwordValue={passwordValue}
           show={true}
           className="mb-4"
         />

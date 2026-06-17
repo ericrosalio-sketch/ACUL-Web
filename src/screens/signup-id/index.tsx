@@ -19,8 +19,6 @@ import { useSignupIdManager } from "./hooks/useSignupIdManager";
 function SignupIdScreen() {
   const { signupId, texts, locales, alternateConnections } = useSignupIdManager();
 
-  document.title = locales.page.title || texts?.pageTitle || "";
-
   // Apply theme from SDK instance when screen loads
   applyAuth0Theme(signupId);
 
@@ -53,8 +51,8 @@ function SignupIdScreen() {
   );
 
   return (
-    <CoppelPageLayout className="theme-universal">
-      <ULThemeCard className="w-full max-w-[400px] gap-4">
+    <CoppelPageLayout className="theme-universal" pageTitle={locales?.page?.title || texts?.pageTitle}>
+      <ULThemeCard className="w-full gap-4">
         {/* Header (logo + título) — ancho completo */}
         <Header />
 

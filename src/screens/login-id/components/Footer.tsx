@@ -1,4 +1,6 @@
 import ULThemeLink from "@/components/ULThemeLink";
+import { getCanalByClientId } from "@/utils/helpers/canalUtils";
+import { pushClicHipervinculo } from "@/utils/helpers/dataLayerUtils";
 
 import { useLoginIdManager } from "../hooks/useLoginIdManager";
 
@@ -11,12 +13,18 @@ function Footer() {
     return null;
   }
 
+  const handleSignupClick = () => {
+    const linkText = locales?.footer?.signupActionLinkText || texts?.signupActionLinkText || "";
+    // dataLayer: event 'clicClienteDigital' for signup link
+    pushClicHipervinculo(`Crear cuenta - ${linkText}`, "/login-universal", getCanalByClientId());
+  };
+
   return (
-    <div className="mt-4 text-left">
+    <div className="mt-4 text-center">
       <span className="pr-1 text-body-text text-(length:--ul-theme-font-body-text-size) font-body">
         {locales?.footer?.signupActionText || texts?.signupActionText}
       </span>
-      <ULThemeLink href={signupLink}>
+      <ULThemeLink href={signupLink} onClick={handleSignupClick}>
         {locales?.footer?.signupActionLinkText || texts?.signupActionLinkText}
       </ULThemeLink>
     </div>

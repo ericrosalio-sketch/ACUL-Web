@@ -22,15 +22,14 @@ function SignupPasswordScreen() {
   // document.title se asigna dentro de useEffect para que el narrador anuncie el título
   // correcto en el primer render (evita que lea el título del render anterior).
   useEffect(() => {
-    document.title = locales.page.title || texts?.pageTitle || "";
     pushPageView("/crear-cuenta", "Registro de clientes", getCanalByClientId());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     // Applying UDS theme overrides using the "theme-universal" class
-    <CoppelPageLayout className="theme-universal">
-      <ULThemeCard className="w-full max-w-[400px] gap-0">
+    <CoppelPageLayout className="theme-universal" pageTitle={locales?.page?.title || texts?.pageTitle}>
+      <ULThemeCard className="w-full gap-0">
         <Header />
         <SignupPasswordForm />
         <Footer />

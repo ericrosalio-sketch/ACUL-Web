@@ -48,7 +48,7 @@ const AlternativeLogins = () => {
       {isMobile ? (
         // Mobile: label + botones circulares
         <div className="flex flex-col items-center gap-4 mt-2">
-          <p className="text-center theme-universal:text-(length:--ul-theme-font-input-labels-size) theme-universal:font-input-label text-[--coppel-color-text-dark]">
+          <p className="text-center theme-universal:text-(length:--ul-theme-font-input-labels-size) theme-universal:font-input-label text-[--coppel-color-text-dark] italic">
             {locales?.social?.mobileLabel}
           </p>
           <div className="flex flex-row justify-between w-full max-w-[341px] h-[72px]">

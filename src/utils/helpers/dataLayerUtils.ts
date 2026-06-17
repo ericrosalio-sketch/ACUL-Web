@@ -113,6 +113,29 @@ export function pushCrearCuentaSocial(
 }
 
 /**
+ * Click en opción de login social en pantalla de login.
+ *
+ * event: 'loginIntento'
+ *
+ * @param connectionName  'Google' | 'Apple' | 'Microsoft' | 'Passkey'
+ * @param page            Path amigable de la página (ej. '/login-universal')
+ * @param canal           Canal detectado por getCanalByClientId()
+ */
+export function pushLoginSocial(
+  connectionName: string,
+  page: string,
+  canal: Canal
+): void {
+  push({
+    page,
+    interaccionnombre: "Login social",
+    cuentatipo: connectionName,
+    canal,
+    event: "loginIntento",
+  });
+}
+
+/**
  * Click en cualquier hipervínculo dentro de una pantalla (ej. TyC, Aviso de privacidad).
  *
  * event: 'clicClienteDigital'

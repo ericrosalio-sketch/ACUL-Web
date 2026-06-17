@@ -7,6 +7,8 @@
   "scripts": {
     "initialize": "npm install && npm run build",
     "build": "tsc && vite build --logLevel info",
+    "deploy:azure": "node ./scripts/sync-to-azure.js",
+    "deploy:azure:msg": "node ./scripts/sync-to-azure.js --message",
     "build:local": "PORT=8080 node ./scripts/build-local.js",
     "build:watch": "vite build --watch",
     "dev": "vite dev",

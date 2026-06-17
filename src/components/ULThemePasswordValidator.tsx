@@ -18,6 +18,13 @@ export interface ULThemePasswordValidatorProps {
    */
   show?: boolean;
   passwordSecurityText?: string;
+  /**
+   * Valor actual del campo de contraseña.
+   * - Vacío ("" o undefined): anuncia TODOS los requisitos (el usuario aún no sabe qué se pide).
+   * - Con valor: anuncia solo los requisitos PENDIENTES (los cumplidos ya son implícitos).
+   * Esto cumple WCAG 3.3.2 (instrucciones) y 4.1.3 (mensajes de estado).
+   */
+  passwordValue?: string;
 }
 
 // aria-hidden: estos íconos son decorativos — el estado se comunica via aria-label del <li>
@@ -59,36 +66,58 @@ export const ULThemePasswordValidator = ({
   validationRules,
   className,
   passwordSecurityText,
+  passwordValue,
   show = true,
 }: ULThemePasswordValidatorProps) => {
   // useMemo ANTES del early return para cumplir las reglas de hooks de React.
-  // Cuenta reglas cumplidas (incluyendo subitems) para el anuncio sr-only del narrador.
-  // Se usa un resumen en lugar de aria-live en el <ul> para evitar que el narrador
-  // lea los elementos en orden errático (primero items anidados, luego primer nivel,
-  // luego el texto introductorio).
+  //
+  // Estrategia de anuncio según WCAG 3.3.2 y 4.1.3:
+  // - Campo vacío: anuncia TODOS los requisitos sin decir si están cumplidos o no,
+  //   ya que se infiere que ninguno se ha cumplido aún (el usuario no ha escrito nada).
+  // - Campo con valor: anuncia solo los requisitos PENDIENTES. Los cumplidos son
+  //   implícitos — anunciarlos genera ruido auditivo innecesario.
+  // - Todos cumplidos: anuncia mensaje de éxito.
   const liveAnnouncement = useMemo(() => {
     if (!validationRules || validationRules.length === 0) return "";
-    const countValid = (rules: PasswordComplexityRule[]): [number, number] => {
-      let valid = 0;
-      let total = 0;
+
+    // Recolecta labels de las reglas, considerando subitems
+    const collectLabels = (
+      rules: PasswordComplexityRule[],
+      onlyPending: boolean
+    ): string[] => {
+      const labels: string[] = [];
       for (const r of rules) {
         if (r.items && r.items.length > 0) {
-          const [v, t] = countValid(r.items);
-          valid += v;
-          total += t;
+          // Grupo con subitems: anuncia el label del grupo + los subitems relevantes
+          const subLabels = collectLabels(r.items, onlyPending);
+          if (subLabels.length > 0) {
+            labels.push(r.label, ...subLabels);
+          }
         } else {
-          total += 1;
-          if (r.isValid) valid += 1;
+          if (!onlyPending || !r.isValid) {
+            labels.push(r.label);
+          }
         }
       }
-      return [valid, total];
+      return labels;
     };
-    const [valid, total] = countValid(validationRules);
-    if (total === 0) return "";
-    return valid === total
-      ? "Todos los requisitos de contraseña cumplidos."
-      : `${valid} de ${total} requisitos de contraseña cumplidos.`;
-  }, [validationRules]);
+
+    const isEmpty = !passwordValue || passwordValue === "";
+
+    if (isEmpty) {
+      // Campo vacío: anuncia todos los requisitos sin estado
+      const allLabels = collectLabels(validationRules, false);
+      if (allLabels.length === 0) return "";
+      return `Tu contraseña debe tener: ${allLabels.join(", ")}.`;
+    }
+
+    // Campo con valor: solo los pendientes
+    const pendingLabels = collectLabels(validationRules, true);
+    if (pendingLabels.length === 0) {
+      return "Todos los requisitos de contraseña cumplidos.";
+    }
+    return `A tu contraseña le falta: ${pendingLabels.join(", ")}.`;
+  }, [validationRules, passwordValue]);
 
   if (!show || !validationRules || validationRules.length === 0) {
     return null;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type React from "react";
 
 import {
   ULThemeStaticLabelField,
@@ -12,6 +13,17 @@ export interface ULThemeStaticPasswordFieldProps
   buttonClassName?: string;
   showLabel?: string;
   hideLabel?: string;
+  /**
+   * Cuando se pasa, el atributo HTML `placeholder` del `<input>` queda vacío
+   * y el texto se muestra en su lugar mediante un `<span aria-hidden="true">`
+   * posicionado absolutamente dentro del campo.
+   *
+   * Esto evita que el narrador anuncie el placeholder como parte del nombre
+   * accesible del campo (ej: "Contraseña, edición, escribe una contraseña,
+   * en blanco"), ya que el `<span>` es invisible para las tecnologías asistivas.
+   * El hint sigue siendo **visible visualmente** según el diseño de UX.
+   */
+  visualPlaceholder?: string;
 }
 
 /**
@@ -25,6 +37,8 @@ export const ULThemeStaticPasswordField = ({
   buttonClassName,
   showLabel = "Mostrar",
   hideLabel = "Ocultar",
+  visualPlaceholder,
+  value,
   className,
   ...props
 }: ULThemeStaticPasswordFieldProps) => {
@@ -36,17 +50,59 @@ export const ULThemeStaticPasswordField = ({
     onVisibilityToggle?.(newState);
   };
 
+  // Cuando se usa visualPlaceholder, el <input> no tiene placeholder HTML
+  // para que el narrador no lo anuncie. El hint visual lo provee el <span>.
+  const hasValue = value !== undefined && value !== "";
+
+  // Siempre usamos type="text" para evitar que el narrador anuncie "contraseña"
+  // como parte del rol del input (lo que causaba "Contraseña, edición, contraseña,
+  // en blanco"). Cuando la contraseña está oculta, -webkit-text-security:disc
+  // muestra los bullets visualmente sin cambiar el tipo semántico del input.
+  // Cuando está visible, se remueve esa propiedad CSS y el texto se muestra normal.
+  const textSecurityStyle: React.CSSProperties = !showPassword
+    ? ({
+        WebkitTextSecurity: "disc",
+        // Firefox no soporta -webkit-text-security, pero tampoco añade "contraseña"
+        // al anuncio del rol, así que el problema solo existe en Chromium/Safari.
+      } as React.CSSProperties)
+    : {};
+
   return (
     <div className="relative w-full">
       <ULThemeStaticLabelField
         {...props}
-        type={showPassword ? "text" : "password"}
+        value={value}
+        // Siempre type="text" — la apariencia de password se logra via CSS
+        type="text"
+        // Si hay visualPlaceholder, se omite el placeholder HTML del input
+        placeholder={visualPlaceholder ? "" : props.placeholder}
+        style={textSecurityStyle}
         className={cn(
           // Extra right padding so the text does not overlap the toggle button
           "pr-24",
           className
         )}
       />
+
+      {/* Placeholder visual decorativo: aria-hidden="true" para que el narrador
+          NO lo anuncie. Se muestra solo cuando el campo está vacío.
+          left-3 y px-3 corresponden al padding-left del input (px-3 = 0.75rem).
+          bottom-2 = offset del mb-2 del input; h-14 = altura del input. */}
+      {visualPlaceholder && !hasValue && (
+        <span
+          aria-hidden="true"
+          className={cn(
+            "absolute left-3 pointer-events-none select-none",
+            "bottom-2 h-14 flex items-center",
+            // Estilos que imitan el placeholder CSS nativo del input
+            "theme-universal:text-input-labels",
+            "theme-universal:text-(length:--ul-theme-font-input-labels-size)",
+            "theme-universal:font-input-label",
+          )}
+        >
+          {visualPlaceholder}
+        </span>
+      )}
 
       {/* Toggle button – absolutely positioned inside the input area.
           bottom-2 accounts for the mb-2 on the input so the button sits flush
@@ -82,7 +138,6 @@ export const ULThemeStaticPasswordField = ({
 
           buttonClassName
         )}
-        aria-pressed={showPassword}
       >
         {/* aria-pressed comunica el estado toggle al narrador.
             No se usa aria-label porque el texto visible ("Mostrar"/"Ocultar")
