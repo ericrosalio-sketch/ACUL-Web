@@ -9,11 +9,11 @@ import type {
 import Captcha from "@/components/Captcha/index";
 import { ULThemeFloatingLabelField } from "@/components/form/ULThemeFloatingLabelField";
 import { ULThemeFormMessage } from "@/components/form/ULThemeFormMessage";
+import { ULThemeStaticPasswordField } from "@/components/form/ULThemeStaticPasswordField";
 import { Form, FormField, FormItem } from "@/components/ui/form";
 import { ULThemeButton } from "@/components/ULThemeButton";
 import { ULThemeAlert, ULThemeAlertTitle } from "@/components/ULThemeError";
 import ULThemeLink from "@/components/ULThemeLink";
-import { ULThemePasswordField } from "@/components/ULThemePasswordField";
 import { useCaptcha } from "@/hooks/useCaptcha";
 
 import { useLoginPasswordManager } from "../hooks/useLoginPasswordManager";
@@ -151,14 +151,14 @@ function LoginPasswordForm() {
           }}
           render={({ field, fieldState }) => (
             <FormItem>
-              <ULThemePasswordField
+              <ULThemeStaticPasswordField
                 {...field}
                 label={passwordLabel}
                 placeholder={passwordLabel}
                 autoFocus={true}
                 autoComplete="current-password"
                 error={!!fieldState.error || !!passwordSDKError}
-                labelClassName="mt-6"
+                wrapperClassName="mt-6"
               />
               <ULThemeFormMessage
                 sdkError={passwordSDKError}
