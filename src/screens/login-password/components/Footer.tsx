@@ -10,7 +10,7 @@ function Footer() {
   }
 
   return (
-    <div className="mt-4 text-center">
+    <div className="text-center">
       <span className="pr-1 text-body-text text-(length:--ul-theme-font-body-text-size) font-body">
         {texts?.signupActionText || locales?.footer?.signupActionText}
       </span>

@@ -48,7 +48,7 @@ function LoginPasswordScreen() {
     // (extraídos del branding_templates/universal_login.html de auth0-repo)
     // y envuelve el contenido con el layout de página completa.
     <CoppelPageLayout className="theme-universal">
-      <ULThemeCard className="w-full max-w-[400px] gap-0">
+      <ULThemeCard className="w-full max-w-[400px] gap-6">
         <Header />
         {socialLoginAlignment === "top" && renderSocialLogins("top")}
         <LoginPasswordForm />
