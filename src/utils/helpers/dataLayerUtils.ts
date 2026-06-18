@@ -21,6 +21,14 @@ export type CuentaTipoForm = "Correo" | "Celular";
 /** Tipo de cuenta cuando se usa login social / passkey */
 export type CuentaTipoSocial = "Passkey" | "Google" | "Apple" | "Microsoft";
 
+/** Tipo de cuenta para la creación de llave digital */
+export type CuentaTipoLlaveDigital =
+  | "Correo"
+  | "Celular"
+  | "Google"
+  | "Apple"
+  | "Microsoft";
+
 /** Texto que describe cómo se disparó el submit del formulario */
 export type InteraccionNombreForm =
   | "Continuar"
@@ -44,6 +52,46 @@ function push(data: Record<string, unknown>): void {
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
+ * Click en el botón "Crear una llave digital" (o "Crear un acceso personal").
+ *
+ * event: 'crearCuenta'
+ *
+ * @param page        Path amigable de la página (ej. '/crear-llave-digital')
+ * @param cuentaTipo  'Correo' | 'Celular' | 'Google' | 'Apple' | 'Microsoft'
+ * @param canal       Canal detectado por getCanalByClientId()
+ */
+export function pushCrearLlaveDigital(
+  page: string,
+  cuentaTipo: CuentaTipoLlaveDigital,
+  canal: Canal
+): void {
+  push({
+    interaccionNombre: "Crear llave digital",
+    page,
+    cuentaTipo,
+    canal,
+    event: "crearCuenta",
+  });
+}
+
+/**
+ * Click en el botón "Continuar sin llave" o "Regresar".
+ *
+ * event: 'clicClienteDigital'
+ *
+ * @param page   Path amigable de la página (ej. '/crear-llave-digital')
+ * @param canal  Canal detectado por getCanalByClientId()
+ */
+export function pushContinuarSinLlave(page: string, canal: Canal): void {
+  push({
+    interaccionNombre: "Continuar sin llave",
+    page,
+    canal,
+    event: "clicClienteDigital",
+  });
+}
+
+/**
  * Page view general — se dispara al montar cualquier pantalla de registro.
  *
  * event: 'pvOKTAGeneral'
@@ -52,11 +100,7 @@ function push(data: Record<string, unknown>): void {
  * @param titulo  Título de la página (ej. 'Registro de clientes')
  * @param canal   Canal detectado por getCanalByClientId()
  */
-export function pushPageView(
-  page: string,
-  titulo: string,
-  canal: Canal
-): void {
+export function pushPageView(page: string, titulo: string, canal: Canal): void {
   push({
     pagina: { page, titulo },
     canal,

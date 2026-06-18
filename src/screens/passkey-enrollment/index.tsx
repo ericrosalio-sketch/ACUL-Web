@@ -1,4 +1,4 @@
-import CoppelPageLayout from "@/components/ULThemePageLayout";
+import CoppelPageLayout from "@/components/CoppelPageLayout";
 import ULThemeCard from "@/components/ULThemeCard";
 import { applyAuth0Theme } from "@/utils/theme/themeEngine";
 

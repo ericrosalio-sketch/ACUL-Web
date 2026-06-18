@@ -3,21 +3,21 @@
         "title": "Login"
     },
     "heading": {
-        "title": "Create a passkey on this device",
+        "title": "Crea un acceso personal ",
         "logoAltText": "Application Logo"
     },
     "footer": {
-        "continueButtonText": "Continue without passkeys",
+        "continueButtonText": "Continuar sin acceso personal",
         "backButtonText": "Go back"
     },
     "details": {
-        "createPasskeyText": "Create a passkey",
-        "passkeyBenefit1Title": "No need to remember a password",
-        "passkeyBenefit1Description": "With passkeys, you can use things like your fingerprint or face to login.",
-        "passkeyBenefit2Title": "Works on all of your devices",
-        "passkeyBenefit2Description": "Passkeys will automatically be available across your synced devices.",
-        "passkeyBenefit3Title": "Keep your account safer",
-        "passkeyBenefit3Description": "Passkeys offer state-of-the-art phishing resistance."
+        "createPasskeyText": "Crear un acceso personal",
+        "passkeyBenefit1Title": "Sin crear una contraseña",
+        "passkeyBenefit1Description": "Podrás iniciar sesión con tu huella o tu rostro",
+        "passkeyBenefit2Title": "En todos tus dispositivos",
+        "passkeyBenefit2Description": "Estará disponible en tus dispositivos sincronizados",
+        "passkeyBenefit3Title": "Más seguridad",
+        "passkeyBenefit3Description": "Te protegerá contra la suplantación de identidad"
     },
     "errors": {
         "errorOccurred": "An error occurred",
