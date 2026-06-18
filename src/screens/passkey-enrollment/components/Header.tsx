@@ -12,8 +12,9 @@ function Header() {
 
   return (
     <>
-      <ULThemeLogo altText={logoAltText}></ULThemeLogo>
-      <ULThemeTitle className="mb-10">{titleText}</ULThemeTitle>
+      <ULThemeLogo altText={logoAltText} className="hidden"></ULThemeLogo>
+      {/* Puedes modificar el espacio superior cambiando el valor de 'mt-12' (ej. mt-8, mt-10, mt-16) */}
+      <ULThemeTitle className="mt-12 mb-6">{titleText}</ULThemeTitle>
     </>
   );
 }

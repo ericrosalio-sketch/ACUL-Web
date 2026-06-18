@@ -1,23 +1,11 @@
 import { useErrors } from "@auth0/auth0-acul-react/passkey-enrollment";
 import { CustomOptions, ErrorItem } from "@auth0/auth0-acul-react/types";
 
-import {
-  CheckMarkShieldAccent,
-  CheckMarkShieldMask,
-  DeviceGlobeAccent,
-  DeviceGlobeMask,
-  WebAuthPlatform,
-} from "@/assets/icons";
+import { FingerprintIcon, MobileIcon, ShieldIcon } from "@/assets/icons";
 import { ULThemeButton } from "@/components/ULThemeButton";
 import ULThemeAlert, { ULThemeAlertTitle } from "@/components/ULThemeError";
-import {
-  ULThemeList,
-  ULThemeListDescription,
-  ULThemeListItem,
-  ULThemeListTitle,
-} from "@/components/ULThemeList";
-import { cn } from "@/lib/utils";
-import { extractTokenValue } from "@/utils/helpers/tokenUtils";
+import { getCanalByClientId } from "@/utils/helpers/canalUtils";
+import { pushCrearLlaveDigital } from "@/utils/helpers/dataLayerUtils";
 
 import { usePasskeyEnrollmentManager } from "../hooks/usePasskeyEnrollmentManager";
 
@@ -32,25 +20,22 @@ function Details() {
 
   // Use Locales as fallback to SDK texts
   const buttonText =
-    locales.details.createPasskeyText || texts?.createButtonText;
+    texts?.createButtonText || locales.details.createPasskeyText;
   const passkeyBenefit1Title =
-    locales.details.passkeyBenefit1Title || texts?.passkeyBenefit1Title;
+    texts?.passkeyBenefit1Title || locales.details.passkeyBenefit1Title;
   const passkeyBenefit1Description =
-    locales.details.passkeyBenefit1Description ||
-    texts?.passkeyBenefit1Description;
+    texts?.passkeyBenefit1Description ||
+    locales.details.passkeyBenefit1Description;
   const passkeyBenefit2Title =
-    locales.details.passkeyBenefit2Title || texts?.passkeyBenefit2Title;
+    texts?.passkeyBenefit2Title || locales.details.passkeyBenefit2Title;
   const passkeyBenefit2Description =
-    locales.details.passkeyBenefit2Description ||
-    texts?.passkeyBenefit2Description;
+    texts?.passkeyBenefit2Description ||
+    locales.details.passkeyBenefit2Description;
   const passkeyBenefit3Title =
-    locales.details.passkeyBenefit3Title || texts?.passkeyBenefit3Title;
+    texts?.passkeyBenefit3Title || locales.details.passkeyBenefit3Title;
   const passkeyBenefit3Description =
-    locales.details.passkeyBenefit3Description ||
-    texts?.passkeyBenefit3Description;
-
-  // Using extractTokenValue utility to extract the Icons Color Value from CSS variable
-  const iconColor = extractTokenValue("--ul-theme-color-icons");
+    texts?.passkeyBenefit3Description ||
+    locales.details.passkeyBenefit3Description;
 
   const { errors, hasError, dismiss } = useErrors();
 
@@ -65,25 +50,14 @@ function Details() {
    * @param data - (Optional) Form custom data
    */
   const onCreateClick = async (data?: CustomOptions) => {
+    // Disparar evento de dataLayer
+    const canal = getCanalByClientId();
+    // TODO: Determinar el tipo de cuenta real (Correo, Celular, Google, etc.)
+    // Por ahora se envía "Correo" como valor por defecto, pero debería obtenerse del contexto del usuario
+    pushCrearLlaveDigital("/crear-llave-digital", "Correo", canal);
+
     continuePasskeyEnrollment(data);
   };
-
-  // Helper function to render icons dynamically
-  const renderIcon = (
-    IconMask: React.ElementType,
-    IconAccent?: React.ElementType,
-    className?: string
-  ) => (
-    <div className="relative w-15 h-10 left-1.5">
-      <IconMask
-        className={cn("absolute inline-block opacity-[0.5]", className)}
-        color={iconColor}
-      />
-      {IconAccent && (
-        <IconAccent className="absolute inline-block" color={iconColor} />
-      )}
-    </div>
-  );
 
   return (
     <>
@@ -104,36 +78,60 @@ function Details() {
         </div>
       )}
 
-      <ULThemeList variant="icon">
-        <ULThemeListItem
-          icon={renderIcon(WebAuthPlatform, undefined, "opacity-[1]")}
-        >
-          <ULThemeListTitle children={passkeyBenefit1Title}></ULThemeListTitle>
-          <ULThemeListDescription
-            children={passkeyBenefit1Description}
-          ></ULThemeListDescription>
-        </ULThemeListItem>
+      <div
+        className="w-full bg-[#F3F3F3] rounded-[16px] p-6 flex flex-col gap-8 mb-6"
+        role="list"
+        aria-label="Beneficios de crear un acceso personal"
+      >
+        {/* Benefit 1 */}
+        <div className="flex flex-row items-start gap-4 w-full" role="listitem">
+          <div className="shrink-0" aria-hidden="true">
+            <FingerprintIcon className="w-17 h-17" />
+          </div>
+          <div className="flex flex-col pt-1">
+            <h3 className="font-bold leading-[150%] text-[#081754] text-[16px]">
+              {passkeyBenefit1Title}
+            </h3>
+            <p className="leading-[150%] text-[#081754] text-[16px] mt-2">
+              {passkeyBenefit1Description}
+            </p>
+          </div>
+        </div>
 
-        <ULThemeListItem icon={renderIcon(DeviceGlobeMask, DeviceGlobeAccent)}>
-          <ULThemeListTitle children={passkeyBenefit2Title}></ULThemeListTitle>
-          <ULThemeListDescription
-            children={passkeyBenefit2Description}
-          ></ULThemeListDescription>
-        </ULThemeListItem>
+        {/* Benefit 2 */}
+        <div className="flex flex-row items-start gap-4 w-full" role="listitem">
+          <div className="shrink-0" aria-hidden="true">
+            <MobileIcon className="w-17 h-17" />
+          </div>
+          <div className="flex flex-col pt-1">
+            <h3 className="font-bold leading-[150%] text-[#081754] text-[16px]">
+              {passkeyBenefit2Title}
+            </h3>
+            <p className="leading-[150%] text-[#081754] text-[16px] mt-2">
+              {passkeyBenefit2Description}
+            </p>
+          </div>
+        </div>
 
-        <ULThemeListItem
-          icon={renderIcon(CheckMarkShieldMask, CheckMarkShieldAccent)}
-        >
-          <ULThemeListTitle children={passkeyBenefit3Title}></ULThemeListTitle>
-          <ULThemeListDescription
-            children={passkeyBenefit3Description}
-          ></ULThemeListDescription>
-        </ULThemeListItem>
-      </ULThemeList>
+        {/* Benefit 3 */}
+        <div className="flex flex-row items-start gap-4 w-full" role="listitem">
+          <div className="shrink-0" aria-hidden="true">
+            <ShieldIcon className="w-17 h-17" />
+          </div>
+          <div className="flex flex-col pt-1">
+            <h3 className="font-bold leading-[150%] text-[#081754] text-[16px]">
+              {passkeyBenefit3Title}
+            </h3>
+            <p className="leading-[150%] text-[#081754] text-[16px] mt-2">
+              {passkeyBenefit3Description}
+            </p>
+          </div>
+        </div>
+      </div>
 
       {/* Create Passkey button */}
       <ULThemeButton
-        className="w-full"
+        className="w-full !h-12 !rounded-[24px] !bg-[#1C42E8] hover:!bg-[#1C42E8]/90 !text-white !font-bold !text-[16px] !leading-[150%] !border-0 !shadow-none before:!hidden"
         onClick={() => onCreateClick({ key: "passkey" })}
       >
         {buttonText}
