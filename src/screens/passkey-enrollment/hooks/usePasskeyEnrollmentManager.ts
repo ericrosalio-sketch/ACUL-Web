@@ -8,7 +8,7 @@ import {
   ScreenMembersOnPasskeyEnrollment,
 } from "@auth0/auth0-acul-react/types";
 
-import locales from "@/screens/passkey-enrollment/locales/en.json";
+import locales from "@/screens/passkey-enrollment/locales/es.json";
 import { executeSafely } from "@/utils/helpers/executeSafely";
 
 /**
