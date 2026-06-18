@@ -22,7 +22,6 @@ import { useAuthSession } from "@/hooks/useAuthSession";
 import { getCanalByClientId } from "@/utils/helpers/canalUtils";
 import { pushClicHipervinculo } from "@/utils/helpers/dataLayerUtils";
 
-
 import { useLoginIdManager } from "../hooks/useLoginIdManager";
 import { ULThemeStaticLabelField } from "@/components/form/ULThemeStaticLabelField";
 
@@ -83,21 +82,19 @@ function LoginIdForm() {
     .byType("auth0")
     .filter((err) => !err.field);
 
-
   // Rastrear si el envío fue por Enter o por clic en Continuar
   const submissionType = useRef<"Continuar" | "Enter">("Continuar");
 
-  // Validation for enabling submit button (email or phone must be valid)
+  // Validation helpers
   const isValidEmail = (value: string) =>
     /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
-  const userEmail = watch("username") ?? "";
-  const isEmailValid = isValidEmail(userEmail);
 
   const isValidPhone = (value: string) =>
-    /^\+?[1-9]\d{9}$/.test(value); // Simple E.164 format validation
-  const userPhone = watch("username") ?? "";
-  const isPhoneValid = isValidPhone(userPhone);
+    /^\+?[1-9]\d{9}$/.test(value); // Simple E.164 format (10 digits)
 
+  const username = watch("username") ?? "";
+  const isEmailValid = isValidEmail(username);
+  const isPhoneValid = isValidPhone(username);
   const isFormValid = isEmailValid || isPhoneValid;
 
   // Proper submit handler with form data
@@ -106,13 +103,16 @@ function LoginIdForm() {
     pushClicHipervinculo(submissionType.current, "/login-universal", getCanalByClientId());
 
     let formattedUsername = data.username.trim();
+
+    // Si es un número de teléfono válido sin prefijo internacional, añadir +52 (México)
     if (isValidPhone(formattedUsername) && !formattedUsername.startsWith("+")) {
       formattedUsername = `+52${formattedUsername}`;
     }
 
-    // Se puede iniciar sesión con correo o numero telofónico, el backend de Auth0 lo detecta automáticamente, solo hay que enviar el valor en el campo "username"
+    // Se puede iniciar sesión con correo o número telefónico.
+    // El backend de Auth0 lo detecta automáticamente; solo hay que enviar el valor en el campo "username".
     setAuthUser({
-      email: formattedUsername,
+      username: formattedUsername,
       name: "Usuario autenticado",
     });
 
@@ -121,7 +121,6 @@ function LoginIdForm() {
       captcha: isCaptchaAvailable && captchaValue ? captchaValue : undefined,
     });
   };
-
 
   return (
     <Form {...form}>
@@ -153,7 +152,7 @@ function LoginIdForm() {
           </div>
         )}
 
-        {/* Username Identifier input field */}
+        {/* Username Identifier input field (correo o número de teléfono) */}
         <FormField
           control={form.control}
           name="username"
