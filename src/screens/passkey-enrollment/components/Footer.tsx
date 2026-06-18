@@ -39,7 +39,7 @@ function Footer() {
           </ULThemeButton>
         )}
       </div>
-      <div className="mt-1 text-center">
+      <div className="mt-6 text-center">
         {links?.back && (
           <ULThemeLink href={links?.back} onClick={handleBackClick}>
             {backButtonText}
