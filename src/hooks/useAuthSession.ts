@@ -4,8 +4,8 @@
  */
 
 export interface AuthUser {
-  email: string;
-  username?: string;
+  username: string;
+  email?: string;
   name?: string;
 }
 
