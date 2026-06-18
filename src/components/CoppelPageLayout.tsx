@@ -84,10 +84,17 @@ const CoppelPageLayout = ({
 }: CoppelPageLayoutProps) => {
   useEffect(() => {
     if (pageTitle) {
-      const loginContext = window.universal_login_context ?? {};
-      const app = loginContext.client?.name ?? "Coppel";
-      document.title = `${pageTitle} | ${app}`;
+      document.title = `${pageTitle} | Coppel`;
     }
+    
+    // Set the favicon
+    let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "icon";
+      document.head.appendChild(link);
+    }
+    link.href = "https://www.coppel.com/decouple-fe-common-assets-production/icons/favicon.ico";
   }, [pageTitle]);
 
   return (
