@@ -207,7 +207,7 @@ function SignupPasswordForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} aria-label={locales?.form?.title || "Crear una contraseña"}>
         {/* Contenedor aria-live siempre presente en el DOM.
             - Errores nuevos: role="alert" de ULThemeAlert los anuncia de inmediato.
             - Dismiss: el contenido desaparece y aria-live="polite" confirma el cambio. */}
@@ -317,7 +317,7 @@ function SignupPasswordForm() {
                 label={passwordLabel}
                 placeholder={locales.form.fields.password.placeholder}
                 error={!!fieldState.error || !!passwordError}
-                autoFocus={true}
+                autoFocus
                 showLabel={locales.form.fields.password.showLabel}
                 hideLabel={locales.form.fields.password.hideLabel}
               />

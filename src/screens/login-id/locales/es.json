@@ -33,6 +33,7 @@
         "captchaCompletionRequired": "Por favor, complete el CAPTCHA"
     },
     "form": {
+        "title": "Inicia sesión",
         "fields": {
             "captcha": {
                 "label": "Introduzca el código mostrado más arriba",

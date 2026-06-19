@@ -134,6 +134,7 @@ function LoginIdForm() {
             submissionType.current = "Enter";
           }
         }}
+        aria-label={locales?.form?.title || "Inicio de sesión"}
       >
         {/* Display general errors */}
         {hasError && generalErrors.length > 0 && (

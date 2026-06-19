@@ -9,6 +9,7 @@
         "description": "Ingresa tu información para continuar"
     },
     "form": {
+        "title": "Crea tu cuenta",
         "fields": {
             "captcha": {
                 "label": "Introduzca el código mostrado más arriba",

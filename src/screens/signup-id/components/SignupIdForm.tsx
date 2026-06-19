@@ -158,7 +158,7 @@ function SignupIdForm() {
     <>
       <ULThemeSubtitle>{description}</ULThemeSubtitle>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)} aria-label={locales?.form?.title || "Crear una cuenta"}>
           {/* Contenedor aria-live siempre presente en el DOM.
               - Cuando se añade un error: role="alert" dentro de ULThemeAlert lo anuncia de inmediato.
               - Cuando se hace dismiss: el contenido desaparece de este contenedor y

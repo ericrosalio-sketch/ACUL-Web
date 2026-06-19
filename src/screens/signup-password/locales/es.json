@@ -1,6 +1,6 @@
 {
   "page": {
-    "title": "Crea tu cuenta"
+    "title": "Crea una contraseña"
   },
   "header": {
     "logoAlt": "Logo de la aplicación",
@@ -8,6 +8,7 @@
     "description": "Crea una contraseña"
   },
   "form": {
+    "title": "Crea una contraseña",
     "fields": {
       "email": {
         "label": "Correo electrónico",
