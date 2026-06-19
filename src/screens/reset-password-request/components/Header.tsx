@@ -48,7 +48,7 @@ function Header() {
         {texts?.title || locales.header.title}
       </ULThemeTitle>
       <ULThemeSubtitle className="w-[341px] m-0" style={{ color: "#081754" }}>
-        {identifierDetails.description}
+        {locales.header.description || identifierDetails.description}
       </ULThemeSubtitle>
     </>
   );

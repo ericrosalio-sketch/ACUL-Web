@@ -2,10 +2,15 @@
   "pageTitle": "Reset your password",
   "header": {
     "logoAlt": "Application Logo",
-    "title": "¿Olvidaste tu contraseña?"
+    "title": "¿Olvidaste tu contraseña?",
+    "description": "Ingresa tu información y te enviaremos instrucciones para cambiar tu contraseña"
   },
   "form": {
     "fields": {
+      "username": {
+        "label": "Correo electrónico",
+        "placeholder": "Escribe tu correo"
+      },
       "captcha": {
         "label": "CAPTCHA",
         "required": "Please complete the CAPTCHA"

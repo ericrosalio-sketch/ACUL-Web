@@ -52,7 +52,14 @@ function LoginPasswordForm() {
     ? `${texts.captchaCodePlaceholder}*`
     : locales?.loginPasswordForm?.captchaLabel;
   const passwordLabel =
-    texts?.passwordPlaceholder || locales?.loginPasswordForm?.passwordLabel;
+    locales?.loginPasswordForm?.passwordLabel || "Contraseña";
+  const passwordPlaceholder =
+    texts?.passwordPlaceholder ||
+    locales?.loginPasswordForm?.passwordPlaceholder ||
+    "Ingresa tu contraseña";
+  const emailOrPhoneLabel =
+    locales?.loginPasswordForm?.emailOrPhoneLabel ||
+    "Correo electrónico o celular";
   const forgotPasswordLinkText =
     texts?.forgotPasswordText ||
     locales?.loginPasswordForm?.forgotPasswordLinkText;
@@ -111,7 +118,7 @@ function LoginPasswordForm() {
           render={({ field, fieldState }) => (
             <FormItem>
               <span className="block mb-1 theme-universal:text-(length:--ul-theme-font-input-labels-size) theme-universal:font-input-label text-[#081754]">
-                {"Correo electrónico"}
+                {emailOrPhoneLabel}
               </span>
               <ULThemeFloatingLabelField
                 {...field}
@@ -154,7 +161,7 @@ function LoginPasswordForm() {
               <ULThemeStaticPasswordField
                 {...field}
                 label={passwordLabel}
-                placeholder={passwordLabel}
+                placeholder={passwordPlaceholder}
                 autoFocus={true}
                 autoComplete="current-password"
                 error={!!fieldState.error || !!passwordSDKError}

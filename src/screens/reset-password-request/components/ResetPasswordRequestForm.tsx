@@ -97,8 +97,13 @@ function ResetPasswordRequestForm() {
             <FormItem>
               <ULThemeStaticLabelField
                 {...field}
-                label={identifierDetails.label}
-                placeholder="Escribe tu correo"
+                label={
+                  locales.form.fields.username.label || identifierDetails.label
+                }
+                placeholder={
+                  locales.form.fields.username.placeholder ||
+                  "Escribe tu correo"
+                }
                 type={identifierDetails.type}
                 inputMode="text"
                 autoComplete={identifierDetails.autoComplete}

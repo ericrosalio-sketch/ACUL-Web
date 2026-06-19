@@ -20,7 +20,9 @@
     "loginPasswordForm": {
         "selectCountryPlaceholder": "Select Country",
         "captchaLabel": "Enter the code shown above*",
-        "passwordLabel": "Ingresa tu contraseña",
+        "passwordLabel": "Contraseña",
+        "passwordPlaceholder": "Ingresa tu contraseña",
+        "emailOrPhoneLabel": "Correo electrónico o celular",
         "forgotPasswordLinkText": "¿Olvidaste tu contraseña?",
         "continueButtonText": "Inicia sesión",
         "editText": "Editar"

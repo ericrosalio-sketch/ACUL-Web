@@ -1,0 +1,17 @@
+{
+  "pageTitle": "Revisa tu correo",
+  "header": {
+    "logoAlt": "Application Logo",
+    "title": "Revisa tu correo",
+    "description": "Por favor revisa el correo electrónico {{email}} para obtener instrucciones sobre cómo restablecer tu contraseña.",
+    "descriptionList1": "Te enviamos un correo a {{email}} con instrucciones para que cambies tu contraseña",
+    "descriptionList2": "Revisa también tu bandeja de spam",
+    "descriptionList3": "Asegúrate de usar el correo más reciente"
+  },
+  "button": {
+    "resendText": "Solicitar correo nuevamente"
+  },
+  "footer": {
+    "notReceived": "¿No recibiste el correo de activación?"
+  }
+}

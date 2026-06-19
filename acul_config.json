@@ -6,10 +6,11 @@
     "signup-password",
     "passkey-enrollment",
     "login-password",
-    "reset-password-request"
+    "reset-password-request",
+    "reset-password-email"
   ],
   "created_at": "2026-05-27T22:15:12Z",
-  "modified_at": "2026-06-10T22:27:03Z",
+  "modified_at": "2026-06-18T19:52:01Z",
   "app_version": "v2.0.1",
   "acul_manifest_version": "1.0.0"
 }

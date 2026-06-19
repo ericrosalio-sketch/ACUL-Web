@@ -36,6 +36,12 @@
           "path": "/screens/reset-password-request/reset-password-request",
           "variants": ["default", "with-errors"]
         }
+      },
+      "reset-password-email": {
+        "reset-password-email": {
+          "path": "/screens/reset-password-email/reset-password-email",
+          "variants": ["default", "with-errors"]
+        }
       }
     }
   ]
