@@ -1,26 +1,5 @@
-# Dependencias
-node_modules/
-
-# Build output (Se sube solo al git perosnal para pruebas locales, pero normalmente se ignora)
-# dist/
-
-# Variables de entorno / configuración local
-.env
-.env.local
-.env.*.local
-.config/
-
-# Logs
-*.log
-npm-debug.log*
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# IDE
-.vscode/
-.idea/
-
-# Sincronización corporativa (Script personal con datos de Eric Romero)
-scripts/sync-to-azure.js
+*
+!/dist/
+!/dist/**
+!.gitignore
+!index.html

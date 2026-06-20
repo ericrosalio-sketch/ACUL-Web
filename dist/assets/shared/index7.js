@@ -1,0 +1,2 @@
+import{j as e}from"./react-vendor.js";import{y as l,r as n,p as o,U as r,m as i,M as m}from"../login-id/index.js";import"./vendor.js";function c(){const{mfaBeginEnrollOptions:a,texts:s,locales:t}=l();return n(a),document.title=s?.pageTitle||t.pageTitle,e.jsx(o,{className:"theme-universal",children:e.jsxs(r,{className:"w-full max-w-[400px] gap-0",children:[e.jsx(i,{}),e.jsx(m,{})]})})}export{c as default};
+//# sourceMappingURL=index7.js.map

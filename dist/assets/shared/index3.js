@@ -1,0 +1,2 @@
+import{b as r,j as e}from"./react-vendor.js";import{G as t,r as o,v as i,u as n,C as p,U as l,i as u,o as c,d}from"../login-id/index.js";import"./vendor.js";function f(){const{signupPassword:s,locales:a}=t();return o(s),r.useEffect(()=>{i("/crear-cuenta","Registro de clientes",n())},[]),e.jsx(p,{className:"theme-universal",pageTitle:a?.page?.title,children:e.jsxs(l,{className:"w-full gap-0",children:[e.jsx(u,{}),e.jsx(c,{}),e.jsx(d,{})]})})}export{f as default};
+//# sourceMappingURL=index3.js.map
