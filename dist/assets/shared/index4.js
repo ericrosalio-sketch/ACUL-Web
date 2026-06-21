@@ -1,2 +1,0 @@
-import{j as e}from"./react-vendor.js";import{z as t,r as l,C as r,U as n,j as o,D as m,e as p}from"../login-id/index.js";import"./vendor.js";function u(){const{locales:s,passkeyEnrollmentInstance:a}=t();return l(a),e.jsx(r,{className:"theme-universal",pageTitle:s?.page?.title,children:e.jsxs(n,{className:"w-full max-w-[400px] gap-0",children:[e.jsx(o,{}),e.jsx(m,{}),e.jsx(p,{})]})})}export{u as default};
-//# sourceMappingURL=index4.js.map
