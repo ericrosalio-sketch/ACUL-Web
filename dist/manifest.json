@@ -1,0 +1,42 @@
+{
+  "screens": [
+    {
+      "login-id": {
+        "login-id": {
+          "path": "/screens/login-id/login-id",
+          "variants": ["default", "with-errors"]
+        }
+      },
+      "signup-id": {
+        "signup-id": {
+          "path": "/screens/signup-id/signup-id",
+          "variants": ["default", "with-errors"]
+        }
+      },
+      "signup-password": {
+        "signup-password": {
+          "path": "/screens/signup-password/signup-password",
+          "variants": ["default", "with-errors"]
+        }
+      },
+      "passkey-enrollment": {
+        "passkey-enrollment": {
+          "path": "/screens/passkey-enrollment/passkey-enrollment",
+          "variants": ["default", "with-errors"]
+        }
+      },
+      "login-password": {
+        "login-password": {
+          "path": "/screens/login-password/login-password",
+          "variants": ["default", "with-errors"]
+        }
+      },
+      "reset-password-request": {
+        "reset-password-request": {
+          "path": "/screens/reset-password-request/reset-password-request",
+          "variants": ["default", "with-errors"]
+        }
+      }
+    }
+  ]
+}
