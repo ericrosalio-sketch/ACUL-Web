@@ -1,2 +1,0 @@
-import{j as e}from"./react-vendor.js";import{B as r,r as o,C as p,U as l,l as m,R as u,g as x}from"../login-id/index.js";import"./vendor.js";function c(){const{resetPasswordRequest:s,texts:a,locales:t}=r();return o(s),document.title=a?.pageTitle||t.pageTitle,e.jsx(p,{className:"theme-universal",children:e.jsxs(l,{className:"max-w-[400px] gap-6 w-[389px] p-[24px]",children:[e.jsx(m,{}),e.jsx(u,{}),e.jsx(x,{})]})})}export{c as default};
-//# sourceMappingURL=index6.js.map

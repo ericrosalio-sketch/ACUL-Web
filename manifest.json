@@ -36,12 +36,6 @@
           "path": "/screens/reset-password-request/reset-password-request",
           "variants": ["default", "with-errors"]
         }
-      },
-      "mfa": {
-        "mfa-begin-enroll-options": {
-          "path": "/screens/mfa/mfa-begin-enroll-options",
-          "variants": ["default", "with-errors"]
-        }
       }
     }
   ]
