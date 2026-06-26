@@ -1,2 +1,2 @@
-import"../shared/react-vendor.js";import{a as m}from"../login-id/index.js";import"../shared/vendor.js";export{m as default};
+import"../shared/react-vendor.js";import{d as p}from"../login-id/index.js";import"../shared/vendor.js";export{p as default};
 //# sourceMappingURL=index.js.map
