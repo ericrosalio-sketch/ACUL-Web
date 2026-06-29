@@ -15,6 +15,7 @@
   },
   "screen": {
     "data": {
+      "device_name":"aifon do c",
       "show_remember_device": true
     },
     "name": "mfa-push-challenge-push"
