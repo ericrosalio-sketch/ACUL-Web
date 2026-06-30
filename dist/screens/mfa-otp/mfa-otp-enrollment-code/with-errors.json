@@ -11,14 +11,13 @@
     "usage": "allow"
   },
   "prompt": {
-    "name": "mfa-push"
+    "name": "mfa-otp"
   },
   "screen": {
-    "links": {
-      "android": "https://hefty-handle.net",
-      "ios": "https://direct-willow.biz/"
+    "data": {
+      "text_code": "123456788"
     },
-    "name": "mfa-push-welcome"
+    "name": "mfa-otp-enrollment-code"
   },
   "tenant": {
     "enabled_factors": [
@@ -94,6 +93,11 @@
       {
         "code": "invalid_request",
         "message": "The transaction has expired."
+      },
+      {
+        "code": "no-code",
+        "message": "Please enter a code",
+        "field": "code"
       }
     ]
   },

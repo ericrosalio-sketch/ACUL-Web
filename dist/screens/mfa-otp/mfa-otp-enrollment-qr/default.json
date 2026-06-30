@@ -11,15 +11,14 @@
     "usage": "allow"
   },
   "prompt": {
-    "name": "mfa-push"
+    "name": "mfa-otp"
   },
   "screen": {
     "data": {
-      "qr_code": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgYmFzZVByb2ZpbGU9ImZ1bGwiIHdpZHRoPSIyMzcwIiBoZWlnaHQ9IjI0NTUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNjNTRmYWYiLz48dGV4dCB4PSIxMTg1IiB5PSIxMjI3LjUiIGZvbnQtc2l6ZT0iMjAiIGFsaWdubWVudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSI+MjM3MHgyNDU1PC90ZXh0Pjwvc3ZnPg==",
-      "qr_uri": "https://known-address.biz",
-      "show_code_copy": true
+      "qr_code": "https://api.qrserver.com/v1/create-qr-code/?size=164x164&data=Auth0",
+      "secret": "JBSWY3DPEHPK3PXP"
     },
-    "name": "mfa-push-enrollment-qr"
+    "name": "mfa-otp-enrollment-qr"
   },
   "tenant": {
     "enabled_factors": [
@@ -90,18 +89,7 @@
       "strategy": "auth0"
     },
     "locale": "es",
-    "state": "hLJ47LrwjYHjCx9tBWqOCdkweUFzYmFQ",
-    "errors": [
-      {
-        "code": "invalid_request",
-        "message": "The transaction has expired."
-      },
-      {
-        "code": "transaction_pending",
-        "message": "guardian verification failed",
-        "field": "code"
-      }
-    ]
+    "state": "hLJ47LrwjYHjCx9tBWqOCdkweUFzYmFQ"
   },
   "untrusted_data": {
     "authorization_params": {

@@ -11,14 +11,13 @@
     "usage": "allow"
   },
   "prompt": {
-    "name": "mfa-push"
+    "name": "mfa-otp"
   },
   "screen": {
     "data": {
-      "device_name":"aifon do c",
-      "show_remember_device": true
+      "text_code": "123456789"
     },
-    "name": "mfa-push-challenge-push"
+    "name": "mfa-otp-enrollment-code"
   },
   "tenant": {
     "enabled_factors": [

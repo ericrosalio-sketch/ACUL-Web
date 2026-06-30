@@ -11,13 +11,14 @@
     "usage": "allow"
   },
   "prompt": {
-    "name": "mfa-push"
+    "name": "mfa-otp"
   },
   "screen": {
     "data": {
-      "show_remember_device": true
+      "qr_code": "https://api.qrserver.com/v1/create-qr-code/?size=164x164&data=Auth0",
+      "secret": "JBSWY3DPEHPK3PXP"
     },
-    "name": "mfa-push-challenge-push"
+    "name": "mfa-otp-enrollment-qr"
   },
   "tenant": {
     "enabled_factors": [
@@ -93,6 +94,11 @@
       {
         "code": "invalid_request",
         "message": "The transaction has expired."
+      },
+      {
+        "code": "invalid_code",
+        "message": "Revisa que el código sea correcto",
+        "field": "code"
       }
     ]
   },
