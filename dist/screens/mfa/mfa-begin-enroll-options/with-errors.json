@@ -11,13 +11,10 @@
     "usage": "allow"
   },
   "prompt": {
-    "name": "mfa-otp"
+    "name": "mfa"
   },
   "screen": {
-    "data": {
-      "text_code": "123456789"
-    },
-    "name": "mfa-otp-enrollment-code"
+    "name": "mfa-begin-enroll-options"
   },
   "tenant": {
     "enabled_factors": [
@@ -31,6 +28,13 @@
       "pick_authenticator_enabled": true
     },
     "name": "stanton-inc"
+  },
+  "user": {
+    "enrolled_factors": [
+      "sms",
+      "push-notification",
+      "otp"
+    ]
   },
   "transaction": {
     "connection": {
@@ -88,7 +92,13 @@
       "strategy": "auth0"
     },
     "locale": "es",
-    "state": "hLJ47LrwjYHjCx9tBWqOCdkweUFzYmFQ"
+    "state": "hLJ47LrwjYHjCx9tBWqOCdkweUFzYmFQ",
+    "errors": [
+      {
+        "code": "invalid_request",
+        "message": "The transaction has expired."
+      }
+    ]
   },
   "untrusted_data": {
     "authorization_params": {

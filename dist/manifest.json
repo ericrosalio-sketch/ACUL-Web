@@ -31,12 +31,34 @@
           "variants": ["default", "with-errors"]
         }
       },
-      "mfa-otp": {
-        "mfa-otp-enrollment-qr": {
-          "path": "/screens/mfa-otp/mfa-otp-enrollment-qr"
-        },
-        "mfa-otp-enrollment-code": {
-          "path": "/screens/mfa-otp/mfa-otp-enrollment-code"
+      "reset-password-request": {
+        "reset-password-request": {
+          "path": "/screens/reset-password-request/reset-password-request",
+          "variants": ["default", "with-errors"]
+        }
+      },
+      "mfa-begin-enroll-options":{
+        "mfa-begin-enroll-options":{
+          "path": "/screens/mfa/mfa-begin-enroll-options",
+          "variants": ["default","with-errors"]
+        }
+      },
+      "mfa-push-welcome":{
+        "mfa-push-welcome":{
+          "path": "/screens/mfa-push/mfa-push-welcome",
+          "variants": ["default","with-errors"]
+        }
+      },
+      "mfa-push-enrollment-qr":{
+        "mfa-push-enrollment-qr":{
+          "path": "/screens/mfa-push/mfa-push-enrollment-qr",
+          "variants": ["default","with-errors"]
+        }
+      },
+      "mfa-push-challenge-push":{
+        "mfa-push-challenge-push":{
+          "path": "/screens/mfa-push/mfa-push-challenge-push",
+          "variants": ["default","with-errors"]
         }
       }
     }

@@ -11,14 +11,14 @@
     "usage": "allow"
   },
   "prompt": {
-    "name": "mfa-otp"
+    "name": "mfa-push"
   },
   "screen": {
     "data": {
-      "qr_code": "https://api.qrserver.com/v1/create-qr-code/?size=164x164&data=Auth0",
-      "secret": "JBSWY3DPEHPK3PXP"
+      "device_name":"aifon do c",
+      "show_remember_device": true
     },
-    "name": "mfa-otp-enrollment-qr"
+    "name": "mfa-push-challenge-push"
   },
   "tenant": {
     "enabled_factors": [
@@ -89,18 +89,7 @@
       "strategy": "auth0"
     },
     "locale": "es",
-    "state": "hLJ47LrwjYHjCx9tBWqOCdkweUFzYmFQ",
-    "errors": [
-      {
-        "code": "invalid_request",
-        "message": "The transaction has expired."
-      },
-      {
-        "code": "invalid_code",
-        "message": "Revisa que el código sea correcto",
-        "field": "code"
-      }
-    ]
+    "state": "hLJ47LrwjYHjCx9tBWqOCdkweUFzYmFQ"
   },
   "untrusted_data": {
     "authorization_params": {
