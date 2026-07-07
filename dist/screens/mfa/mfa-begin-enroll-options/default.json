@@ -18,6 +18,8 @@
   },
   "tenant": {
     "enabled_factors": [
+      "sms",
+      "push-notification",
       "otp"
     ],
     "enabled_locales": [
