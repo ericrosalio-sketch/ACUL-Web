@@ -67,6 +67,12 @@
           "path": "/screens/mfa-push/mfa-push-challenge-push",
           "variants": ["default","with-errors"]
         }
+      },
+      "mfa-email":{
+        "mfa-email-challenge":{
+          "path": "/screens/mfa-email/mfa-email-challenge",
+          "variants": ["default","with-errors"]
+        }
       }
     }
   ]
