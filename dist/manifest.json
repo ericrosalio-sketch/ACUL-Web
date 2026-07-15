@@ -48,6 +48,24 @@
           "variants": ["default", "with-errors"]
         }
       },
+      "reset-password-email": {
+        "reset-password-email": {
+          "path": "/screens/reset-password-email/reset-password-email",
+          "variants": ["default", "with-errors"]
+        }
+      },
+      "reset-password": {
+        "reset-password": {
+          "path": "/screens/reset-password/reset-password",
+          "variants": ["default", "with-errors"]
+        }
+      },
+      "reset-password-success": {
+        "reset-password-success": {
+          "path": "/screens/reset-password-success/reset-password-success",
+          "variants": ["default", "with-errors"]
+        }
+      },
       "mfa-begin-enroll-options":{
         "mfa-begin-enroll-options":{
           "path": "/screens/mfa/mfa-begin-enroll-options",
@@ -72,6 +90,12 @@
         "mfa-email-challenge":{
           "path": "/screens/mfa-email/mfa-email-challenge",
           "variants": ["default","with-errors"]
+        }
+      },
+      "phone-identifier-challenge": {
+        "phone-identifier-challenge": {
+          "path": "/screens/phone-identifier-challenge/phone-identifier-challenge",
+          "variants": ["default", "with-errors"]
         }
       }
     }
