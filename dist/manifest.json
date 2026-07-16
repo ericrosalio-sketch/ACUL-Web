@@ -42,6 +42,16 @@
           "path": "/screens/mfa-otp/mfa-otp-challenge"
         }
       },
+      "mfa-sms": {
+        "mfa-sms-challenge": {
+          "path": "/screens/mfa-sms/mfa-sms-challenge",
+          "variants": ["default", "with-errors"]
+        },
+        "mfa-sms-enrollment": {
+          "path": "/screens/mfa-sms/mfa-sms-enrollment",
+          "variants": ["default", "with-errors"]
+        }
+      },
       "reset-password-request": {
         "reset-password-request": {
           "path": "/screens/reset-password-request/reset-password-request",
