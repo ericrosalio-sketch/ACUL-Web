@@ -33,13 +33,16 @@
       },
       "mfa-otp": {
         "mfa-otp-enrollment-qr": {
-          "path": "/screens/mfa-otp/mfa-otp-enrollment-qr"
+          "path": "/screens/mfa-otp/mfa-otp-enrollment-qr",
+          "variants": ["default", "with-errors"]
         },
         "mfa-otp-enrollment-code": {
-          "path": "/screens/mfa-otp/mfa-otp-enrollment-code"
+          "path": "/screens/mfa-otp/mfa-otp-enrollment-code",
+          "variants": ["default", "with-errors"]
         },
         "mfa-otp-challenge": {
-          "path": "/screens/mfa-otp/mfa-otp-challenge"
+          "path": "/screens/mfa-otp/mfa-otp-challenge",
+          "variants": ["default", "with-errors"]
         }
       },
       "mfa-sms": {
