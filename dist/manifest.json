@@ -79,9 +79,13 @@
           "variants": ["default", "with-errors"]
         }
       },
-      "mfa-begin-enroll-options":{
+      "mfa":{
         "mfa-begin-enroll-options":{
           "path": "/screens/mfa/mfa-begin-enroll-options",
+          "variants": ["default","with-errors"]
+        },
+        "mfa-login-options":{
+          "path": "/screens/mfa/mfa-login-options",
           "variants": ["default","with-errors"]
         }
       },
